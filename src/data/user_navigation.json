@@ -1,0 +1,5 @@
+[
+  { "name": "profile", "href": "/home/profile" },
+  { "name": "settings", "href": "#!" },
+  { "name": "logout", "href": "/login", "onClick": true }
+]

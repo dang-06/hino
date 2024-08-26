@@ -1,0 +1,175 @@
+[
+  {
+    "carId": "Y6L7JYXZ",
+    "carType": "TRAILOR",
+    "carCompartments": [
+      { "compartmentId": 0, "maxVolume": 5500 },
+      { "compartmentId": 1, "maxVolume": 5500 },
+      { "compartmentId": 2, "maxVolume": 5500 },
+      { "compartmentId": 3, "maxVolume": 5500 },
+      { "compartmentId": 4, "maxVolume": 5500 },
+      { "compartmentId": 5, "maxVolume": 5500 },
+      { "compartmentId": 6, "maxVolume": 5500 },
+      { "compartmentId": 7, "maxVolume": 5500 }
+    ],
+    "path": [
+      {
+        "location": {
+          "type": "depot",
+          "no": 0,
+          "code": "MK",
+          "name": "Uthai, Uthai District, Phra Nakhon Si Ayutthaya 13210, Thailand",
+          "location": [14.364399, 100.6380845]
+        },
+        "add": [
+          { "compartmentId": 2, "oilType": "DIESEL_B7", "quantity": 5500 },
+          { "compartmentId": 3, "oilType": "DIESEL", "quantity": 5500 },
+          { "compartmentId": 6, "oilType": "GASOHOL_95", "quantity": 5500 },
+          { "compartmentId": 1, "oilType": "GASOHOL_95", "quantity": 5500 },
+          { "compartmentId": 4, "oilType": "DIESEL", "quantity": 5500 },
+          { "compartmentId": 0, "oilType": "E20", "quantity": 5500 },
+          { "compartmentId": 5, "oilType": "GASOHOL_95", "quantity": 5500 },
+          { "compartmentId": 7, "oilType": "GASOHOL_95", "quantity": 5500 }
+        ],
+        "remove": []
+      },
+      {
+        "location": {
+          "type": "station",
+          "no": 10,
+          "code": "21C",
+          "name": "Pak Nam, Mueang Samut Prakan District, Samut Prakan, Thailand",
+          "location": [13.6004593, 100.5806454]
+        },
+        "add": [],
+        "remove": [
+          { "compartmentId": 2, "oilType": "DIESEL_B7", "quantity": 5500 },
+          { "compartmentId": 3, "oilType": "DIESEL", "quantity": 5500 },
+          { "compartmentId": 6, "oilType": "GASOHOL_95", "quantity": 5500 }
+        ]
+      },
+      {
+        "location": {
+          "type": "station",
+          "no": 3,
+          "code": "32",
+          "name": "Chiang Mai, Mueang Chiang Mai District, Chiang Mai, Thailand",
+          "location": [18.7942328, 98.8864366]
+        },
+        "add": [],
+        "remove": [
+          { "compartmentId": 1, "oilType": "GASOHOL_95", "quantity": 5500 },
+          { "compartmentId": 4, "oilType": "DIESEL", "quantity": 5500 }
+        ]
+      },
+      {
+        "location": {
+          "type": "station",
+          "no": 16,
+          "code": "55B",
+          "name": "Na An, Mueang Loei District, Loei 42000, Thailand",
+          "location": [17.4581929, 101.7093779]
+        },
+        "add": [],
+        "remove": [
+          { "compartmentId": 0, "oilType": "E20", "quantity": 5500 },
+          { "compartmentId": 5, "oilType": "GASOHOL_95", "quantity": 5500 },
+          { "compartmentId": 7, "oilType": "GASOHOL_95", "quantity": 5500 }
+        ]
+      },
+      {
+        "location": {
+          "type": "depot",
+          "no": 0,
+          "code": "MK",
+          "name": "คลังน้ำมันแม่กลอง",
+          "location": [13.370594, 99.999378]
+        },
+        "add": [],
+        "remove": []
+      }
+    ]
+  },
+  {
+    "carId": "Y6L7JYXZ",
+    "carType": "TRUCK_10_WHEELS",
+    "carCompartments": [
+      { "compartmentId": 0, "maxVolume": 4000 },
+      { "compartmentId": 1, "maxVolume": 4000 },
+      { "compartmentId": 2, "maxVolume": 4000 },
+      { "compartmentId": 3, "maxVolume": 4000 },
+      { "compartmentId": 4, "maxVolume": 4000 }
+    ],
+    "path": [
+      {
+        "location": {
+          "type": "depot",
+          "no": 0,
+          "code": "MK",
+          "name": "คลังน้ำมันแม่กลอง",
+          "location": [13.370594, 99.999378]
+        },
+        "add": [
+          { "compartmentId": 2, "oilType": "GASOHOL_95", "quantity": 4000 },
+          { "compartmentId": 4, "oilType": "GASOHOL_95", "quantity": 4000 },
+          { "compartmentId": 0, "oilType": "GASOHOL_95", "quantity": 4000 },
+          { "compartmentId": 1, "oilType": "GASOHOL_95", "quantity": 4000 },
+          { "compartmentId": 3, "oilType": "GASOHOL_95", "quantity": 4000 }
+        ],
+        "remove": []
+      },
+      {
+        "location": {
+          "type": "station",
+          "no": 4,
+          "code": "41",
+          "name": "สมุทรสาคร2",
+          "location": [13.54598, 100.2839]
+        },
+        "add": [],
+        "remove": [
+          { "compartmentId": 2, "oilType": "GASOHOL_95", "quantity": 4000 },
+          { "compartmentId": 4, "oilType": "GASOHOL_95", "quantity": 4000 }
+        ]
+      },
+      {
+        "location": {
+          "type": "station",
+          "no": 15,
+          "code": "54B",
+          "name": "สมุทรสาคร 5",
+          "location": [13.63216, 100.3649]
+        },
+        "add": [],
+        "remove": [
+          { "compartmentId": 0, "oilType": "GASOHOL_95", "quantity": 4000 },
+          { "compartmentId": 1, "oilType": "GASOHOL_95", "quantity": 4000 }
+        ]
+      },
+      {
+        "location": {
+          "type": "station",
+          "no": 10,
+          "code": "21C",
+          "name": "สมุทรสาคร 6",
+          "location": [13.54279, 100.244]
+        },
+        "add": [],
+        "remove": [
+          { "compartmentId": 3, "oilType": "GASOHOL_95", "quantity": 4000 }
+        ]
+      },
+      {
+        "location": {
+          "type": "depot",
+          "no": 0,
+          "code": "MK",
+          "name": "คลังน้ำมันแม่กลอง",
+          "location": [13.370594, 99.999378]
+        },
+        "add": [],
+        "remove": []
+      }
+    ]
+  }
+]

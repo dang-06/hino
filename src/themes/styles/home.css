@@ -1,0 +1,142 @@
+.home-top {
+    padding: 0 100px;
+}
+.home-top>div {
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #D5D5D6;
+    border-radius: 10px;
+}
+.home-top img{
+    width: 76px;
+    height:76px;
+    padding: 15.5px;
+    background: #377EF0;
+    border-radius: 10px;
+    margin-right: 31px;
+}
+.home-top p{
+    color: #A7ADBA;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 26px;  
+}
+
+
+.home-top>div:nth-child(2) img{
+    background: #56DD6B;
+}
+.home-top>div:nth-child(3) img{
+    background: #F86C6B;
+}
+.home-top>div:nth-child(4) img{
+    background: #FFC625;
+}
+
+
+.home-top>div h3{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 39px;
+    margin-top: 11px;
+}
+.home-chart canvas{
+    max-width: 100%;
+}
+
+.home-2 {
+    padding: 0 100px;
+}
+.home-2>div {
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #D5D5D6;
+    border-radius: 10px;
+}
+.home-chart--header{
+    background: rgba(231, 232, 233, 0.5);
+    border-bottom: 1px solid #D5D5D6;
+    padding: 20px 23px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    margin: -20px -20px 20px -20px;
+}
+.home-2--date{
+    margin-bottom: 10px;
+}
+.home-2--date>div{
+    position: relative;
+}
+.home-2--date >div >span{
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    transform: translateY(-50%);
+}
+.home-2--date input{
+    padding: 16px 41px 16px 60px;
+}
+.home-2--title-chart{
+    padding-top: 15px;
+}
+.home-2--title-chart li{
+    margin-top: 5px;
+}
+.home-2 canvas{
+    padding: 40px;
+}
+.home-2--title-chart li i{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #aec7e8;
+    margin-right: 3px;
+}
+.home-2--title-chart li:nth-child(2) i{
+    background: #14E21C;
+}
+.home-2--title-chart li:nth-child(3) i{
+    background: #bebebe;
+}
+.home-top>div{position: relative;}
+.home-top--link{
+    position: absolute;
+    text-decoration: underline;
+    right: 20px;
+    bottom: 20px;
+}
+
+
+
+
+@media screen and (max-width: 1550px) {
+    .home-top,.home-2 {
+        padding: 0 50px;
+    }
+    .home-top img {
+        width: 65px;
+        height: 65px;
+    }
+    .home-top>div {
+        padding: 15px;
+    }
+    .home-top p {
+        font-size: 16px;
+        line-height: 16px;
+    }
+    .home-top>div h3 {
+        font-size: 26px;
+    }
+    .home-2--date button.MuiButtonBase-root{
+        padding: 0;
+    }
+    .home-2 canvas{
+        padding: 20px;
+    }
+    .home-2--date input{
+        padding: 16px 0 16px 46px;
+    }
+}

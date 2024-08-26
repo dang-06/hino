@@ -1,0 +1,11 @@
+[
+  { "name": "home", "href": "/home" },
+  { "name": "shipmentManagement", "href": "/shipment" },
+  { "name": "orderManagement", "href": "/order" },
+  { "name": "trackingOrder", "href": "/order-tracking" },
+  { "name": "closeOrder", "href": "/closed-order" },
+  { "name": "report", "href": "/report" },
+  { "name": "jobCalendar", "href": "/calendar", "hidden": true },
+  { "name": "tracking", "href": "/tracking", "hidden": true },
+  { "name": "masterData", "href": "/master-data", "hidden": true }
+]
