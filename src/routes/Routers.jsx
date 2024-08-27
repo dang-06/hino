@@ -10,6 +10,7 @@ import {
 } from "../pages";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ResetPasswordLayout from "../layouts/ResetPasswordLayout";
+import InvoiceManagement from "../pages/InvoiceManagement";
 
 const Routers = () => {
 
@@ -25,6 +26,7 @@ const Routers = () => {
                 <Route path="/" element={<MainLayout />}>
                     <Route path="/" element={<Navigate replace to="installation" />} />
                     <Route path="installation" element={<InstallationManagement />} />
+                    <Route path="invoice" element={<InvoiceManagement />} />
                     <Route path="sale-order" element={<SaleOrderManagement />} />
                 </Route>
 

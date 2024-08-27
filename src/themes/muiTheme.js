@@ -5,7 +5,7 @@ export const muiTheme = createTheme({
     primary: {
       main: "#10B981",
       light: "#464F60",
-      dark: "#0157a2",
+      dark: "#10B981",
       contrastText: "#fff",
     },
   },

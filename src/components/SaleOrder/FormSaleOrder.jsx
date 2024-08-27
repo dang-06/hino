@@ -16,6 +16,7 @@ import {
 } from "../../services/apiSlice";
 import CustomNumberField from "../FormField/CustomNumberField";
 import CustomTextField from "../FormField/CustomTextField";
+import CustomDateTimeField from "../FormField/CustomDateTimeField";
 import Tooltip from "@mui/material/Tooltip";
 
 const FormSaleOrder = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, refetch, setOpenForm }) => {
@@ -40,10 +41,16 @@ const FormSaleOrder = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitEr
     }, [selectedItem])
 
     const defaultValues = {
-        "thaiName": "",
-        "id": "",
-        "englishName": "",
-    }
+        id: "",
+        SONo: "",
+        CreatedBy: "",
+        CreatedDate: "",
+        UpdatedBy: "",
+        UpdatedDate: "",
+        SOStatus: "",
+        SODate: "",
+        CustCode: "",
+    };
 
     // Validation
     const schema = yup.object().shape({
@@ -52,13 +59,13 @@ const FormSaleOrder = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitEr
 
     useEffect(_ => {
         // console.log('triggle')
-        if(triggleSubmit == true){
+        if (triggleSubmit == true) {
             handleSubmit(onSubmit)()
             setTimeout(_ => {
-                if(Object.keys(errors).length > 0){
+                if (Object.keys(errors).length > 0) {
                     submitError()
                 }
-            }, 100) 
+            }, 100)
         }
     }, [triggleSubmit])
 
@@ -156,7 +163,7 @@ const FormSaleOrder = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitEr
                             </LoadingButton>
                         </div>
                     </div>
-                ) }
+                )}
                 <div className="overflow-auto pb-[50px]">
                     <form
                         noValidate
@@ -164,23 +171,68 @@ const FormSaleOrder = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitEr
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <div className="flex min-h-0 flex-1 flex-col">
-                            
+
                             <div className="relative flex">
                                 <div className="px-4 sm:px-6 w-full h-full">
                                     <div className="space-y-6 pt-6 pb-5">
 
                                         <CustomTextField
-                                            name="englishName"
-                                            label="englishName"
+                                            name="SONo"
+                                            label="SONo"
                                             control={control}
-                                            errors={errors.englishName}
+                                            errors={errors.SONo}
                                             required
                                         />
                                         <CustomTextField
-                                            name="thaiName"
-                                            label="thaiName"
+                                            name="CreatedBy"
+                                            label="Created By"
                                             control={control}
-                                            errors={errors.thaiName}
+                                            errors={errors.CreatedBy}
+                                            required
+                                        />
+                                        <CustomDateTimeField
+                                            name="CreatedDate"
+                                            label="Created Date"
+                                            control={control}
+                                            errors={errors.CreatedDate}
+                                            required
+                                            type="datetime-local"
+                                        />
+                                        <CustomTextField
+                                            name="UpdatedBy"
+                                            label="Updated By"
+                                            control={control}
+                                            errors={errors.UpdatedBy}
+                                            required
+                                        />
+                                        <CustomDateTimeField
+                                            name="UpdatedDate"
+                                            label="Updated Date"
+                                            control={control}
+                                            errors={errors.UpdatedDate}
+                                            required
+                                            type="datetime-local"
+                                        />
+                                        <CustomTextField
+                                            name="SOStatus"
+                                            label="SO Status"
+                                            control={control}
+                                            errors={errors.SOStatus}
+                                            required
+                                        />
+                                        <CustomDateTimeField
+                                            name="SODate"
+                                            label="SO Date"
+                                            control={control}
+                                            errors={errors.SODate}
+                                            required
+                                            type="datetime-local"
+                                        />
+                                        <CustomTextField
+                                            name="CustCode"
+                                            label="Customer Code"
+                                            control={control}
+                                            errors={errors.CustCode}
                                             required
                                         />
 

@@ -140,6 +140,60 @@ export const apiSlice = createApi({
             },
         }),
 
+        // Invoice
+        getInvoice: builder.query({
+            query: (data) => ({
+                url: `invoice${data}`,
+                method: "GET",
+            }),
+            providesTags: ["Invoice"],
+        }),
+        getInvoiceDetail: builder.query({
+            query: (id) => ({
+                url: `invoice/{Invoice_id}?id=${id}`,
+                method: "GET",
+            }),
+            providesTags: ["Invoice Detail"],
+        }),
+        addInvoice: builder.mutation({
+            query: (data) => ({
+                url: "invoice",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Invoice']
+                }
+                return []
+            },
+        }),
+        updateInvoice: builder.mutation({
+            query: (data) => ({
+                url: `invoice/${data.id}`,
+                method: "PUT",
+                body: data,
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Invoice']
+                }
+                return []
+            },
+        }),
+        deleteInvoice: builder.mutation({
+            query: (id) => ({
+                url: `invoice/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Invoice']
+                }
+                return []
+            },
+        }),
+
     }),
 });
 
@@ -157,4 +211,11 @@ export const {
     useAddSaleOrderMutation,
     useUpdateSaleOrderMutation,
     useDeleteSaleOrderMutation,
+
+    //Invoice
+    useGetInvoiceQuery,
+    useGetInvoiceDetailQuery,
+    useAddInvoiceMutation,
+    useUpdateInvoiceMutation,
+    useDeleteInvoiceMutation,
 } = apiSlice;

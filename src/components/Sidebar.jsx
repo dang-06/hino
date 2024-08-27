@@ -17,63 +17,12 @@ import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItem
 import { FaWrench,FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { LiaFileInvoiceSolid } from "react-icons/lia";
+import { LiaFileInvoiceSolid, LiaClipboardListSolid  } from "react-icons/lia";
 
 const navigation = [
     { name: "Installation", href: "installation", icon: FaWrench, current: false },
-    { name: "Sale Order", href: "sale-order", icon: LiaFileInvoiceSolid, current: false },
-    { name: "Vehicle", href: "vehicle", icon: FaTruck, current: false },
-    // { name: "Planning", href: "planning", icon: FaTruck, current: false },
-    { name: "Users", href: "users", icon: FaRegUser, current: false },
-    // { name: "Company", href: "company", icon: FaTruck, current: false },
-    { name: "Customer", href: "customer", icon: FaBuilding, current: false },
-    { name: "Dealer", href: "dealer", icon: FaUserTie, current: false },
-    { name: "Device", href: "device", icon: FaUserTie, current: false },
-    // // { name: "Map Job Ship DO", href: "map-job", icon: FaMapMarkedAlt, current: false },
-    // { name: "Tracking Shipment Order", href: "tracking-shipment", icon: FaMapMarkedAlt, current: false },
-    // // { name: "Working", href: "working", icon: HomeIcon, current: false },
-    // // { name: "Check In", href: "checkin", icon: FaMapMarkerAlt, current: false },
-    // // { name: "Shipment Order Job", href: "shipment-order-job", icon: FaTruck, current: false },
-    // { name: "Approved Shipment", href: "approved-shipment", icon: FaRegPaperPlane, current: false },
-    // { name: "Closed Shipment", href: "closed-shipment", icon: FaClipboardCheck, current: false },
-    // { name: "Track Bill", href: "track-bill", icon: FaMoneyBillWave, current: false },
-    // // { name: "Staff", href: "staff", icon: HiOutlineUserGroup, current: false },
-    // { name: "Expense", href: "expense", icon: FaCommentDollar, current: false },
-    // {
-    //     name: "Reports", href: "reports", icon: HiOutlineDocumentReport, current: false, children: [
-    //         { name: "Shipment", href: "shipment", icon: HiOutlineDocumentReport, current: false },
-    //         { name: "Staff", href: "staff" },
-    //         { name: "Expenses", href: "expen-report" },
-    //     ]
-    // },
-    // // { name: "Delivery Type (1010)", href: "delivery-type", icon: FaTruckLoading, current: false },
-    // { name: "Site Location", href: "site-location", icon: TbCurrentLocation, current: false },
-    // { name: "User", href: "user", icon: FaUser, current: false },
-    // {
-    //     name: "Master Data", href: "master-data", icon: FaCog, current: false, children: [
-    //         { name: "Driver", href: "driver" },
-    //         { name: "Truck", href: "truck" },
-    //         // {name : "Truck Type", href: "master-data/truck-type"},
-    //         // {name: "Delivery Status", href: "master-data/delivery-status"},
-    //         { name: "IDSender", href: "sender" },
-    //         { name: "IDPickup", href: "pickup" },
-    //         { name: "Area", href: "area" },
-    //         { name: "Document Type", href: "document-type" },
-    //         { name: "Delivery Type", href: "delivery-type" },
-    //         { name: "Type Of Cargo", href: "type-of-cargo" },
-    //         { name: "Unit", href: "unit" },
-    //         { name: "Calculation Order", href: "calculation-order" },
-    //         { name: "Staff", href: "staff" },
-    //         { name: "Delivery Ship To", href: "delivery-ship-to" },
-    //         // { name: "Company", href: "company" },
-    //         { name: "Truck Type", href: "truck-type" },
-    //         { name: "Role", href: "role" },
-
-    //     ]
-    // },
-    // { name: "Delivery Order", href: "#", icon: FolderIcon, current: false },
-    // { name: "Shipment Tracking", href: "order-tracking", icon: InboxIcon, current: false },
-    // { name: "Reports", href: "report", icon: ChartBarIcon, current: false },
+    { name: "Sale Order", href: "sale-order", icon: LiaClipboardListSolid, current: false },
+    { name: "Invoice", href: "invoice", icon: LiaFileInvoiceSolid, current: false },
 ];
 
 const toggleSideBar = (e) => {
