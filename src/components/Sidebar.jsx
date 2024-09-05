@@ -18,6 +18,8 @@ import { FaWrench,FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, F
 import { FaChevronRight } from "react-icons/fa";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { LiaFileInvoiceSolid, LiaClipboardListSolid  } from "react-icons/lia";
+import { useDispatch } from "react-redux";
+import { updateCommonValue } from "../features/common/commonSlice";
 
 const navigation = [
     { name: "Installation", href: "installation", icon: FaWrench, current: false },
@@ -57,11 +59,19 @@ const Sidebar = ({ sidebarOpen }) => {
     const location = useLocation();
     const { t } = useTranslation();
     const [showSub, setShowSub] = useState('')
+    const dispatch = useDispatch();
     // const [sidebarOpen, setSidebarOpen] = useState(false);
 
     // useEffect(() => {
     //     console.log(sidebarOpen)
     // }, [sidebarOpen]);
+
+    useEffect(() => {
+        const currentNavItem = navigation.find(item => location.pathname.includes(item.href));
+        if (currentNavItem) {
+            dispatch(updateCommonValue({ field: 'currentPage', value: currentNavItem.name }));
+        }
+    }, [location.pathname, dispatch])
     return (
         // <Collapse>
         <div className="h-full overflow-x-hidden">
@@ -99,7 +109,6 @@ const Sidebar = ({ sidebarOpen }) => {
                                                     setShowSub('')
                                                 } else {
                                                     setShowSub(item.href)
-
                                                 }
                                             }}>
                                             <item.icon className={(current ? 'text-green-600 bg-gray-100' : 'text-[#0000008a]') + " w-[21px] h-[21px] min-w-[21px] z-10"}></item.icon>
