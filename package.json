@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 8082 --host 0.0.0.0",
-    "build": "vite build && cp -r dist/* /var/www/hino",
+    "build": "vite build && cp -r dist/* /var/www/admin.hino-connect.vn",
     "preview": "vite preview",
     "local_build": "vite build"
   },
