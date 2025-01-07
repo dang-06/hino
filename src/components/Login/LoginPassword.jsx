@@ -12,7 +12,7 @@ import * as yup from "yup";
 import InputValidation from "../FormField/InputValidation";
 
 const LoginPassword = ({ formData }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation();             
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +30,7 @@ const LoginPassword = ({ formData }) => {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-
+  
   const onSubmit = ({ password }) => {
     const newFormData = { ...formData, password };
     dispatch(login(newFormData));

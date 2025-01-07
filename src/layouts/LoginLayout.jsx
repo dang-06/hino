@@ -21,10 +21,10 @@ const LoginLayout = () => {
     });
 
     useEffect(() => {
-        if (isAuth) navigate("/vehicle");
+        if (isAuth) navigate("/login");
     }, [isAuth, navigate]);
 
-    const pageDisplay = () => {
+    const pageDisplay = () => { 
         if (page === 0) {
             return (
                 <LoginUsername

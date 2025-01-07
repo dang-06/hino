@@ -1,22 +1,31 @@
-import react, { useEffect, useState } from "react";
-import { CustomAsyncSelect } from "..";
-import { useTranslation } from "react-i18next";
-import { TextField } from "@mui/material";
+import react, { useEffect, useState } from 'react';
+import { CustomAsyncSelect } from '..';
+import { useTranslation } from 'react-i18next';
+import { TextField } from '@mui/material';
 
-const FilterInstallation = ({ fleets, filter, setFilter, triggleFiter, setTriggleFiter }) => {
+const FilterInstallation = ({
+    fleets,
+    filter,
+    setFilter,
+    triggleFiter,
+    setTriggleFiter
+}) => {
     const { t } = useTranslation();
 
-    const [selfFilter, setSelfFilter] = useState({})
+    const [selfFilter, setSelfFilter] = useState({});
 
-    useEffect(_ => {
-        if(triggleFiter){
-            setFilter(selfFilter)
+    useEffect(
+        _ => {
+            if (triggleFiter) {
+                setFilter(selfFilter);
 
-            setTimeout(_ => {
-                setTriggleFiter(false)
-            }, 100)
-        }
-    }, [triggleFiter])
+                setTimeout(_ => {
+                    setTriggleFiter(false);
+                }, 100);
+            }
+        },
+        [triggleFiter]
+    );
 
     // useEffect(_ => {
     //     if(filter){
@@ -24,14 +33,11 @@ const FilterInstallation = ({ fleets, filter, setFilter, triggleFiter, setTriggl
     //     }
     // }, [filter])
 
-
-    const handleChange = (e) => {
-
-    }
+    const handleChange = e => {};
 
     return (
         <>
-            <div className="flex flex-col gap-3">
+            <div className='flex flex-col gap-3'>
                 {/* <div className="w-full">
                     <CustomAsyncSelect
                         label="branchName"
@@ -48,36 +54,39 @@ const FilterInstallation = ({ fleets, filter, setFilter, triggleFiter, setTriggl
                         }))}
                     />
                 </div> */}
-                <div className="w-full">
+                <div className='w-full'>
                     <TextField
                         label={t('phone')}
-                        variant="outlined"
-                        name="phone"
+                        variant='outlined'
+                        name='phone'
                         fullWidth
                         defaultValue={filter.phone}
-                        onChange={(e) => setSelfFilter(prevState => ({
-                            ...prevState,
-                            phone: e.target.value || null
-                        }))}
+                        onChange={e =>
+                            setSelfFilter(prevState => ({
+                                ...prevState,
+                                phone: e.target.value || null
+                            }))
+                        }
                     />
                 </div>
-                <div className="w-full">
+                <div className='w-full'>
                     <TextField
                         label={t('fullName')}
-                        variant="outlined"
-                        name="fullName"
+                        variant='outlined'
+                        name='fullName'
                         fullWidth
                         defaultValue={filter.fullName}
-                        onChange={(e) => setSelfFilter(prevState => ({
-                            ...prevState,
-                            fullName: e.target.value || null
-                        }))}
+                        onChange={e =>
+                            setSelfFilter(prevState => ({
+                                ...prevState,
+                                fullName: e.target.value || null
+                            }))
+                        }
                     />
                 </div>
             </div>
-
         </>
-    )
-}
+    );
+};
 
-export default FilterInstallation
+export default FilterInstallation;

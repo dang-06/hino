@@ -144,7 +144,7 @@ const Sidebar = ({ sidebarOpen }) => {
                                                             <Link className={classNames(
                                                                 "text-center px-4 ml-[35px] text-[13px] flex py-2 rounded-full cursor-pointer ",
                                                                 currentSub
-                                                                    ? "bg-gray-100 text-green-600"
+                                                                     ? "bg-gray-100 text-green-600"
                                                                     : "hover:bg-gray-100 hover:text-green-600",
                                                             )} to={item.href + "/" + sub.href}>
                                                                 <span className="ml-4 whitespace-nowrap">

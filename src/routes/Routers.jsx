@@ -31,8 +31,6 @@ const Routers = () => {
                 </Route>
 
             </Route>
-
-
             {/* Catch all */ }
             <Route path="*" element={<NotFound />} />
         </Routes >

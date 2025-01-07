@@ -18,6 +18,7 @@ import DetailInvoice from "../components/Invoice/DetailInvoice";
 import FilterInvoice from "../components/Invoice/FilterInvoice";
 import { LoadingButton } from "@mui/lab";
 import DeleteInvoice from "../components/Invoice/DeleteInvoice";
+import { useSearch } from '../context/SearchContext';
 
 const datafake = {
     content: [
@@ -138,10 +139,17 @@ const InvoiceManagement = () => {
     });
     const { data, isLoading, isFetching, isSuccess, refetch } =
         useGetInvoiceQuery(criterias);
+    const { searchTerm } = useSearch();
 
+    const filteredData = React.useMemo(() => {
+        return datafake.content.filter(item =>
+            item.invoice_no.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.item_desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [searchTerm]);
 
     const showDetailRow = (params) => {
-        setSelectedRow(params.row)
+        setSelectedRow(params.row)  
         if (enableCheckbox) {
             setSelectedCheckbox(prevState => ({
                 ...prevState,
@@ -341,7 +349,7 @@ const InvoiceManagement = () => {
                                         },
                                     }}
                                     getRowId={(row) => row.id}
-                                    rows={datafake?.content || []}
+                                    rows={filteredData || []}
                                     headerHeight={38}
                                     rowHeight={38}
                                     // checkboxSelection

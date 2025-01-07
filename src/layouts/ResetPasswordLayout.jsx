@@ -27,7 +27,7 @@ const ResetPasswordLayout = () => {
     const [token, setToken] = useState(null)
 
     useEffect(() => {
-        if (isAuth) navigate("/");
+        if (isAuth) navigate("/reset-password");
     }, [isAuth, navigate]);
 
     const pageDisplay = () => {

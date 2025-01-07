@@ -1,33 +1,41 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Menu, Popover, Transition } from "@headlessui/react";
-import { BellIcon, ChevronRightIcon, MenuIcon, SearchIcon, XIcon } from "@heroicons/react/outline";
-import React, { Fragment, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { DropdownLanguage } from ".";
-import navigationData from "../data/navigation.json";
-import userNavigationData from "../data/user_navigation.json";
-import { logout } from "../features/auth/authSlice";
-import { useSelector } from "react-redux";
+import { Menu, Popover, Transition } from '@headlessui/react';
+import {
+    BellIcon,
+    ChevronRightIcon,
+    MenuIcon,
+    SearchIcon,
+    XIcon
+} from '@heroicons/react/outline';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { DropdownLanguage } from '.';
+import navigationData from '../data/navigation.json';
+import userNavigationData from '../data/user_navigation.json';
+import { logout } from '../features/auth/authSlice';
+import { useSelector } from 'react-redux';
 import { Button, ButtonGroup, FilledInput, Tooltip } from '@mui/material';
-import { RiMenuLine } from "react-icons/ri";
-import { TbRefresh } from "react-icons/tb";
-import { MdArrowDropDown } from "react-icons/md";
-import { TextField, Typography } from "@mui/material";
+import { RiMenuLine } from 'react-icons/ri';
+import { TbRefresh } from 'react-icons/tb';
+import { MdArrowDropDown } from 'react-icons/md';
+import { TextField, Typography } from '@mui/material';
+import { useSearch } from '../context/SearchContext';
 
 // import { useLazyGetUnAssignDOQuery } from "../services/apiSlice";
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(' ');
 }
 
 const Navbar = ({ sidebarOpen, toggleSidebar }) => {
     const { t } = useTranslation();
     const location = useLocation();
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
-    const common = useSelector(state => state.common)
+    const { user } = useSelector(state => state.auth);
+    const common = useSelector(state => state.common);
+    const { searchTerm, setSearchTerm } = useSearch();
 
     const handleLogout = () => {
         dispatch(logout());
@@ -37,43 +45,46 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
         console.log(string, results);
     };
 
-    const handleOnHover = (result) => {
+    const handleOnHover = result => {
         console.log(result);
     };
 
-    const handleOnSelect = (item) => {
+    const handleOnSelect = item => {
         console.log(item);
     };
 
     const handleOnFocus = () => {
-        console.log("Focused");
+        console.log('Focused');
     };
 
     const handleOnClear = () => {
-        console.log("Cleared");
+        console.log('Cleared');
     };
 
     const textFieldStyle = {
-        padding: '10.5px !important',
+        padding: '10.5px !important'
     };
 
-
-    const formatResult = (item) => {
+    const formatResult = item => {
         // console.log(item);
         return (
-            <div className="result-wrapper">
-                <span className="result-span"> {item}</span>
+            <div className='result-wrapper'>
+                <span className='result-span'> {item}</span>
             </div>
         );
     };
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <div>
-            <Popover as="nav" className="bg-white">
+            <Popover as='nav' className='bg-white'>
                 {({ open }) => (
                     <>
-                        <div className="flex">
-                            <div className="w-[250px] text-center bg-white border-b">
+                        <div className='flex'>
+                            <div className='w-[250px] border-b bg-white text-center'>
                                 <span>
                                     {/* <svg 
                                             xmlns="http://www.w3.org/2000/svg" 
@@ -97,20 +108,28 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
                                             </g>
                                         </svg> */}
                                 </span>
-                                <div className="w-full h-full flex">
-                                    <RiMenuLine className="text-danger w-[21px] h-[21px] min-w-[21px] m-[14px] ml-[20px] mr-[20px] z-10 cursor-pointer" onClick={() => toggleSidebar(!sidebarOpen)} />
-                                    <Link to="dashboard" className="h-[21px] max-w-[155px]">
+                                <div className='flex h-full w-full'>
+                                    <RiMenuLine
+                                        className='text-danger z-10 m-[14px] ml-[20px] mr-[20px] h-[21px] w-[21px] min-w-[21px] cursor-pointer'
+                                        onClick={() =>
+                                            toggleSidebar(!sidebarOpen)
+                                        }
+                                    />
+                                    <Link
+                                        to='dashboard'
+                                        className='h-[21px] max-w-[155px]'
+                                    >
                                         <img
-                                            className="block h-auto w-auto"
-                                            src="/images/onelinkHino.png"
-                                            alt="logo"
+                                            className='block h-auto w-auto'
+                                            src='/images/onelinkHino.png'
+                                            alt='logo'
                                         />
                                     </Link>
                                 </div>
                             </div>
-                            <div className="flex-1 px-3 flex h-16 items-center justify-between bg-white border-b">
-                                <div className="flex ">
-                                    <div className="flex flex-shrink-0 items-center ">
+                            <div className='flex h-16 flex-1 items-center justify-between border-b bg-white px-3'>
+                                <div className='flex '>
+                                    <div className='flex flex-shrink-0 items-center '>
                                         {/* <Link to="dashboard" className="gap-[15px] flex">
                                             <img
                                                 className="block h-8 w-auto"
@@ -161,18 +180,39 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
                                         />
                                     </div>
                                 </div> */}
-                                <div className="searchSection w-5/12 ">
-                                    <div className="w-[24] relative flex items-center justify-center h-[35px]" >
-                                        <SearchIcon className="absolute h-6 w-6 mr-8 left-[12px] top-[7px] text-[#666]" aria-hidden="true" />
-                                        <input type="search" placeholder={`Search ${common?.currentPage}`} className="text-[#666] overflow-hidden rounded-[8px] h-[40px] pl-[50px] pr-3 flex-1 bg-gray-100 outline-none border-0 bg-[#f7f7f7] focus:bg-[#fff] focus:shadow-2xl" />
+                                <div className='searchSection w-5/12 '>
+                                    <div className='relative flex h-[35px] w-[24] items-center justify-center'>
+                                        <SearchIcon
+                                            className='absolute left-[12px] top-[7px] mr-8 h-6 w-6 text-[#666]'
+                                            aria-hidden='true'
+                                        />
+                                        <input
+                                            type='search'
+                                            placeholder={`Search ${common?.currentPage}`}
+                                            className='h-[40px] flex-1 overflow-hidden rounded-[8px] border-0 bg-[#f7f7f7] pl-[50px] pr-3 text-[#666] outline-none focus:bg-[#fff] focus:shadow-2xl'
+                                            value={searchTerm}
+                                            onChange={handleSearchChange}
+                                        />
                                     </div>
                                 </div>
-                                <div className="hidden space-x-3 sm:ml-6 sm:flex sm:items-center">
-                                    <button className="text-center border-0 h-[32px] flex items-center justify-center w-[32px] outline-none rounded-sm transition-all duration-[400ms] overflow-hidden border-[#0000003b] hover:bg-[#f1f1f1]">
-                                        <span className="inline-block">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <path d="M5.80597 8.51163C5.80597 4.91535 8.57913 2 12 2C15.4209 2 18.194 4.91535 18.194 8.51163V11.329C18.194 12.4999 18.6829 13.6196 19.5463 14.4265C20.4952 15.3131 19.8566 16.8837 18.5472 16.8837H5.45275C4.14343 16.8837 3.50485 15.3131 4.45368 14.4265C5.31715 13.6196 5.80597 12.4999 5.80597 11.329V8.51163Z" fill="#868FA0" />
-                                                <path d="M12.0001 22C13.6795 22 15.0409 20.7208 15.0409 19.1429C15.0409 19.1161 15.0405 19.0895 15.0397 19.0629C15.033 18.8324 14.8203 18.6648 14.5749 18.6622L9.43734 18.6075C9.19201 18.6048 8.9753 18.7679 8.96307 18.9981C8.96052 19.0461 8.95923 19.0943 8.95923 19.1429C8.95923 20.7208 10.3207 22 12.0001 22Z" fill="#868FA0" />
+                                <div className='hidden space-x-3 sm:ml-6 sm:flex sm:items-center'>
+                                    <button className='flex h-[32px] w-[32px] items-center justify-center overflow-hidden rounded-sm border-0 border-[#0000003b] text-center outline-none transition-all duration-[400ms] hover:bg-[#f1f1f1]'>
+                                        <span className='inline-block'>
+                                            <svg
+                                                xmlns='http://www.w3.org/2000/svg'
+                                                width='24'
+                                                height='24'
+                                                viewBox='0 0 24 24'
+                                                fill='none'
+                                            >
+                                                <path
+                                                    d='M5.80597 8.51163C5.80597 4.91535 8.57913 2 12 2C15.4209 2 18.194 4.91535 18.194 8.51163V11.329C18.194 12.4999 18.6829 13.6196 19.5463 14.4265C20.4952 15.3131 19.8566 16.8837 18.5472 16.8837H5.45275C4.14343 16.8837 3.50485 15.3131 4.45368 14.4265C5.31715 13.6196 5.80597 12.4999 5.80597 11.329V8.51163Z'
+                                                    fill='#868FA0'
+                                                />
+                                                <path
+                                                    d='M12.0001 22C13.6795 22 15.0409 20.7208 15.0409 19.1429C15.0409 19.1161 15.0405 19.0895 15.0397 19.0629C15.033 18.8324 14.8203 18.6648 14.5749 18.6622L9.43734 18.6075C9.19201 18.6048 8.9753 18.7679 8.96307 18.9981C8.96052 19.0461 8.95923 19.0943 8.95923 19.1429C8.95923 20.7208 10.3207 22 12.0001 22Z'
+                                                    fill='#868FA0'
+                                                />
                                             </svg>
                                         </span>
                                     </button>
@@ -252,75 +292,100 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
                                     </button> */}
 
                                     {/* Profile dropdown */}
-                                    <Menu as="div" className="relative z-10 ml-3">
+                                    <Menu
+                                        as='div'
+                                        className='relative z-10 ml-3'
+                                    >
                                         <div>
-                                            <Menu.Button className="flex max-w-xs items-center gap-2 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 px-2">
+                                            <Menu.Button className='flex max-w-xs items-center gap-2 rounded-full bg-white px-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'>
                                                 <img
-                                                    className="h-8 w-8 rounded-full"
-                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                    alt=""
+                                                    className='h-8 w-8 rounded-full'
+                                                    src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                                                    alt=''
                                                 />
                                                 {/* <span className="">{user?.fullName}</span> */}
                                             </Menu.Button>
                                         </div>
                                         <Transition
                                             as={Fragment}
-                                            enter="transition ease-out duration-200"
-                                            enterFrom="transform opacity-0 scale-95"
-                                            enterTo="transform opacity-100 scale-100"
-                                            leave="transition ease-in duration-75"
-                                            leaveFrom="transform opacity-100 scale-100"
-                                            leaveTo="transform opacity-0 scale-95"
+                                            enter='transition ease-out duration-200'
+                                            enterFrom='transform opacity-0 scale-95'
+                                            enterTo='transform opacity-100 scale-100'
+                                            leave='transition ease-in duration-75'
+                                            leaveFrom='transform opacity-100 scale-100'
+                                            leaveTo='transform opacity-0 scale-95'
                                         >
-                                            <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                {userNavigationData.map((item) => (
-                                                    <Menu.Item key={item.name}>
-                                                        {({ active }) =>
-                                                            item.onClick ? (
-                                                                <div
-                                                                    className={classNames(
-                                                                        active ? "bg-gray-100" : "",
-                                                                        "text-gray-70 block cursor-pointer px-4 py-2"
-                                                                    )}
-                                                                    onClick={handleLogout}
-                                                                >
-                                                                    {t(item.name)}
-                                                                </div>
-                                                            ) : (
-                                                                <Link
-                                                                    to={item.href}
-                                                                    className={classNames(
-                                                                        active ? "bg-gray-100" : "",
-                                                                        "block px-4 py-2 text-gray-700"
-                                                                    )}
-                                                                >
-                                                                    {t(item.name)}
-                                                                </Link>
-                                                            )
-                                                        }
-                                                    </Menu.Item>
-                                                ))}
+                                            <Menu.Items className='absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                                                {userNavigationData.map(
+                                                    item => (
+                                                        <Menu.Item
+                                                            key={item.name}
+                                                        >
+                                                            {({ active }) =>
+                                                                item.onClick ? (
+                                                                    <div
+                                                                        className={classNames(
+                                                                            active
+                                                                                ? 'bg-gray-100'
+                                                                                : '',
+                                                                            'text-gray-70 block cursor-pointer px-4 py-2'
+                                                                        )}
+                                                                        onClick={
+                                                                            handleLogout
+                                                                        }
+                                                                    >
+                                                                        {t(
+                                                                            item.name
+                                                                        )}
+                                                                    </div>
+                                                                ) : (
+                                                                    <Link
+                                                                        to={
+                                                                            item.href
+                                                                        }
+                                                                        className={classNames(
+                                                                            active
+                                                                                ? 'bg-gray-100'
+                                                                                : '',
+                                                                            'block px-4 py-2 text-gray-700'
+                                                                        )}
+                                                                    >
+                                                                        {t(
+                                                                            item.name
+                                                                        )}
+                                                                    </Link>
+                                                                )
+                                                            }
+                                                        </Menu.Item>
+                                                    )
+                                                )}
                                             </Menu.Items>
                                         </Transition>
                                     </Menu>
                                 </div>
 
-                                <div className="-mr-2 flex items-center gap-2 sm:hidden">
+                                <div className='-mr-2 flex items-center gap-2 sm:hidden'>
                                     {/* Mobile menu button */}
                                     <DropdownLanguage />
                                     <button
-                                        type="button"
-                                        className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                        type='button'
+                                        className='rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'
                                     >
-                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                        <BellIcon
+                                            className='h-6 w-6'
+                                            aria-hidden='true'
+                                        />
                                     </button>
-                                    <Popover.Button className="inline-flex items-center justify-center rounded-full bg-white p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+                                    <Popover.Button className='inline-flex items-center justify-center rounded-full bg-white p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'>
                                         {open ? (
-                                            <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                            <XIcon
+                                                className='block h-6 w-6'
+                                                aria-hidden='true'
+                                            />
                                         ) : (
                                             <MenuIcon
-                                                className="block h-6 w-6"
-                                                aria-hidden="true"
+                                                className='block h-6 w-6'
+                                                aria-hidden='true'
                                             />
                                         )}
                                     </Popover.Button>
@@ -329,121 +394,149 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
                         </div>
 
                         <Transition.Root as={Fragment}>
-                            <div className="lg:hidden">
+                            <div className='lg:hidden'>
                                 <Transition.Child
                                     as={Fragment}
-                                    enter="duration-150 ease-out"
-                                    enterFrom="opacity-0"
-                                    enterTo="opacity-100"
-                                    leave="duration-150 ease-in"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
+                                    enter='duration-150 ease-out'
+                                    enterFrom='opacity-0'
+                                    enterTo='opacity-100'
+                                    leave='duration-150 ease-in'
+                                    leaveFrom='opacity-100'
+                                    leaveTo='opacity-0'
                                 >
-                                    <Popover.Overlay className="fixed inset-0 z-20 bg-black bg-opacity-25" />
+                                    <Popover.Overlay className='fixed inset-0 z-20 bg-black bg-opacity-25' />
                                 </Transition.Child>
 
                                 <Transition.Child
                                     as={Fragment}
-                                    enter="duration-150 ease-out"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="duration-150 ease-in"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
+                                    enter='duration-150 ease-out'
+                                    enterFrom='opacity-0 scale-95'
+                                    enterTo='opacity-100 scale-100'
+                                    leave='duration-150 ease-in'
+                                    leaveFrom='opacity-100 scale-100'
+                                    leaveTo='opacity-0 scale-95'
                                 >
                                     <Popover.Panel
                                         focus
-                                        className="absolute inset-x-0 top-0 z-30 mx-auto w-full max-w-3xl origin-top transform p-2 transition"
+                                        className='absolute inset-x-0 top-0 z-30 mx-auto w-full max-w-3xl origin-top transform p-2 transition'
                                     >
                                         {({ close }) => (
-                                            <div className="divide-y divide-gray-200 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                                                <div className="pt-3 pb-2">
-                                                    <div className="flex items-center justify-between px-4">
+                                            <div className='divide-y divide-gray-200 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
+                                                <div className='pb-2 pt-3'>
+                                                    <div className='flex items-center justify-between px-4'>
                                                         <div>
                                                             <img
-                                                                className="h-8 w-auto"
-                                                                src="/images/logo-color.svg"
-                                                                alt="logo"
+                                                                className='h-8 w-auto'
+                                                                src='/images/logo-color.svg'
+                                                                alt='logo'
                                                             />
                                                         </div>
-                                                        <div className="-mr-2">
-                                                            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
+                                                        <div className='-mr-2'>
+                                                            <Popover.Button className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500'>
                                                                 <XIcon
-                                                                    className="h-6 w-6"
-                                                                    aria-hidden="true"
+                                                                    className='h-6 w-6'
+                                                                    aria-hidden='true'
                                                                 />
                                                             </Popover.Button>
                                                         </div>
                                                     </div>
-                                                    <div className="mt-3 space-y-1 px-2">
-                                                        {navigationData.map((item) => {
-                                                            const current =
-                                                                location?.pathname === item.href;
-                                                            return (
-                                                                <Link
-                                                                    key={item.name}
-                                                                    to={item.href}
-                                                                    onClick={() => close()}
-                                                                    className={classNames(
-                                                                        current
-                                                                            ? "text-primary-500"
-                                                                            : "border-transparent text-gray-900 hover:bg-gray-100 hover:text-gray-800",
-                                                                        "block rounded-md px-3 py-2 text-base font-medium"
-                                                                    )}
-                                                                >
-                                                                    {t(item.name)}
-                                                                </Link>
-                                                            );
-                                                        })}
+                                                    <div className='mt-3 space-y-1 px-2'>
+                                                        {navigationData.map(
+                                                            item => {
+                                                                const current =
+                                                                    location?.pathname ===
+                                                                    item.href;
+                                                                return (
+                                                                    <Link
+                                                                        key={
+                                                                            item.name
+                                                                        }
+                                                                        to={
+                                                                            item.href
+                                                                        }
+                                                                        onClick={() =>
+                                                                            close()
+                                                                        }
+                                                                        className={classNames(
+                                                                            current
+                                                                                ? 'text-primary-500'
+                                                                                : 'border-transparent text-gray-900 hover:bg-gray-100 hover:text-gray-800',
+                                                                            'block rounded-md px-3 py-2 text-base font-medium'
+                                                                        )}
+                                                                    >
+                                                                        {t(
+                                                                            item.name
+                                                                        )}
+                                                                    </Link>
+                                                                );
+                                                            }
+                                                        )}
                                                     </div>
                                                 </div>
-                                                <div className="pt-4 pb-2 ">
-                                                    <div className="flex items-center px-5">
-                                                        <div className="flex-shrink-0">
+                                                <div className='pb-2 pt-4 '>
+                                                    <div className='flex items-center px-5'>
+                                                        <div className='flex-shrink-0'>
                                                             <img
-                                                                className="h-10 w-10 rounded-full"
-                                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                alt=""
+                                                                className='h-10 w-10 rounded-full'
+                                                                src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                                                                alt=''
                                                             />
                                                         </div>
-                                                        <div className="ml-3 min-w-0 flex-1">
-                                                            <div className="truncate text-base font-light text-gray-800">
+                                                        <div className='ml-3 min-w-0 flex-1'>
+                                                            <div className='truncate text-base font-light text-gray-800'>
                                                                 {user.name}
                                                             </div>
-                                                            <div className="truncate font-light text-gray-500">
+                                                            <div className='truncate font-light text-gray-500'>
                                                                 {user.email}
                                                             </div>
                                                         </div>
                                                         <button
-                                                            type="button"
-                                                            className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                                            type='button'
+                                                            className='ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'
                                                         >
                                                             <BellIcon
-                                                                className="h-6 w-6"
-                                                                aria-hidden="true"
+                                                                className='h-6 w-6'
+                                                                aria-hidden='true'
                                                             />
                                                         </button>
                                                     </div>
-                                                    <div className="mt-3 space-y-1 px-2">
-                                                        {userNavigationData.map((item) =>
-                                                            item.onClick ? (
-                                                                <div
-                                                                    key={item.name}
-                                                                    onClick={() => dispatch(logout())}
-                                                                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                                                >
-                                                                    {t(item.name)}
-                                                                </div>
-                                                            ) : (
-                                                                <Link
-                                                                    key={item.name}
-                                                                    to={item.href}
-                                                                    onClick={() => close()}
-                                                                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                                                >
-                                                                    {t(item.name)}
-                                                                </Link>
-                                                            )
+                                                    <div className='mt-3 space-y-1 px-2'>
+                                                        {userNavigationData.map(
+                                                            item =>
+                                                                item.onClick ? (
+                                                                    <div
+                                                                        key={
+                                                                            item.name
+                                                                        }
+                                                                        onClick={() =>
+                                                                            dispatch(
+                                                                                logout()
+                                                                            )
+                                                                        }
+                                                                        className='block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800'
+                                                                    >
+                                                                        {t(
+                                                                            item.name
+                                                                        )}
+                                                                    </div>
+                                                                ) : (
+                                                                    <Link
+                                                                        key={
+                                                                            item.name
+                                                                        }
+                                                                        to={
+                                                                            item.href
+                                                                        }
+                                                                        onClick={() =>
+                                                                            close()
+                                                                        }
+                                                                        className='block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800'
+                                                                    >
+                                                                        {t(
+                                                                            item.name
+                                                                        )}
+                                                                    </Link>
+                                                                )
                                                         )}
                                                     </div>
                                                 </div>
