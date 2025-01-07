@@ -55,11 +55,10 @@ export const useAuth = () => {
   const user_token = JSON.parse(localStorage.getItem("token"));
   const token = (user && user_token) ? user_token : null;
 
-//   if (!token) {
-//     return false;
-//   }
+  if (!token) {
+    return false;
+  }
   /// fix tạm thời cho token
-  return true
   const decodedToken = decode(token);
 
   if (decodedToken.exp * 1000 < new Date().getTime()) {

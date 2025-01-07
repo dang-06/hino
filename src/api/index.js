@@ -11,14 +11,15 @@ const axiosInstance1 = axios.create({
 });
 
 axiosInstance.interceptors.request.use((req) => {
-    req.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPbmVsaW5rVGVjaG5vbG9neSIsInVzZXJuYW1lIjoiT25lbGlua0BBZG1pbmlzdHJhdG9yIiwicGFzc3dvcmQiOiJQQHNzdzByRCIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoyMDI1NTIxNDExfQ.nGIAiv2UuQMd3SQu5dkpnfqsOBv8RLPBl5jQ3vbr1_k`;
   if (localStorage.getItem("user")) {
+    const token = localStorage.getItem("token")
+    req.headers.Authorization = token;
   }
   return req;
 });
 
 // AUTH
-export const login = (formData) => axiosInstance.post("/auth", formData);
+export const login = (formData) => axiosInstance.post("/auth/login", formData);
 export const verifyUserHino = (data) => axiosInstance.post("/api/auth/hino/verify-user", data, {timeout: 1200000});
 
 //Installation

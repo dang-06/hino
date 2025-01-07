@@ -4,9 +4,10 @@ import * as api from "../../api";
 const login = async (userData) => {
     const response = await api.login(userData);
     if (response.data) {
-        if (response?.data?.status?.code == 200) {
-            const user = response.data.data.user_profile
-            const token = user.user_token
+        if (response?.data?.code == 0) {
+            const user = response.data.data.access_token
+            const token = response.data.data.access_token
+            console.log(token)
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", JSON.stringify(token));
             return { user, token }

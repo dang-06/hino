@@ -21,7 +21,7 @@ const LoginLayout = () => {
     });
 
     useEffect(() => {
-        if (isAuth) navigate("/vehicle");
+        if (isAuth) navigate("/installation");
     }, [isAuth, navigate]);
 
     const pageDisplay = () => {
