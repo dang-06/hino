@@ -13,7 +13,10 @@ const DeleteInstallation = ({ open, setOpen, deleteId }) => {
 
   const onDelete = async () => {
     try {
-      await deleteQuery(deleteId);
+      const data = {
+        job_ids: [deleteId]
+      }
+      await deleteQuery(data);
       toast.success(t("message.success.delete", { field: t("Installation") }));
       setOpen(false);
     } catch (error) {

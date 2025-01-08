@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_API_URL;
-const baseURLF = 'http://3.1.175.195:4003/prod';
+const baseURLF = 'https://api-mobile.hino-connect.vn/iov-app-api/v1/';
 
 const axiosInstance = axios.create({
   baseURL,
@@ -12,8 +12,9 @@ const axiosInstance1 = axios.create({
 
 axiosInstance.interceptors.request.use((req) => {
   if (localStorage.getItem("user")) {
-    const token = localStorage.getItem("token")
-    req.headers.Authorization = token;
+    const token = localStorage.getItem("token");
+    const formattedToken = token?.replace(/^"(.*)"$/, '$1'); 
+    req.headers.Authorization = 'Bearer ' + formattedToken;
   }
   return req;
 });
@@ -23,7 +24,7 @@ export const login = (formData) => axiosInstance.post("/auth/login", formData);
 export const verifyUserHino = (data) => axiosInstance.post("/api/auth/hino/verify-user", data, {timeout: 1200000});
 
 //Installation
-export const fetchInstallationDetail = (id) => axiosInstance.get("/api/installation/detail/"+id);
+export const fetchInstallationDetail = (id) => axiosInstance.get("job/"+id);
 
 // SALE ORDER
 export const fetchSaleOrderDetail = (id) => axiosInstance.get("/api/sale-order/detail/"+id);
@@ -151,6 +152,7 @@ export const createMultiJobs = (data) => axiosInstance.post(`/api/job/list/creat
 export const uploadExcelJob = (data, options) => axiosInstance.post(`/api/job/rtt/import`, data, options);
 export const uploadExcelDO = (data, options) => axiosInstance.post(`/api/rtt/delivery-order/import`, data, options);
 export const publishJob = (data) => axiosInstance.post(`/api/job/rtt/publishJobList`, data);
+export const importJob = (data) => axiosInstance.post(`job/import`, data);
 //dashboard
 export const dashboardDeliveryOrder=() => axiosInstance.post(`/api/dashboard/delivery-order`)
 export const dashboardJobWeek = async () => {

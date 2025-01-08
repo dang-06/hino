@@ -17,6 +17,10 @@ import {
 import CustomNumberField from "../FormField/CustomNumberField";
 import CustomTextField from "../FormField/CustomTextField";
 import Tooltip from "@mui/material/Tooltip";
+import CustomDateTimeField from "../FormField/CustomDateTimeField";
+import CustomDateField from "../FormField/CustomDateField";
+import CustomSelect from "../FormField/CustomSelect";
+import CustomSelect2 from "../FormField/CustomSelect2";
 
 const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, refetch, setOpenForm }) => {
   const { t } = useTranslation();
@@ -27,12 +31,12 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
 
   useEffect(() => {
     if (selectedItem && selectedItem.id) {
-      //     console.log(selectedItem)
-      //     const response = fetchStaffDetail(selectedItem.id)
-      //     response.then(i => {
-      //         console.log(i.data)
-      //         reset(i.data)
-      //     })
+      console.log(selectedItem)
+      // const response = fetchStaffDetail(selectedItem.id)
+      // response.then(i => {
+      //   console.log(i.data)
+      //   reset(i.data)
+      // })
       reset(selectedItem, { keepDirtyValues: true })
     } else {
       reset(defaultValues, { keepDirtyValues: true })
@@ -40,9 +44,18 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
   }, [selectedItem])
 
   const defaultValues = {
-    "thaiName": "",
     "id": "",
-    "englishName": "",
+    "segment": "",
+    "model": "",
+    "lot_no": "",
+    "vin_no": "",
+    "engine_no": "",
+    "installation_type": "",
+    "accessories": "",
+    "note": "",
+    "installation_location": "",
+    "installation_date": ""
+
   }
 
   // Validation
@@ -75,9 +88,11 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
   });
 
   const onSubmit = async (data) => {
+    const date = new Date(data.installation_date);
+    const formattedDate = date.toISOString().split('T')[0];
     const transformData = {
       ...data,
-
+      installation_date: formattedDate
     };
 
     try {
@@ -164,27 +179,167 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex min-h-0 flex-1 flex-col">
-
-              <div className="relative flex">
-                <div className="px-4 sm:px-6 w-full h-full">
-                  <div className="space-y-6 pt-6 pb-5">
-                    <CustomTextField
-                      name="englishName"
-                      label="englishName"
-                      control={control}
-                      errors={errors.englishName}
-                      required
-                    />
-                    <CustomTextField
-                      name="thaiName"
-                      label="thaiName"
-                      control={control}
-                      errors={errors.thaiName}
-                      required
-                    />
+              {!selectedItem?.id ?
+                <div className="relative flex">
+                  <div className="px-4 sm:px-6 w-full h-full">
+                    <div className="space-y-6 pt-6 pb-5">
+                      <CustomTextField
+                        name="segment"
+                        label="segment"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="model"
+                        label="model"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="lot_no"
+                        label="lot_no"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="vin_no"
+                        label="vin_no"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="engine_no"
+                        label="engine_no"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomSelect
+                        name="installation_type"
+                        label="installation_type"
+                        control={control}
+                        // errors={errors.isActive}
+                        options={[
+                          { id: 'New', value: 'New' },
+                          { id: 'Assigned', value: 'Assigned' },
+                          { id: 'Finished Installation', value: 'Finished Installation' },
+                          { id: 'Completed', value: 'Completed' },
+                          { id: 'Need Update', value: 'Need Update' },
+                          { id: 'Updated', value: 'Updated' },
+                        ]}
+                      />
+                      <CustomSelect
+                        name="accessories"
+                        label="accessories"
+                        control={control}
+                        // errors={errors.isActive}
+                        options={[
+                          { id: 'Install Demo', value: 'Install Demo' },
+                          { id: 'Reinstall', value: 'Reinstall' },
+                          { id: 'Stick to move the car', value: 'Stick to move the car' },
+                          { id: 'Repair/fix', value: 'Repair/fix' },
+                          { id: 'Remove Onlink', value: 'Remove Onlink' },
+                          { id: 'Take it off at the customer', value: 'Take it off at the customer' },
+                        ]}
+                      />
+                      <CustomTextField
+                        name="note"
+                        label="note"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="installation_location"
+                        label="installation_location"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomDateField
+                        name="installation_date"
+                        label="installation_date"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+                :
+                <div className="relative flex">
+                  <div className="px-4 sm:px-6 w-full h-full">
+                    <div className="space-y-6 pt-6 pb-5">
+                      <CustomTextField
+                        name="model"
+                        label="model"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="lot_no"
+                        label="lot_no"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="vin_no"
+                        label="vin_no"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="engine_no"
+                        label="engine_no"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomSelect
+                        name="installation_type"
+                        label="installation_type"
+                        control={control}
+                        // errors={errors.isActive}
+                        options={[
+                          { id: 'New', value: 'New' },
+                          { id: 'Assigned', value: 'Assigned' },
+                          { id: 'Finished Installation', value: 'Finished Installation' },
+                          { id: 'Completed', value: 'Completed' },
+                          { id: 'Need Update', value: 'Need Update' },
+                          { id: 'Updated', value: 'Updated' },
+                        ]}
+                      />
+                      <CustomSelect
+                        name="accessories"
+                        label="accessories"
+                        control={control}
+                        // errors={errors.isActive}
+                        options={[
+                          { id: 'Install Demo', value: 'Install Demo' },
+                          { id: 'Reinstall', value: 'Reinstall' },
+                          { id: 'Stick to move the car', value: 'Stick to move the car' },
+                          { id: 'Repair/fix', value: 'Repair/fix' },
+                          { id: 'Remove Onlink', value: 'Remove Onlink' },
+                          { id: 'Take it off at the customer', value: 'Take it off at the customer' },
+                        ]}
+                      />
+                      <CustomTextField
+                        name="note"
+                        label="note"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="installation_location"
+                        label="installation_location"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomDateField
+                        name="installation_date"
+                        label="installation_date"
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
           </form>
         </div>

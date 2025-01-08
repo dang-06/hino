@@ -15,6 +15,7 @@ import { RiMenuLine } from "react-icons/ri";
 import { TbRefresh } from "react-icons/tb";
 import { MdArrowDropDown } from "react-icons/md";
 import { TextField, Typography } from "@mui/material";
+import ModalRegister from "./ModalRegister";
 
 // import { useLazyGetUnAssignDOQuery } from "../services/apiSlice";
 
@@ -28,6 +29,8 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const common = useSelector(state => state.common)
+    const [openModalRegister, setOpenModalResgister] = useState(false);
+
 
     const handleLogout = () => {
         dispatch(logout());
@@ -168,14 +171,23 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
                                     </div>
                                 </div>
                                 <div className="hidden space-x-3 sm:ml-6 sm:flex sm:items-center">
-                                    <button className="text-center border-0 h-[32px] flex items-center justify-center w-[32px] outline-none rounded-sm transition-all duration-[400ms] overflow-hidden border-[#0000003b] hover:bg-[#f1f1f1]">
+                                    <button onClick={()=> {setOpenModalResgister(true)}} className="text-center border-0 h-[32px] flex items-center justify-center w-[32px] outline-none rounded-sm transition-all duration-[400ms] overflow-hidden border-[#0000003b] hover:bg-[#f1f1f1]">
                                         <span className="inline-block">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <path d="M5.80597 8.51163C5.80597 4.91535 8.57913 2 12 2C15.4209 2 18.194 4.91535 18.194 8.51163V11.329C18.194 12.4999 18.6829 13.6196 19.5463 14.4265C20.4952 15.3131 19.8566 16.8837 18.5472 16.8837H5.45275C4.14343 16.8837 3.50485 15.3131 4.45368 14.4265C5.31715 13.6196 5.80597 12.4999 5.80597 11.329V8.51163Z" fill="#868FA0" />
-                                                <path d="M12.0001 22C13.6795 22 15.0409 20.7208 15.0409 19.1429C15.0409 19.1161 15.0405 19.0895 15.0397 19.0629C15.033 18.8324 14.8203 18.6648 14.5749 18.6622L9.43734 18.6075C9.19201 18.6048 8.9753 18.7679 8.96307 18.9981C8.96052 19.0461 8.95923 19.0943 8.95923 19.1429C8.95923 20.7208 10.3207 22 12.0001 22Z" fill="#868FA0" />
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                            >
+                                                <path
+                                                    d="M15 12C17.76 12 20 9.76 20 7C20 4.24 17.76 2 15 2C12.24 2 10 4.24 10 7C10 9.76 12.24 12 15 12ZM15 14C12.67 14 7 15.17 7 17.5V20H23V17.5C23 15.17 17.33 14 15 14ZM9 7H7V5H5V7H3V9H5V11H7V9H9V7Z"
+                                                    fill="#059669"
+                                                />
                                             </svg>
                                         </span>
                                     </button>
+                                    <ModalRegister open={openModalRegister} setOpen={setOpenModalResgister} />
                                     {/* <div className="border rounded-[6px] border-[#0000003b] flex relative">
                                         <Tooltip title={'Sync'} placement="bottom-start" arrow>
 

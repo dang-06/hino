@@ -19,6 +19,11 @@ import FormDisplay from "../components/FormDisplay";
 import Tooltip from "@mui/material/Tooltip";
 import { Checkbox, Divider } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { fetchShipmentDetail, importJob } from "../api";
+import ImportExcelLayout from "../components/ImportExcelLayout";
+import { CgImport } from "react-icons/cg";
+
+
 
 
 
@@ -129,6 +134,8 @@ const InstallationManagement = () => {
     const [selectedCheckbox, setSelectedCheckbox] = useState({})
     const [tableData, settableData] = useState([])
     const [enableCheckbox, setEnableCheckbox] = useState(false)
+    const [showImportModal, setShowImportModal] = useState(false)
+
 
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
@@ -180,6 +187,7 @@ const InstallationManagement = () => {
             <div className=" flex">
                 <div className="h-full min-h-[calc(100vh_-_100px)] lg:mx-auto lg:max-w-full flex-1 transition-all duration-[300ms]">
                     <div className="flex h-full flex-col bg-white shadow-sm">
+                        <ImportExcelLayout open={showImportModal} setOpen={setShowImportModal} refetch={refetch} apiPath={importJob} />
                         <div className="pl-4 h-[50px] border-b sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                                 <h1 className="text-xl font-semibold text-gray-900">
@@ -187,6 +195,11 @@ const InstallationManagement = () => {
                                 </h1>
                             </div>
                             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex justify-between items-center">
+                                <Button
+                                    className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
+                                    onClick={() => setShowImportModal(true)}
+                                    startIcon={<CgImport  className="h-5 w-5" />}
+                                    > Import Excel</Button>
                                 <Button
                                     variant="contained"
                                     className="px-6 capitalize flex-1"
@@ -235,7 +248,7 @@ const InstallationManagement = () => {
                                             <div className="flex justify-between items-center mt-auto">
                                                 <a href="#" className="text-green-600 text-sm mt-4 block">VIEW MAP (สถานที่)</a>
                                                 <div className='flex justify-between items-center'>
-                                                    <button className="text-gray-700 flex-1 mr-5"><CiCircleChevRight size={20}/></button>
+                                                    <button className="text-gray-700 flex-1 mr-5"><CiCircleChevRight size={20} /></button>
                                                     <button className="text-gray-600 flex-1"><FiTrash2 size={20} /></button>
                                                 </div>
                                             </div>
@@ -329,6 +342,7 @@ const InstallationManagement = () => {
             <FormDisplay open={openForm} setOpen={setOpenForm} >
                 <FormInstallation selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
             </FormDisplay>
+            <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
         </>
     );
 };

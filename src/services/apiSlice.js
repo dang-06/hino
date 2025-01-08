@@ -49,7 +49,7 @@ export const apiSlice = createApi({
         }),
         addInstallation: builder.mutation({
             query: (data) => ({
-                url: "installation",
+                url: "job/create",
                 method: "POST",
                 body: data,
             }),
@@ -74,9 +74,10 @@ export const apiSlice = createApi({
             },
         }),
         deleteInstallation: builder.mutation({
-            query: (id) => ({
-                url: `installation/${id}`,
-                method: "DELETE",
+            query: (data) => ({
+                url: `job/delete`,
+                method: "POST",
+                body: data,
             }),
             invalidatesTags: (result, error, arg) => {
                 if (!error && result) {
@@ -194,6 +195,20 @@ export const apiSlice = createApi({
             },
         }),
 
+        registerUser: builder.mutation({
+            query: (data) => ({
+                url: "auth/register",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Register']
+                }
+                return []
+            },
+        }),
+
     }),
 });
 
@@ -218,4 +233,7 @@ export const {
     useAddInvoiceMutation,
     useUpdateInvoiceMutation,
     useDeleteInvoiceMutation,
+
+    //Register
+    useRegisterUserMutation,
 } = apiSlice;

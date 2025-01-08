@@ -36,7 +36,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [modalResult, setModalResult] = useState(false)
-    const [modalResultValue, setModalResultValue] = useState({type: 'success', message:''})
+    const [modalResultValue, setModalResultValue] = useState({ type: 'success', message: '' })
     const wrapperRef = useRef(null);
 
     const [fileList, setFileList] = useState(null);
@@ -88,7 +88,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
             await apiPath(fd, options);
             setUploadPercentage(100);
             // toast.success('Import successfully');
-            setModalResultValue({type: 'success', message : ''})
+            setModalResultValue({ type: 'success', message: '' })
             setTimeout(() => {
                 setUploadPercentage(0)
                 handleClose();
@@ -97,7 +97,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
         } catch (error) {
             console.log(error)
             let message = error?.response?.data?.title || error.message
-            setModalResultValue({type: 'error', message})
+            setModalResultValue({ type: 'error', message })
             setUploadPercentage(0);
             // toast.error(error.message);
         }
@@ -128,7 +128,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                 aria-describedby="modal-modal-description"
             >
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl sm:p-6">
+                    <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
                         <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
                             <button
                                 type="button"
@@ -145,15 +145,15 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                     {t("importExcelTitle1")}
                                 </span>
                             </div>
+                            <a
+                                href="/templates/OLV_HC2Installation_Plan_TemplateImport.xlsx"
+                                download
+                                className="self-end text-indigo-500 underline"
+                            >
+                                {t("downloadTemplate")}
+                            </a>
                             <div className="mt-4">
-                                <div className="flex flex-col items-center justify-between gap-2">
-                                    <a
-                                        href="/templates/ImportCustomerTemplate.xlsx"
-                                        download
-                                        className="self-end text-indigo-500 underline"
-                                    >
-                                        {t("downloadTemplate")}
-                                    </a>
+                                <div className="flex items-center justify-between gap-2">
 
                                     <div
                                         ref={wrapperRef}
@@ -261,10 +261,10 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                             {/* <span className="font-semibold text-red-500">{deleteId}</span> */}
                                         </h3>
                                         <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                        {modalResultValue.message}
-                        </p>
-                    </div>
+                                            <p className="text-sm text-gray-500">
+                                                {modalResultValue.message}
+                                            </p>
+                                        </div>
                                     </div>
                                 </>
                             )}
