@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Pagination } from "@mui/material";
 import { FiUserPlus, FiTrash2 } from "react-icons/fi";
 import { BsFilter } from "react-icons/bs";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { AiFillEdit, AiOutlineExpandAlt } from "react-icons/ai";
 import { MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
 import { CiCircleChevRight } from "react-icons/ci";
 import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io5";
-import { useGetInstallationQuery } from "../services/apiSlice";
+import { useGetJobQuery } from "../services/apiSlice";
 import LinearProgress from "@mui/material/LinearProgress";
 import FormInstallation from "../components/Installation/FormInstallation";
 import DeleteInstallation from "../components/Installation/DeleteInstallation";
@@ -20,101 +20,22 @@ import Tooltip from "@mui/material/Tooltip";
 import { Checkbox, Divider } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
-
-
-
-const vehicles = [
-    {
-        id: 1,
-        saleOrder: 'SOBU-TESLA',
-        ticketNo: 'TN8927',
-        image: 'https://media.ed.edmunds-media.com/tesla/model-s/2024/oem/2024_tesla_model-s_sedan_plaid_fq_oem_1_1600.jpg',
-        numberPlate: '70-1220',
-        date: '3/22/2023 2:16:00 PM',
-        description: 'ติดตั้ง Demo , ซ่อมแซม/แกไข , ถอนกลับ Onelink',
-    },
-    {
-        id: 2,
-        saleOrder: 'SOBU5-21080015',
-        ticketNo: 'TN34234',
-        image: 'https://i1-vnexpress.vnecdn.net/2021/09/19/VolvoXC4016811568884851jpg-1632041284.jpg?w=500&h=300&q=100&dpr=1&fit=crop&s=LL_PP09-d2qEQbB0lNfIDQ&t=image',
-        numberPlate: '70-1220',
-        date: '3/29/2023 2:29:41 PM',
-        description: 'ติดตั้งใหม่ , ติดตั้ง Demo , ถอนกลับ Onelink , ซ่อมแซม/แกไข',
-    },
-    {
-        id: 3,
-        saleOrder: 'SOBU5-21080015',
-        ticketNo: 'TN34234',
-        image: 'https://i1-vnexpress.vnecdn.net/2021/09/19/VolvoXC4016811568884851jpg-1632041284.jpg?w=500&h=300&q=100&dpr=1&fit=crop&s=LL_PP09-d2qEQbB0lNfIDQ&t=image',
-        numberPlate: '70-1220',
-        date: '3/29/2023 2:29:41 PM',
-        description: 'ติดตั้งใหม่ , ติดตั้ง Demo , ถอนกลับ Onelink , ซ่อมแซม/แกไข',
-    },
-    {
-        id: 4,
-        saleOrder: 'SOBU5-21080015',
-        ticketNo: 'TN34234',
-        image: 'https://i1-vnexpress.vnecdn.net/2021/09/19/VolvoXC4016811568884851jpg-1632041284.jpg?w=500&h=300&q=100&dpr=1&fit=crop&s=LL_PP09-d2qEQbB0lNfIDQ&t=image',
-        numberPlate: '70-1220',
-        date: '3/29/2023 2:29:41 PM',
-        description: 'ติดตั้งใหม่ , ติดตั้ง Demo , ถอนกลับ Onelink , ซ่อมแซม/แกไข',
-    },
-    {
-        id: 5,
-        saleOrder: 'SOBU5-21080015',
-        ticketNo: 'TN34234',
-        image: 'https://i1-vnexpress.vnecdn.net/2021/09/19/VolvoXC4016811568884851jpg-1632041284.jpg?w=500&h=300&q=100&dpr=1&fit=crop&s=LL_PP09-d2qEQbB0lNfIDQ&t=image',
-        numberPlate: '70-1220',
-        date: '3/29/2023 2:29:41 PM',
-        description: 'ติดตั้งใหม่ , ติดตั้ง Demo , ถอนกลับ Onelink , ซ่อมแซม/แกไข',
-    },
-];
-
-// const VehicleCard = ({ vehicle }) => {
-//     return (
-//         <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[400px]">
-//             <div className="flex items-center p-4">
-//                 <img
-//                     src={vehicle.image}
-//                     alt={vehicle.numberPlate}
-//                     className="w-11 h-11 object-cover rounded-full mr-4"
-//                 />
-//                 <div className="flex flex-col">
-//                     <h3 className="text-sm font-semibold">Sale Order: {vehicle.saleOrder}</h3>
-//                     <p className="text-xs text-gray-500">Ticket No.: {vehicle.ticketNo}</p>
-//                 </div>
-//             </div>
-//             <img src={vehicle.image} alt={vehicle.numberPlate} className="w-full h-2/5 object-cover" />
-
-//             <div className='p-4 h-1/6'>
-//                 <p className="text-lg mt-2 font-bold">{vehicle.numberPlate}</p>
-//                 <p className="text-xs text-gray-500">{vehicle.date}</p>
-//             </div>
-//             <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">{vehicle.description}</p>
-//             <div className="pl-4 pr-4">
-//                 <div className="flex justify-between items-center mt-auto">
-//                     <a href="#" className="text-green-600 text-sm mt-4 block">VIEW MAP (สถานที่)</a>
-//                     <div className='flex justify-between items-center'>
-//                         <button className="text-green-600 flex-1">🗺️</button>
-//                         <button className="text-gray-600 flex-1"><FiTrash2 size={20} /></button>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
 const InstallationManagement = () => {
     const { t } = useTranslation();
     const [criterias, setCriterias] = useState({
-        page: 0,
-        rowsPerPage: 25,
-        // groupId: "",
-        // isMapped: false,
+        page: 1,
+        size: 10
+
     });
-    const { data, isLoading, isFetching, isSuccess, refetch } =
-        useGetInstallationQuery(criterias);
+    const { data, isLoading, isFetching, isSuccess, error, refetch } = useGetJobQuery(criterias);
+    
+    console.log('API Response:', {
+        data,
+        isLoading,
+        isSuccess,
+        error
+    });
+
     const [open, setOpen] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
     const [filter, setFilter] = useState({});
@@ -129,38 +50,35 @@ const InstallationManagement = () => {
     const [selectedCheckbox, setSelectedCheckbox] = useState({})
     const [tableData, settableData] = useState([])
     const [enableCheckbox, setEnableCheckbox] = useState(false)
+    const [currentStatus, setCurrentStatus] = useState('All');
+
+    const JOB_STATUSES = ['All', 'New', 'Assigned'];
 
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
     };
 
     const showDetailRow = (params) => {
-        // console.log(params)
-        setSelectedRow(params)
-        if (enableCheckbox) {
-            setSelectedCheckbox(prevState => ({
-                ...prevState,
-                [params.id]: prevState[params.id] ? !prevState[params.id] : true
-            }))
-
-        } else {
-            setShowDetail(true)
+        if (params) {
+            console.log("Selected job:", params);
+            setSelectedRow(params);
+            setShowDetail(true);
         }
     }
 
     const getPrevRow = () => {
         if (selectedRow && selectedRow.id) {
-            let findIndex = vehicles.findIndex(i => i.id == selectedRow.id)
+            let findIndex = data?.content?.findIndex(i => i.id == selectedRow.id)
             if (findIndex > 0) {
-                setSelectedRow(vehicles[findIndex - 1])
+                setSelectedRow(data?.content[findIndex - 1])
             }
         }
     }
     const getNextRow = () => {
         if (selectedRow && selectedRow.id) {
-            let findIndex = vehicles.findIndex(i => i.id == selectedRow.id)
-            if (findIndex >= 0 && findIndex < vehicles.length - 1) {
-                setSelectedRow(vehicles[findIndex + 1])
+            let findIndex = data?.content?.findIndex(i => i.id == selectedRow.id)
+            if (findIndex >= 0 && findIndex < data?.content?.length - 1) {
+                setSelectedRow(data?.content[findIndex + 1])
             }
         }
     }
@@ -175,6 +93,32 @@ const InstallationManagement = () => {
         setShowDetail(false)
         refetch()
     }
+
+    const handlePageChange = (event, newPage) => {
+        setCriterias(prev => ({
+            ...prev,
+            page: newPage
+        }));
+    };
+
+    const handleStatusChange = (newStatus) => {
+        setCurrentStatus(newStatus);
+        setCriterias(prev => ({
+            ...prev,
+            status: newStatus === 'All' ? null : newStatus
+        }));
+    };
+
+    const getFilteredJobs = () => {
+        if (!data?.data?.jobs) return [];
+        
+        if (currentStatus === 'All') {
+            return data.data.jobs;
+        }
+        
+        return data.data.jobs.filter(job => job.job_status === currentStatus);
+    };
+
     return (
         <>
             <div className=" flex">
@@ -204,46 +148,91 @@ const InstallationManagement = () => {
                         </div>
                     </div>
                     <div className="p-4 overflow-auto" style={{ maxHeight: 'calc(100vh - 106px)' }}>
-                        <h3 className="text-lg font-semibold mb-2">Finished</h3>
-
-                        <Grid container spacing={2} columns={{ xs: 2, sm: 6, md: 12 }}>
-                            {vehicles.map((vehicle, index) => (
-                                <Grid item
-                                    xs={showDetail ? 12 : 2}
-                                    sm={showDetail ? 12 : 3}
-                                    md={showDetail ? 12 : 3} key={index}>
-                                    <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[400px]" onClick={() => showDetailRow(vehicle)}>
-                                        <div className="flex items-center p-4">
-                                            <img
-                                                src={vehicle.image}
-                                                alt={vehicle.numberPlate}
-                                                className="w-11 h-11 object-cover rounded-full mr-4"
-                                            />
-                                            <div className="flex flex-col">
-                                                <h3 className="text-sm font-semibold">Sale Order: {vehicle.saleOrder}</h3>
-                                                <p className="text-xs text-gray-500">Ticket No.: {vehicle.ticketNo}</p>
-                                            </div>
-                                        </div>
-                                        <img src={vehicle.image} alt={vehicle.numberPlate} className="w-full h-2/5 object-cover" />
-
-                                        <div className='p-4 h-1/6'>
-                                            <p className="text-lg mt-2 font-bold">{vehicle.numberPlate}</p>
-                                            <p className="text-xs text-gray-500">{vehicle.date}</p>
-                                        </div>
-                                        <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">{vehicle.description}</p>
-                                        <div className="pl-4 pr-4">
-                                            <div className="flex justify-between items-center mt-auto">
-                                                <a href="#" className="text-green-600 text-sm mt-4 block">VIEW MAP (สถานที่)</a>
-                                                <div className='flex justify-between items-center'>
-                                                    <button className="text-gray-700 flex-1 mr-5"><CiCircleChevRight size={20}/></button>
-                                                    <button className="text-gray-600 flex-1"><FiTrash2 size={20} /></button>
+                        {isLoading ? (
+                            <div className="w-full py-4">
+                                <LinearProgress className="w-full" />
+                            </div>
+                        ) : (
+                            <>
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="text-lg font-semibold">
+                                        {currentStatus === 'All' ? 'Job Status' : currentStatus}
+                                    </h3>
+                                    <div className="flex gap-2">
+                                        {JOB_STATUSES.map((status) => (
+                                            <Button
+                                                key={status}
+                                                variant={currentStatus === status ? "contained" : "outlined"}
+                                                size="small"
+                                                onClick={() => handleStatusChange(status)}
+                                            >
+                                                {status}
+                                            </Button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <Grid container spacing={2} columns={{ xs: 2, sm: 6, md: 12 }}>
+                                    {console.log('Jobs data:', data)}
+                                    {getFilteredJobs().map((job) => (
+                                        <Grid item
+                                            xs={showDetail ? 12 : 2}
+                                            sm={showDetail ? 12 : 3}
+                                            md={showDetail ? 12 : 3} 
+                                            key={job.job_id}>
+                                            <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[400px] cursor-pointer" 
+                                                 onClick={() => showDetailRow(job)}
+                                                 role="button"
+                                                 tabIndex={0}>
+                                                <div className="flex items-center p-4">
+                                                    <div className="flex flex-col">
+                                                        <h3 className="text-sm font-semibold">VIN: {job.vin_no}</h3>
+                                                        <p className="text-xs text-gray-500">Trạng thái: {job.job_status}</p>
+                                                    </div>
+                                                </div>
+                                                <img 
+                                                    src={job.segment_img} 
+                                                    alt={`Job ${job.job_id}`} 
+                                                    className="w-full h-2/5 object-cover" 
+                                                />
+                                                <div className='p-4 h-1/6'>
+                                                    <p className="text-lg mt-2 font-bold">Job ID: {job.job_id}</p>
+                                                    <p className="text-xs text-gray-500">Ngày lắp đặt: {job.installation_date}</p>
+                                                </div>
+                                                <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">
+                                                    Địa điểm: {job.installation_location}
+                                                </p>
+                                                <div className="pl-4 pr-4">
+                                                    <div className="flex justify-between items-center mt-auto">
+                                                        <a href="#" className="text-green-600 text-sm mt-4 block">
+                                                            XEM BẢN ĐỒ
+                                                        </a>
+                                                        <div className='flex justify-between items-center'>
+                                                            <button className="text-gray-700 flex-1 mr-5">
+                                                                <CiCircleChevRight size={20}/>
+                                                            </button>
+                                                            <button className="text-gray-600 flex-1">
+                                                                <FiTrash2 size={20} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </Grid>
+                                    ))}
                                 </Grid>
-                            ))}
-                        </Grid>
+                                
+                                <div className="flex justify-center mt-4">
+                                    <Pagination 
+                                        count={Math.ceil((data?.data?.total_records || 0) / criterias.size)}
+                                        page={criterias.page}
+                                        onChange={handlePageChange}
+                                        color="primary"
+                                        showFirstButton 
+                                        showLastButton
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className={(showDetail ? 'w-7/12' : 'w-[0px]') + " transition-all duration-[300ms]  border-l"}>
@@ -327,7 +316,14 @@ const InstallationManagement = () => {
                 <FilterInstallation fleets={[]} filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
             </FilterRightBar>
             <FormDisplay open={openForm} setOpen={setOpenForm} >
-                <FormInstallation selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
+                <FormInstallation 
+                    selectedItem={null} 
+                    refetch={refetch} 
+                    triggleSubmit={false}
+                    setTriggleSubmit={setTriggleSubmit} 
+                    setOpenForm={setOpenForm}
+                    submitError={() => setTriggleSubmit(false)}
+                />
             </FormDisplay>
         </>
     );

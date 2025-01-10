@@ -31,11 +31,39 @@ export const apiSlice = createApi({
     tagTypes: [
         'Installation',
         'SaleOrder',
+        'Job'
     ],
     endpoints: (builder) => ({
+        // getInstallation: builder.query({
+        //     query: (params) => ({
+        //         url: `installation?page=${params.page}&size=${params.rowsPerPage}`,
+        //         method: "GET",
+        //     }),
+        //     providesTags: ["Installation"],
+        // }),
+        // getInstallationDetail: builder.query({
+        //     query: (id) => ({
+        //         url: `installation/{installation_id}?id=${id}`,
+        //         method: "GET",
+        //     }),
+        //     providesTags: ["Installation Detail"],
+        // }),
+        // addInstallation: builder.mutation({
+        //     query: (data) => ({
+        //         url: "installation",
+        //         method: "POST",
+        //         body: data,
+        //     }),
+        //     invalidatesTags: (result, error, arg) => {
+        //         if (!error && result) {
+        //             return ['installation']
+        //         }
+        //         return []
+        //     },
+        // }),
         getInstallation: builder.query({
-            query: (data) => ({
-                url: `installation${data}`,
+            query: (params) => ({
+                url: `installation?page=${params.page}&size=${params.rowsPerPage}`,
                 method: "GET",
             }),
             providesTags: ["Installation"],
@@ -55,36 +83,31 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: (result, error, arg) => {
                 if (!error && result) {
-                    return ['installation']
+                    return ['Installation']
                 }
                 return []
             },
         }),
         updateInstallation: builder.mutation({
             query: (data) => ({
-                url: `installation/${data.id}`,
-                method: "PUT",
+                url: '/installation',
+                method: 'PUT',
                 body: data,
             }),
-            invalidatesTags: (result, error, arg) => {
-                if (!error && result) {
-                    return ['Installation']
-                }
-                return []
-            },
+            invalidatesTags: ['Installation'],
         }),
-        deleteInstallation: builder.mutation({
-            query: (id) => ({
-                url: `installation/${id}`,
-                method: "DELETE",
-            }),
-            invalidatesTags: (result, error, arg) => {
-                if (!error && result) {
-                    return ['Installation']
-                }
-                return []
-            },
-        }),
+        // deleteInstallation: builder.mutation({
+        //     query: (id) => ({
+        //         url: `installation/${id}`,
+        //         method: "DELETE",
+        //     }),
+        //     invalidatesTags: (result, error, arg) => {
+        //         if (!error && result) {
+        //             return ['Installation']
+        //         }
+        //         return []
+        //     },
+        // }),
 
         // Sale order
         getSaleOrder: builder.query({
@@ -194,6 +217,40 @@ export const apiSlice = createApi({
             },
         }),
 
+        // Job
+        getJob: builder.query({
+            query: (params) => ({
+                url: `job/search`,
+                method: "GET",
+                params: {
+                    page: params?.page,
+                    size: params?.size || 10
+                }
+            }),
+            providesTags: ["Job"],
+        }),
+        getJobDetail: builder.query({
+            query: (id) => ({
+                url: `job/{job_id}?id=${id}`,
+                method: "GET",
+            }),
+            providesTags: ["Job Detail"],
+        }),
+        searchJobs: builder.query({
+            query: (params) => ({
+                url: 'job/search',
+                method: 'GET',
+                params: {
+                    page: params?.page || 1,
+                    size: params?.size || 10,
+                    search: params?.search || null,
+                    status: params?.status || null,
+                    from_date: params?.from_date || null,
+                    to_date: params?.to_date || null
+                }
+            }),
+            providesTags: ['Job']
+        }),
     }),
 });
 
@@ -218,4 +275,9 @@ export const {
     useAddInvoiceMutation,
     useUpdateInvoiceMutation,
     useDeleteInvoiceMutation,
+
+    // Job
+    useGetJobQuery,
+    useGetJobDetailQuery,
+    useSearchJobsQuery,
 } = apiSlice;

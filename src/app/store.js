@@ -16,55 +16,55 @@ import createMigrate from "redux-persist/es/createMigrate";
 
 
 const migrations = {
-    0: (state) => {
-      // migration clear out device state
-      return {
-        ...state,
-        masterDatas: undefined   
-      }
-    },
-    // 1: (state) => {
-    //   // migration to keep only device state
-    //   return {
-    //     masterDatas: state.masterDatas
-    //   }
-    // }
+  0: (state) => {
+    // migration clear out device state
+    return {
+      ...state,
+      masterDatas: undefined
+    }
+  },
+  // 1: (state) => {
+  //   // migration to keep only device state
+  //   return {
+  //     masterDatas: state.masterDatas
+  //   }
+  // }
 }
-  
+
 const persistConfig = {
-    key: 'root',
-    storage,
-    version: 1,
-    // migrate: createMigrate(migrations, { debug: false }),
-    blackList: [
-        'masterDatas'
-    ]
+  key: 'root',
+  storage,
+  version: 1,
+  // migrate: createMigrate(migrations, { debug: false }),
+  blackList: [
+    'masterDatas'
+  ]
 }
 
-const rootReducer = combineReducers({ 
-    [apiSlice.reducerPath]: apiSlice.reducer,
-    auth: authReducer,
-    common: commonReducer,
-    vehicle: vehicleReducer,
-    users: usersReducer,
-    device: deviceReducer,
-    company: companyReducer,
-    dealer: dealerReducer,
-    masterDatas: masterDatasReducer,
-    // drivers: driversReducer,
-    // fleets: fleetsReducer,
-    // calendar: calendarReducer,
-    // truck: truckReducer,
-    // mapTracking: mapTrackingReducer,
-    // mapLocation: mapLocationReducer,
-    // shipment: shipmentReducer,
+const rootReducer = combineReducers({
+  [apiSlice.reducerPath]: apiSlice.reducer,
+  auth: authReducer,
+  common: commonReducer,
+  vehicle: vehicleReducer,
+  users: usersReducer,
+  device: deviceReducer,
+  company: companyReducer,
+  dealer: dealerReducer,
+  masterDatas: masterDatasReducer,
+  // drivers: driversReducer,
+  // fleets: fleetsReducer,
+  // calendar: calendarReducer,
+  // truck: truckReducer,
+  // mapTracking: mapTrackingReducer,
+  // mapLocation: mapLocationReducer,
+  // shipment: shipmentReducer,
 
-  })
-  
+})
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-//   reducer: persistedReducer,
+  //   reducer: persistedReducer,
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
@@ -78,11 +78,11 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-        serializableCheck: false,
-      }).concat(apiSlice.middleware),
+      serializableCheck: false,
+    }).concat(apiSlice.middleware),
 });
-
 // setupListeners(store.dispatch);
 
 
 export const persistor = persistStore(store)
+
