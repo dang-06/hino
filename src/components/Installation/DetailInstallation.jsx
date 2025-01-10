@@ -30,9 +30,9 @@ const DetailInstallation = ({ detailRow }) => {
     const [updateInstallation, { isLoading }] = useUpdateInstallationMutation();
 
     useEffect(() => {
-        if (detailRow.id) {
-            console.log(detailRow.id)
-            const response = fetchInstallationDetail(detailRow.id)
+        if (detailRow.job_id) {
+            console.log(detailRow.job_id)
+            const response = fetchInstallationDetail(detailRow.job_id)
             response.then(i => {
                 console.log(i.data)
                 setDetail(i.data.data)

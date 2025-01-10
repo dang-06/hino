@@ -8,7 +8,7 @@ import { AiFillEdit, AiOutlineExpandAlt } from "react-icons/ai";
 import { MdEngineering, MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
 import { CiCircleChevRight } from "react-icons/ci";
 import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io5";
-import { useGetJobQuery } from "../services/apiSlice";
+import { useGetJobQuery, useSearchJobsQuery } from "../services/apiSlice";
 import LinearProgress from "@mui/material/LinearProgress";
 import FormInstallation from "../components/Installation/FormInstallation";
 import DeleteInstallation from "../components/Installation/DeleteInstallation";
@@ -30,10 +30,13 @@ const InstallationManagement = () => {
     const { t } = useTranslation();
     const [criterias, setCriterias] = useState({
         page: 1,
-        size: 10
-
+        size: 10,
+        search: '',
+        status:'',
+        from_date: '',
+        to_date: ''
     });
-    const { data, isLoading, isFetching, isSuccess, error, refetch } = useGetJobQuery(criterias);
+    const { data, isLoading, isFetching, isSuccess, error, refetch } = useSearchJobsQuery(criterias);
 
     console.log('API Response:', {
         data,
@@ -61,10 +64,11 @@ const InstallationManagement = () => {
 
     const [currentStatus, setCurrentStatus] = useState('All');
 
-    const JOB_STATUSES = ['All', 'New', 'Assigned'];
+    const JOB_STATUSES = ['All', 'New', 'Assigned', 'Finished Installation', 'Completed', 'Need Update', 'Updated'];
 
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
+        refetch()
     };
 
     const showDetailRow = (params) => {
@@ -164,7 +168,7 @@ const InstallationManagement = () => {
                                     {t("add")}
                                 </Button>
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
-                                <button className="text-gray-600 flex-1"><BsFilter size={22} /></button>
+                                <button onClick={()=>{setOpenFilter(true)}} className="text-gray-600 flex-1"><BsFilter size={22} /></button>
 
                             </div>
                         </div>
@@ -243,7 +247,7 @@ const InstallationManagement = () => {
                                     ))}
                                 </Grid>
 
-                                <div className="flex justify-center mt-4">
+                                {data?.data?.jobs && <div className="flex justify-center mt-4">
                                     <Pagination
                                         count={Math.ceil((data?.data?.total_records || 0) / criterias.size)}
                                         page={criterias.page}
@@ -252,7 +256,7 @@ const InstallationManagement = () => {
                                         showFirstButton
                                         showLastButton
                                     />
-                                </div>
+                                </div>}
                             </>
                         )}
                     </div>

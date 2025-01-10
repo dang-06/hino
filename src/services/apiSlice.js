@@ -290,10 +290,10 @@ export const apiSlice = createApi({
                 params: {
                     page: params?.page || 1,
                     size: params?.size || 10,
-                    search: params?.search || null,
-                    status: params?.status || null,
-                    from_date: params?.from_date || null,
-                    to_date: params?.to_date || null
+                    search: params?.search || '',
+                    status: params?.status || '',
+                    from_date: params?.from_date || '',
+                    to_date: params?.to_date || ''
                 }
             }),
             providesTags: ['Job']

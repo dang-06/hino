@@ -1,22 +1,94 @@
 import react, { useEffect, useState } from "react";
 import { CustomAsyncSelect } from "..";
 import { useTranslation } from "react-i18next";
-import { TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, TextField } from "@mui/material";
+import CustomSelect from "../FormField/CustomSelect";
+import Select from "@mui/material/Select";
+import dayjs from "dayjs";
+import { DesktopDatePicker, DatePicker } from "@mui/x-date-pickers";
+import CustomDateField from "../FormField/CustomDateField";
+import { useForm } from "react-hook-form";
+import CustomTextField from "../FormField/CustomTextField";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useSelector } from "react-redux";
+import { expenseTypes, listStaffPosition, listStaffType, reportTypes } from "../../constants/constants";
 
-const FilterInstallation = ({ fleets, filter, setFilter, triggleFiter, setTriggleFiter }) => {
+const FilterInstallation = ({ filter, setFilter, triggleFiter, setTriggleFiter }) => {
     const { t } = useTranslation();
 
-    const [selfFilter, setSelfFilter] = useState({})
+    const siteLocation = useSelector(state => state.mapLocation)
+
+    const schema = yup.object().shape({
+        // from_date: yup.date().default(() => new Date()),
+        // to_date: yup
+        //     .date()
+        //     .when(
+        //         "createdFrom",
+        //         (dateTo, schema) => dateTo && schema.min(dateTo, 'From date must greater or equal To date')),
+    })
+
+    const {
+        control,
+        handleSubmit,
+        reset,
+        clearErrors,
+        setValue,
+        watch,
+        resetField,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            search: '',
+            from_date: '',
+            to_date: '',
+            status: '',
+        },
+    });
+
+    const watchType = watch("reportType", 1) // you can supply default value as second argument
 
     useEffect(_ => {
-        if(triggleFiter){
-            setFilter(selfFilter)
+        if (filter) {
+            console.log(filter)
+            reset(filter)
+        }
+    }, [filter])
+
+    useEffect(_ => {
+        // alert( triggleFiter)
+        if (triggleFiter) {
+            handleSubmit(onSubmit)()
+            // setFilter(selfFilter)
 
             setTimeout(_ => {
                 setTriggleFiter(false)
             }, 100)
         }
     }, [triggleFiter])
+
+
+
+    useEffect(_ => {
+        reset()
+    }, [])
+
+
+
+    const onSubmit = async (data) => {
+        let formData = {
+            ...data,
+            from_date: data.from_date
+                ? dayjs(data.from_date).startOf('date').format('YYYY-MM-DD')
+                : '',
+            to_date: data.to_date
+                ? dayjs(data.to_date).endOf('date').format('YYYY-MM-DD')
+                : '',
+        };
+        setFilter(formData)
+
+    }
 
     // useEffect(_ => {
     //     if(filter){
@@ -31,50 +103,53 @@ const FilterInstallation = ({ fleets, filter, setFilter, triggleFiter, setTriggl
 
     return (
         <>
-            <div className="flex flex-col gap-3">
-                {/* <div className="w-full">
-                    <CustomAsyncSelect
-                        label="branchName"
-                        data={fleets?.content.map((item) => ({
-                            id: item.groupId,
-                            text: item.groupName,
-                        }))}
-                        isFetching={isFetchingFleet}
-                        isLoading={isLoadingFleet}
-                        // onChange={handleChange}
-                        onChange={(e) => setSelfFilter(prevState => ({
-                            ...prevState,
-                            branchName: e.target.value || null
-                        }))}
-                    />
-                </div> */}
-                <div className="w-full">
-                    <TextField
-                        label={t('phone')}
-                        variant="outlined"
-                        name="phone"
-                        fullWidth
-                        defaultValue={filter.phone}
-                        onChange={(e) => setSelfFilter(prevState => ({
-                            ...prevState,
-                            phone: e.target.value || null
-                        }))}
-                    />
+            <form
+                noValidate
+                className="flex h-full flex-col "
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <div className="relative flex">
+                    <div className=" px-4 sm:px-6  h-full max-w-full">
+                        <div className="space-y-4 pt-6 pb-5">
+                            <CustomTextField
+                                name="search"
+                                label="search"
+                                control={control}
+                                errors={errors.search}
+                            // required
+                            />
+                            <CustomSelect
+                                name="status"
+                                label="status"
+                                control={control}
+                                setValue={setValue}
+                                options={[
+                                    { id: '', value: 'All' },
+                                    { id: 'New', value: 'New' },
+                                    { id: 'Assigned', value: 'Assigned' },
+                                    { id: 'Finished Installation', value: 'Finished Installation' },
+                                    { id: 'Completed', value: 'Completed' },
+                                    { id: 'Need Update', value: 'Need Update' },
+                                    { id: 'Updated', value: 'Updated' },
+                                ]}
+                            />
+                            <CustomDateField
+                                name="from_date"
+                                label="from_date"
+                                control={control}
+                                errors={errors.from_date}
+                            />
+                            <CustomDateField
+                                name="to_date"
+                                label="to_date"
+                                control={control}
+                                errors={errors.to_date}
+                            />
+                        </div>
+                    </div>
                 </div>
-                <div className="w-full">
-                    <TextField
-                        label={t('fullName')}
-                        variant="outlined"
-                        name="fullName"
-                        fullWidth
-                        defaultValue={filter.fullName}
-                        onChange={(e) => setSelfFilter(prevState => ({
-                            ...prevState,
-                            fullName: e.target.value || null
-                        }))}
-                    />
-                </div>
-            </div>
+            </form>
+
 
         </>
     )
