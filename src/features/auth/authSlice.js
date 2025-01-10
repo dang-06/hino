@@ -23,13 +23,13 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   } catch (error) {
     console.log(error)
     let message = "";
-    
-    if(error?.response?.data?.status === 500){
+
+    if (error?.response?.data?.status === 500) {
       message = "Cannot connect to server. Please try again later!"
-    }else if (error?.status?.code == 400){
+    } else if (error?.status?.code == 400) {
       message = error?.status?.description
-    }else {
-        message = error?.response?.data?.title || 'Username or Password is incorrect'
+    } else {
+      message = error?.response?.data?.title || 'Username or Password is incorrect'
     }
 
     return thunkAPI.rejectWithValue(message);
@@ -50,7 +50,7 @@ export const authSlice = createSlice({
       state.user = null;
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-    //   localStorage.removeItem("refreshToken");
+      //   localStorage.removeItem("refreshToken");
       window.location = "/login";
     },
   },

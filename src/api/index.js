@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
   baseURL,
 });
 const axiosInstance1 = axios.create({
-    baseURL: baseURLF,
+  baseURL: baseURLF,
 });
 
 axiosInstance.interceptors.request.use((req) => {
@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use((req) => {
 
 // AUTH
 export const login = (formData) => axiosInstance.post("/auth/login", formData);
-export const verifyUserHino = (data) => axiosInstance.post("/api/auth/hino/verify-user", data, {timeout: 1200000});
+export const verifyUserHino = (data) => axiosInstance.post("/api/auth/hino/verify-user", data, { timeout: 1200000 });
 
 //Installation
 export const fetchInstallationDetail = (id) => axiosInstance.get("job/"+id);
@@ -29,12 +29,12 @@ export const fetchJob = (param) => axiosInstance.get("job/search?"+param);
 export const fetchTechnician = () => axiosInstance.get("user/technicians");
 
 // SALE ORDER
-export const fetchSaleOrderDetail = (id) => axiosInstance.get("/api/sale-order/detail/"+id);
+export const fetchSaleOrderDetail = (id) => axiosInstance.get("/api/sale-order/detail/" + id);
 
 
 // DRIVER
 export const fetchDrivers = (data) => axiosInstance.post("/api/drivers/list", data);
-export const fetchDriverDetail = (id) => axiosInstance.get("/api/drivers/detail/"+id);
+export const fetchDriverDetail = (id) => axiosInstance.get("/api/drivers/detail/" + id);
 export const addDriver = (data) => axiosInstance.post("/api/drivers/add", data);
 export const deleteDriver = (id) => axiosInstance.delete(`/api/drivers/delete/${id}`);
 
@@ -156,7 +156,7 @@ export const uploadExcelDO = (data, options) => axiosInstance.post(`/api/rtt/del
 export const publishJob = (data) => axiosInstance.post(`/api/job/rtt/publishJobList`, data);
 export const importJob = (data) => axiosInstance.post(`job/import`, data);
 //dashboard
-export const dashboardDeliveryOrder=() => axiosInstance.post(`/api/dashboard/delivery-order`)
+export const dashboardDeliveryOrder = () => axiosInstance.post(`/api/dashboard/delivery-order`)
 export const dashboardJobWeek = async () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user.role == "ROLE_CARRIER") {
@@ -249,5 +249,5 @@ export const fetchDocumentType = (data) => axiosInstance.post('/api/rtt/document
 export const fetchDeliveryType = (data) => axiosInstance.post('/api/rtt/delivery-type/list', data)
 
 //
-export const fetchVehicleDetail = (id) => axiosInstance.get('/vehicle/'+id)
+export const fetchVehicleDetail = (id) => axiosInstance.get('/vehicle/' + id)
 export const fetchCustomer = (params = '') => axiosInstance.get(`/customer${params}`)
