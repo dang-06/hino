@@ -64,7 +64,7 @@ const InstallationManagement = () => {
 
     const [currentStatus, setCurrentStatus] = useState('All');
 
-    const JOB_STATUSES = ['All', 'New', 'Assigned', 'Finished Installation', 'Completed', 'Need Update', 'Updated'];
+    const JOB_STATUSES = ['All', t("new"), t("assigned"), t("finishedInstallation"), t("completed"), t("needUpdate"), t("updated")];
 
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
@@ -141,7 +141,7 @@ const InstallationManagement = () => {
                         <div className="pl-4 h-[50px] border-b sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                                 <h1 className="text-xl font-semibold text-gray-900">
-                                    {t("Installation")}
+                                    {t("installation")}
                                 </h1>
                             </div>
                             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex justify-between items-center">
@@ -150,13 +150,13 @@ const InstallationManagement = () => {
                                     onClick={() => setOpenAssignJob(true)}
                                     startIcon={<MdEngineering className="h-5 w-5" />}
                                     variant="outlined"
-                                > Assign Job to Technician</Button>
+                                > {t("assignJobToTechnician")}</Button>
                                 <Button
                                     className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
                                     onClick={() => setShowImportModal(true)}
                                     startIcon={<CgImport className="h-5 w-5" />}
                                     variant="contained"
-                                > Import Excel</Button>
+                                > {t("importExcel")}</Button>
                                 <Button
                                     variant="contained"
                                     className="px-6 capitalize flex-1"
@@ -182,7 +182,7 @@ const InstallationManagement = () => {
                             <>
                                 <div className="flex justify-between items-center mb-4">
                                     <h3 className="text-lg font-semibold">
-                                        {currentStatus === 'All' ? 'Job Status' : currentStatus}
+                                        {currentStatus === 'All' ? t("jobStatus") : currentStatus}
                                     </h3>
                                     <div className="flex gap-2">
                                         {JOB_STATUSES.map((status) => (
@@ -211,8 +211,8 @@ const InstallationManagement = () => {
                                                 tabIndex={0}>
                                                 <div className="flex items-center p-4">
                                                     <div className="flex flex-col">
-                                                        <h3 className="text-sm font-semibold">VIN: {job.vin_no}</h3>
-                                                        <p className="text-xs text-gray-500">Trạng thái: {job.job_status}</p>
+                                                        <h3 className="text-sm font-semibold">{t("vin")}: {job.vin_no}</h3>
+                                                        <p className="text-xs text-gray-500">{t("jobStatus")}: {job.job_status}</p>
                                                     </div>
                                                 </div>
                                                 <img
@@ -221,16 +221,16 @@ const InstallationManagement = () => {
                                                     className="w-full h-2/5 object-cover"
                                                 />
                                                 <div className='p-4 h-1/6'>
-                                                    <p className="text-lg mt-2 font-bold">Job ID: {job.job_id}</p>
-                                                    <p className="text-xs text-gray-500">Ngày lắp đặt: {job.installation_date}</p>
+                                                    <p className="text-lg mt-2 font-bold">{t("jobId")}: {job.job_id}</p>
+                                                    <p className="text-xs text-gray-500">{t("installationDate")}: {job.installation_date}</p>
                                                 </div>
                                                 <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">
-                                                    Địa điểm: {job.installation_location}
+                                                    {t("installationLocation")}: {job.installation_location}
                                                 </p>
                                                 <div className="pl-4 pr-4">
                                                     <div className="flex justify-between items-center mt-auto">
                                                         <a href="#" className="text-green-600 text-sm mt-4 block">
-                                                            XEM BẢN ĐỒ
+                                                            {t("viewMap")}
                                                         </a>
                                                         <div className='flex justify-between items-center'>
                                                             <button className="text-gray-700 flex-1 mr-5">
@@ -272,7 +272,7 @@ const InstallationManagement = () => {
                                     <>
                                         <Tooltip title={'Cancel'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(false)} className="btn-primary border py-[5px] px-3 rounded-[5px] text-primary-900 border-primary-500 hover:bg-primary-100 text-[13px]">
-                                                <span>Cancel</span>
+                                                <span>{t("cancel")}</span>
                                             </button>
                                         </Tooltip>
                                         <Tooltip title={'Edit'} placement="bottom-start" arrow>
@@ -299,7 +299,7 @@ const InstallationManagement = () => {
                                         <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
-                                                <span>Edit</span>
+                                                <span>{t("edit")}</span>
                                             </button>
                                         </Tooltip>
                                         <Divider orientation="vertical" flexItem variant="middle" />

@@ -45,7 +45,7 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
 
   const defaultValues = {
     "id": "",
-    "segment": "",
+    "segent": "",
     "model": "",
     "lot_no": "",
     "vin_no": "",
@@ -185,37 +185,37 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                     <div className="space-y-6 pt-6 pb-5">
                       <CustomTextField
                         name="segment"
-                        label="segment"
+                        label={t("segment")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="model"
-                        label="model"
+                        label={t("model")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="lot_no"
-                        label="lot_no"
+                        label={t("lotNo")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="vin_no"
-                        label="vin_no"
+                        label={t("vin")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="engine_no"
-                        label="engine_no"
+                        label={t("engineNo")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomSelect
                         name="installation_type"
-                        label="installation_type"
+                        label={t("installationType")}
                         control={control}
                         // errors={errors.isActive}
                         options={[
@@ -229,7 +229,7 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                       />
                       <CustomSelect
                         name="accessories"
-                        label="accessories"
+                        label={t("accessories")}
                         control={control}
                         // errors={errors.isActive}
                         options={[
@@ -243,19 +243,19 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                       />
                       <CustomTextField
                         name="note"
-                        label="note"
+                        label={t("note")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="installation_location"
-                        label="installation_location"
+                        label={t("installationLocation")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomDateField
                         name="installation_date"
-                        label="installation_date"
+                        label={t("installationDate")}
                         control={control}
                         errors={errors.englishName}
                       />
@@ -268,71 +268,69 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                     <div className="space-y-6 pt-6 pb-5">
                       <CustomTextField
                         name="model"
-                        label="model"
+                        label={t("model")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="lot_no"
-                        label="lot_no"
+                        label={t("lotNo")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="vin_no"
-                        label="vin_no"
+                        label={t("vin")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="engine_no"
-                        label="engine_no"
+                        label={t("engineNo")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomSelect
-                        name="installation_type"
-                        label="installation_type"
+                        name="installation_type" 
+                        label={t("installationType")}
                         control={control}
-                        // errors={errors.isActive}
                         options={[
-                          { id: 'New', value: 'New' },
-                          { id: 'Assigned', value: 'Assigned' },
-                          { id: 'Finished Installation', value: 'Finished Installation' },
-                          { id: 'Completed', value: 'Completed' },
-                          { id: 'Need Update', value: 'Need Update' },
-                          { id: 'Updated', value: 'Updated' },
+                          { id: 'New', value: t("new") },
+                          { id: 'Assigned', value: t("assigned") },
+                          { id: 'Finished Installation', value: t("finishedInstallation") },
+                          { id: 'Completed', value: t("completed") },
+                          { id: 'Need Update', value: t("needUpdate") },
+                          { id: 'Updated', value: t("updated") },
                         ]}
                       />
                       <CustomSelect
                         name="accessories"
-                        label="accessories"
+                        label={t("accessories")} 
                         control={control}
-                        // errors={errors.isActive}
                         options={[
-                          { id: 'Install Demo', value: 'Install Demo' },
-                          { id: 'Reinstall', value: 'Reinstall' },
-                          { id: 'Stick to move the car', value: 'Stick to move the car' },
-                          { id: 'Repair/fix', value: 'Repair/fix' },
-                          { id: 'Remove Onlink', value: 'Remove Onlink' },
-                          { id: 'Take it off at the customer', value: 'Take it off at the customer' },
+                          { id: 'Install Demo', value: t("installDemo") },
+                          { id: 'Reinstall', value: t("reinstall") },
+                          { id: 'Stick to move the car', value: t("stickToMoveTheCar") },
+                          { id: 'Repair/fix', value: t("repairFix") },
+                          { id: 'Remove Onlink', value: t("removeOnlink") },
+                          { id: 'Take it off at the customer', value: t("takeItOffAtTheCustomer") },
                         ]}
                       />
                       <CustomTextField
                         name="note"
-                        label="note"
+                        label={t("note")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomTextField
                         name="installation_location"
-                        label="installation_location"
+                        label={t("installationLocation")}
                         control={control}
                         errors={errors.englishName}
                       />
                       <CustomDateField
                         name="installation_date"
-                        label="installation_date"
+                        label={t("installationDate")}
                         control={control}
                         errors={errors.englishName}
                       />

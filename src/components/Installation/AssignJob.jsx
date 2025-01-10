@@ -167,7 +167,7 @@ const AssignJob = ({ open, setOpen }) => {
                   <div className="space-y-3 pt-6 pb-5 basis-1/2">
                     <CustomSelect
                       name="technician_id"
-                      label="technician_id"
+                      label={t("technicianId")}
                       control={control}
                       // errors={errors.isActive}
                       options={listTechnician}

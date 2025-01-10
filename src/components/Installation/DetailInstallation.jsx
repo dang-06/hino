@@ -63,15 +63,15 @@ const DetailInstallation = ({ detailRow }) => {
                     style={{ height: "calc(100vh - 110px)" }}
                 >
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">ID</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("id")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.job_id}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Accessories</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("accessories")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.accessories}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Accessories Image</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("accessoriesImage")}</label>
                         {detail.accessories_img_path && (<img
                             src={detail.accessories_img_path}
                             alt="Additional Equipment 1"
@@ -79,7 +79,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Additional Equipment Image</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("additionalEquipmentImage")}</label>
                         {detail.additional_img_path && (<img
                             src={detail.additional_img_path}
                             alt="Additional Equipment 1"
@@ -87,7 +87,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Additional Equipment Image 1</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("additionalEquipmentImage1")}</label>
                         {detail.additional_equipment_img1_path && (<img
                             src={detail.additional_equipment_img1_path}
                             alt="Additional Equipment 1"
@@ -95,7 +95,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Additional Equipment Image 2</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("additionalEquipmentImage2")}</label>
                         {detail.additional_equipment_img2_path && (<img
                             src={detail.additional_equipment_img2_path}
                             alt="Additional Equipment 1"
@@ -103,7 +103,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">after_installation_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("afterInstallationImage")}</label>
                         {detail.after_installation_img_path && (<img
                             src={detail.after_installation_img_path}
                             alt="Additional Equipment 1"
@@ -111,7 +111,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">anten_gps_gsm_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("antenGpsGsmImage")}</label>
                         {detail.anten_gps_gsm_img_path && (<img
                             src={detail.anten_gps_gsm_img_path}
                             alt="Additional Equipment 1"
@@ -119,7 +119,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">front_view_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("frontViewImage")}</label>
                         {detail.front_view_img_path && (<img
                             src={detail.front_view_img_path}
                             alt="Additional Equipment 1"
@@ -127,7 +127,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">back_view_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("backViewImage")}</label>
                         {detail.back_view_img_path && (<img
                             src={detail.back_view_img_path}
                             alt="Additional Equipment 1"
@@ -135,7 +135,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">before_installation_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("beforeInstallationImage")}</label>
                         {detail.before_installation_img_path && (<img
                             src={detail.before_installation_img_path}
                             alt="Additional Equipment 1"
@@ -143,7 +143,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">car_chassis_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("carChassisImage")}</label>
                         {detail.car_chassis_img_path && (<img
                             src={detail.car_chassis_img_path}
                             alt="Additional Equipment 1"
@@ -151,7 +151,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">gps_devices_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("gpsDevicesImage")}</label>
                         {detail.gps_devices_img_path && (<img
                             src={detail.gps_devices_img_path}
                             alt="Additional Equipment 1"
@@ -159,7 +159,7 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">car_chassis_img_path</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("carChassisImage")}</label>
                         {detail.car_chassis_img_path && (<img
                             src={detail.car_chassis_img_path}
                             alt="Additional Equipment 1"
@@ -167,47 +167,47 @@ const DetailInstallation = ({ detailRow }) => {
                         />)}
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Installation Date</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationDate")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.installation_date}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Installation Location</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationLocation")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.installation_location}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">installation_type</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationType")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.installation_type}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Job Status</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("jobStatus")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.job_status}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Differential Status</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("differentialStatus")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.differential_status}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Engine Oil Status</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("engineOilStatus")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.engine_oil_status}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Transmission Status</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("transmissionStatus")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.transmission_status}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">odometer_reading</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("odometerReading")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.odometer_reading}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Note</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("note")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.note}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">Notes</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("notes")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.notes}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">other</label>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("other")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.other}</p>
                     </div>
                 </div>

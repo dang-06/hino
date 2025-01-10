@@ -124,24 +124,24 @@ const FilterInstallation = ({ filter, setFilter, triggleFiter, setTriggleFiter }
                                 control={control}
                                 setValue={setValue}
                                 options={[
-                                    { id: '', value: 'All' },
-                                    { id: 'New', value: 'New' },
-                                    { id: 'Assigned', value: 'Assigned' },
-                                    { id: 'Finished Installation', value: 'Finished Installation' },
-                                    { id: 'Completed', value: 'Completed' },
-                                    { id: 'Need Update', value: 'Need Update' },
-                                    { id: 'Updated', value: 'Updated' },
+                                    { id: '', value: t("all") },
+                                    { id: 'New', value: t("new") },
+                                    { id: 'Assigned', value: t("assigned") },
+                                    { id: 'Finished Installation', value: t("finishedInstallation") },
+                                    { id: 'Completed', value: t("completed") },
+                                    { id: 'Need Update', value: t("needUpdate") },
+                                    { id: 'Updated', value: t("updated") },
                                 ]}
                             />
                             <CustomDateField
                                 name="from_date"
-                                label="from_date"
+                                label={t("fromDate")}
                                 control={control}
                                 errors={errors.from_date}
                             />
                             <CustomDateField
                                 name="to_date"
-                                label="to_date"
+                                label={t("toDate")}
                                 control={control}
                                 errors={errors.to_date}
                             />
