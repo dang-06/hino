@@ -25,6 +25,8 @@ export const verifyUserHino = (data) => axiosInstance.post("/api/auth/hino/verif
 
 //Installation
 export const fetchInstallationDetail = (id) => axiosInstance.get("job/"+id);
+export const fetchJob = (param) => axiosInstance.get("job/search?"+param);
+export const fetchTechnician = () => axiosInstance.get("user/technicians");
 
 // SALE ORDER
 export const fetchSaleOrderDetail = (id) => axiosInstance.get("/api/sale-order/detail/"+id);

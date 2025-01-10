@@ -5,7 +5,7 @@ import { FiUserPlus, FiTrash2 } from "react-icons/fi";
 import { BsFilter } from "react-icons/bs";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit, AiOutlineExpandAlt } from "react-icons/ai";
-import { MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
+import { MdEngineering, MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
 import { CiCircleChevRight } from "react-icons/ci";
 import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io5";
 import { useGetInstallationQuery } from "../services/apiSlice";
@@ -22,6 +22,7 @@ import { LoadingButton } from "@mui/lab";
 import { fetchShipmentDetail, importJob } from "../api";
 import ImportExcelLayout from "../components/ImportExcelLayout";
 import { CgImport } from "react-icons/cg";
+import AssignJob from '../components/Installation/AssignJob';
 
 
 
@@ -125,6 +126,7 @@ const InstallationManagement = () => {
     const [filter, setFilter] = useState({});
     const [openEdit, setOpenEdit] = useState(false);
     const [openForm, setOpenForm] = useState(false);
+    const [openAssignJob, setOpenAssignJob] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
     const [showDetail, setShowDetail] = useState(false)
     const [triggleSubmit, setTriggleSubmit] = useState(false)
@@ -196,10 +198,17 @@ const InstallationManagement = () => {
                             </div>
                             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex justify-between items-center">
                                 <Button
+                                    className="px-6 mr-2"
+                                    onClick={() => setOpenAssignJob(true)}
+                                    startIcon={<MdEngineering className="h-5 w-5" />}
+                                    variant="outlined"
+                                > Assign Job to Technician</Button>
+                                <Button
                                     className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
                                     onClick={() => setShowImportModal(true)}
-                                    startIcon={<CgImport  className="h-5 w-5" />}
-                                    > Import Excel</Button>
+                                    startIcon={<CgImport className="h-5 w-5" />}
+                                    variant="contained"
+                                > Import Excel</Button>
                                 <Button
                                     variant="contained"
                                     className="px-6 capitalize flex-1"
@@ -343,6 +352,7 @@ const InstallationManagement = () => {
                 <FormInstallation selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
             </FormDisplay>
             <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
+            <AssignJob  open={openAssignJob} setOpen={setOpenAssignJob}/>
         </>
     );
 };

@@ -209,6 +209,20 @@ export const apiSlice = createApi({
             },
         }),
 
+        assignJob: builder.mutation({
+            query: (data) => ({
+                url: "job/assign",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Installation']
+                }
+                return []
+            },
+        }),
+
     }),
 });
 
@@ -236,4 +250,6 @@ export const {
 
     //Register
     useRegisterUserMutation,
+    //Assign Job
+    useAssignJobMutation,
 } = apiSlice;

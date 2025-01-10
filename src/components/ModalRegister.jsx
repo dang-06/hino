@@ -27,7 +27,7 @@ const ModalRegister = ({ open, setOpen }) => {
         "user_name": "",
         "password": "",
         "full_name": "",
-        "role_id": -1,
+        "role_id": "",
         "email": "",
         "gender": "",
         "phone_number": "",
@@ -51,6 +51,7 @@ const ModalRegister = ({ open, setOpen }) => {
         handleSubmit,
         reset,
         clearErrors,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
@@ -126,48 +127,66 @@ const ModalRegister = ({ open, setOpen }) => {
                     >
                         <div className="flex min-h-0 flex-1 flex-col">
                             <div className="relative flex">
-                                <div className="px-4 sm:px-6 w-full h-full">
-                                    <div className="space-y-3 pt-6 pb-5">
+                                <div className="px-4 sm:px-6 w-full h-full flex flex-row gap-3 justify-between">
+                                    <div className="space-y-3 pt-6 pb-5 basis-1/2">
                                         <CustomTextField
                                             name="user_name"
                                             label="user_name"
                                             control={control}
                                             errors={errors.user_name}
                                         />
-                                        <CustomPasswordField
-                                            name="password"
-                                            label="password"
-                                            control={control}
-                                            errors={errors.password}
-                                        />
+
                                         <CustomTextField
                                             name="full_name"
                                             label="full_name"
                                             control={control}
                                             errors={errors.full_name}
                                         />
-                                        <CustomSelect
-                                            name="role_id"
-                                            label="role"
-                                            control={control}
-                                            // errors={errors.isActive}
-                                            options={[
-                                                { id: 1, value: 'ADMIN' },
-                                                { id: 2, value: 'TECHNICIAN' },
-                                                { id: 3, value: 'QA' },
-                                            ]}
-                                        />
+
                                         <CustomTextField
                                             name="email"
                                             label="email"
                                             control={control}
                                             errors={errors.email}
                                         />
+
+                                        <CustomTextField
+                                            name="phone_number"
+                                            label="phone_number"
+                                            control={control}
+                                            errors={errors.phone_number}
+                                        />
+
+                                        <CustomDateField
+                                            name="date_of_birth"
+                                            label="date_of_birth"
+                                            control={control}
+                                            errors={errors.date_of_birth}
+                                        />
+                                    </div>
+                                    <div className="space-y-3 pt-6 pb-5 basis-1/2">
+                                        <CustomPasswordField
+                                            name="password"
+                                            label="password"
+                                            control={control}
+                                            errors={errors.password}
+                                        />
+                                        <CustomSelect
+                                            name="role_id"
+                                            label="role"
+                                            control={control}
+                                            setValue={setValue}
+                                            options={[
+                                                { id: 1, value: 'ADMIN' },
+                                                { id: 2, value: 'TECHNICIAN' },
+                                                { id: 3, value: 'QA' },
+                                            ]}
+                                        />
                                         <CustomSelect
                                             name="gender"
                                             label="gender"
                                             control={control}
-                                            // errors={errors.isActive}
+                                            setValue={setValue}
                                             options={[
                                                 { id: 'male', value: 'male' },
                                                 { id: 'female', value: 'female' },
@@ -175,22 +194,10 @@ const ModalRegister = ({ open, setOpen }) => {
                                             ]}
                                         />
                                         <CustomTextField
-                                            name="phone_number"
-                                            label="phone_number"
-                                            control={control}
-                                            errors={errors.phone_number}
-                                        />
-                                        <CustomTextField
                                             name="address"
                                             label="address"
                                             control={control}
                                             errors={errors.address}
-                                        />
-                                        <CustomDateField
-                                            name="date_of_birth"
-                                            label="date_of_birth"
-                                            control={control}
-                                            errors={errors.date_of_birth}
                                         />
                                     </div>
                                 </div>
@@ -207,7 +214,7 @@ const ModalRegister = ({ open, setOpen }) => {
                                 onClick={() => handleSubmit(onSubmit)()}
                                 loading={isLoading}
                             >
-                                {t("save")}
+                                {t("submit")}
                             </LoadingButton>
                         </div>
                     </form>
