@@ -14,7 +14,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Tooltip } from "@mui/material";
-import { FaWrench,FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser } from "react-icons/fa";
+import { FaWrench,FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { LiaFileInvoiceSolid, LiaClipboardListSolid  } from "react-icons/lia";
@@ -23,8 +23,8 @@ import { updateCommonValue } from "../features/common/commonSlice";
 
 const navigation = [
     { name: "Installation", href: "installation", icon: FaWrench, current: false },
-    { name: "Sale Order", href: "sale-order", icon: LiaClipboardListSolid, current: false },
-    { name: "Invoice", href: "invoice", icon: LiaFileInvoiceSolid, current: false },
+    { name: "Job", href: "job", icon: FaBriefcase, current: false },
+    { name: "Technician KPI", href: "tech-kpi", icon: FaChartLine, current: false },
 ];
 
 const toggleSideBar = (e) => {

@@ -284,7 +284,7 @@
   "user": "User",
   "forbidden": "Forbidden",
   "forbiddenDesc": "We're sorry, but you do not have access to this page.",
-  "jobs": "Jobs",
+  "jobs": "Jobs (Type to search by VIN or location)",
   "addBranch": "Add branch",
   "userId": "User ID",
   "idCompany": "ID Company",
@@ -864,5 +864,15 @@
   "registerUserTitle": "Register User",
   "inspectionForm": "Inspection Form",
   "add": "Add",
-  "technicianId": "Technician ID"
+  "technicianId": "Technician",
+  "searchJob": "Search (by VIN or location)",
+  "accessoriesImage": "Accessories Image",
+  "additionalEquipmentImage": "Additional Equipment Image",
+  "additionalEquipmentImage1": "Additional Equipment Image 1",
+  "additionalEquipmentImage2": "Additional Equipment Image 2",
+  "vinNo": "Vin No",
+  "reviewInstallation": "Review Installation",
+  "ReviewTitle": "Review Installation with ID:",
+  "ReviewSubtitle": "Please review carefully and confirm the evaluation result.",
+  "complete": "Complete"
 }

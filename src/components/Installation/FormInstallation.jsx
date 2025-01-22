@@ -219,12 +219,12 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         control={control}
                         // errors={errors.isActive}
                         options={[
-                          { id: 'New', value: 'New' },
-                          { id: 'Assigned', value: 'Assigned' },
-                          { id: 'Finished Installation', value: 'Finished Installation' },
-                          { id: 'Completed', value: 'Completed' },
-                          { id: 'Need Update', value: 'Need Update' },
-                          { id: 'Updated', value: 'Updated' },
+                          { id: 'Install Demo', value: 'Install Demo' },
+                          { id: 'Reinstall', value: 'Reinstall' },
+                          { id: 'Stick to move the car', value: 'Stick to move the car' },
+                          { id: 'Repair/fix', value: 'Repair/fix' },
+                          { id: 'Remove Onlink', value: 'Remove Onlink' },
+                          { id: 'Take it off at the customer', value: 'Take it off at the customer' },
                         ]}
                       />
                       <CustomSelect
@@ -233,12 +233,16 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         control={control}
                         // errors={errors.isActive}
                         options={[
-                          { id: 'Install Demo', value: 'Install Demo' },
-                          { id: 'Reinstall', value: 'Reinstall' },
-                          { id: 'Stick to move the car', value: 'Stick to move the car' },
-                          { id: 'Repair/fix', value: 'Repair/fix' },
-                          { id: 'Remove Onlink', value: 'Remove Onlink' },
-                          { id: 'Take it off at the customer', value: 'Take it off at the customer' },
+                          { id: 'Fuel', value: 'Fuel' },
+                          { id: 'Door Control', value: 'Door Control' },
+                          { id: 'Speed Alert', value: 'Speed Alert' },
+                          { id: 'Conversation equipment', value: 'Conversation equipment' },
+                          { id: 'Shut Down Engine', value: 'Shut Down Engine' },
+                          { id: 'Emergency Button', value: 'Emergency Button' },
+                          { id: 'Magnetic Card Reader', value: 'Magnetic Card Reader' },
+                          { id: 'Temp', value: 'Temp' },
+                          { id: 'PTO', value: 'PTO' },
+                          { id: 'Others', value: 'Others' },
                         ]}
                       />
                       <CustomTextField
@@ -291,7 +295,7 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         errors={errors.englishName}
                       />
                       <CustomSelect
-                        name="installation_type" 
+                        name="installation_type"
                         label={t("installationType")}
                         control={control}
                         options={[
@@ -305,7 +309,7 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                       />
                       <CustomSelect
                         name="accessories"
-                        label={t("accessories")} 
+                        label={t("accessories")}
                         control={control}
                         options={[
                           { id: 'Install Demo', value: t("installDemo") },

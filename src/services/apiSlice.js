@@ -115,6 +115,20 @@ export const apiSlice = createApi({
             },
             invalidatesTags: ['Installation'],
         }),
+        reviewInstallation: builder.mutation({
+            query: (data) => ({
+                url: `job/review-installation/${data.job_id}`,
+                method: "POST",
+                body: data.body,
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Installation']
+                }
+                return []
+            },
+            invalidatesTags: ['Installation'],
+        }),
         // deleteInstallation: builder.mutation({
         //     query: (id) => ({
         //         url: `installation/${id}`,
@@ -308,6 +322,7 @@ export const {
     useAddInstallationMutation,
     useUpdateInstallationMutation,
     useDeleteInstallationMutation,
+    useReviewInstallationMutation,
 
     //Sale order
     useGetSaleOrderQuery,

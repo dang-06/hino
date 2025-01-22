@@ -153,7 +153,7 @@ const AssignJob = ({ open, setOpen }) => {
           </div>
           <div className="flex items-center justify-center gap-4">
             <span className="text-2xl font-medium capitalize">
-              {t("registerUserTitle")}
+              {t("assignJobToTechnician")}
             </span>
           </div>
           <form

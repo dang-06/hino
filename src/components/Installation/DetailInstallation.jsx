@@ -22,7 +22,7 @@ import { AiFillEdit } from "react-icons/ai";
 import Tooltip from "@mui/material/Tooltip";
 import { fetchInstallationDetail } from "../../api";
 
-const DetailInstallation = ({ detailRow }) => {
+const   DetailInstallation = ({ detailRow }) => {
     const { t } = useTranslation();
     //   const [openEdit, setOpenEdit] = useState(false);
     const [detail, setDetail] = useState({});

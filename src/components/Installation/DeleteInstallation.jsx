@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import { ExclamationIcon } from "@heroicons/react/outline";
 import { useTranslation } from "react-i18next";
@@ -23,6 +23,11 @@ const DeleteInstallation = ({ open, setOpen, deleteId }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(deleteId)
+      , [deleteId]
+  })
 
 
   return (

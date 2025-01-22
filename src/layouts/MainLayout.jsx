@@ -21,19 +21,19 @@ const MainLayout = () => {
     
 
     useEffect(() => {
-        dispatch(fetchProduct());
-        dispatch(fetchPartnerType())
-        dispatch(fetchVendorBusinessType())
-        dispatch(fetchBusinessType())
-        dispatch(fetchCorporateType())
-        dispatch(fetchVehicleType());
-        dispatch(fetchVehicleBrand());
-        dispatch(fetchVehicleBrandModel());
+        // dispatch(fetchProduct());
+        // dispatch(fetchPartnerType())
+        // dispatch(fetchVendorBusinessType())
+        // dispatch(fetchBusinessType())
+        // dispatch(fetchCorporateType())
+        // dispatch(fetchVehicleType());
+        // dispatch(fetchVehicleBrand());
+        // dispatch(fetchVehicleBrandModel());
         // dispatch(fetchVehicleFleet());
-        dispatch(fetchDLTVehicleType());
-        dispatch(fetchDLTBodyType());
-        dispatch(fetchDealer());
-        dispatch(fetchPartner());
+        // dispatch(fetchDLTVehicleType());
+        // dispatch(fetchDLTBodyType());
+        // dispatch(fetchDealer());
+        // dispatch(fetchPartner());
         // dispatch(fetchLocation());
         // dispatch(updateMasterDataFieldValue({field: 'vehicleType', value: [
         //     {

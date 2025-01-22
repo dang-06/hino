@@ -5,4 +5,6 @@ export { default as RoutingSample } from "./RoutingSample";
 export { default as Profile } from "./Profile";
 export { default as InstallationManagement } from "./InstallationManagement";
 export { default as SaleOrderManagement } from "./SaleOrderManagement";
+export { default as TechnicianKPIManagement } from "./TechnicianKPIManagement";
+export { default as JobManagement } from "./JobManagement";
 

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Grid, Pagination } from "@mui/material";
 import { FiUserPlus, FiTrash2 } from "react-icons/fi";
 import { BsFilter } from "react-icons/bs";
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaCheckCircle, FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit, AiOutlineExpandAlt } from "react-icons/ai";
 import { MdEngineering, MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
 import { CiCircleChevRight } from "react-icons/ci";
@@ -23,6 +23,7 @@ import { fetchShipmentDetail, importJob } from "../api";
 import ImportExcelLayout from "../components/ImportExcelLayout";
 import { CgImport } from "react-icons/cg";
 import AssignJob from '../components/Installation/AssignJob';
+import ReviewInstallation from '../components/Installation/ReviewInstallation';
 
 
 
@@ -30,9 +31,9 @@ const InstallationManagement = () => {
     const { t } = useTranslation();
     const [criterias, setCriterias] = useState({
         page: 1,
-        size: 10,
+        size: 8,
         search: '',
-        status:'',
+        status: '',
         from_date: '',
         to_date: ''
     });
@@ -46,6 +47,7 @@ const InstallationManagement = () => {
     });
 
     const [open, setOpen] = useState(false);
+    const [openReview, setOpenReview] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
     const [filter, setFilter] = useState({});
     const [openEdit, setOpenEdit] = useState(false);
@@ -64,7 +66,7 @@ const InstallationManagement = () => {
 
     const [currentStatus, setCurrentStatus] = useState('All');
 
-    const JOB_STATUSES = ['All', t("new"), t("assigned"), t("finishedInstallation"), t("completed"), t("needUpdate"), t("updated")];
+    const JOB_STATUSES = ['All', 'New', 'Assigned', 'Finished Installation', 'Completed', 'Need Update', 'Updated'];
 
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
@@ -100,9 +102,24 @@ const InstallationManagement = () => {
         setOpen(true);
     };
 
+    const onShowModalReview = (id) => {
+        setOpenReview(true);
+    };
+
+    const deleteJob = (row) => {
+        setOpen(true);
+        setSelectedRow(row)
+    }
+
 
     const onDoneDelete = (e) => {
         setOpen(false)
+        setShowDetail(false)
+        refetch()
+    }
+
+    const onDoneReview = (e) => {
+        setOpenReview(false)
         setShowDetail(false)
         refetch()
     }
@@ -168,7 +185,7 @@ const InstallationManagement = () => {
                                     {t("add")}
                                 </Button>
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
-                                <button onClick={()=>{setOpenFilter(true)}} className="text-gray-600 flex-1"><BsFilter size={22} /></button>
+                                <button onClick={() => { setOpenFilter(true) }} className="text-gray-600 flex-1"><BsFilter size={22} /></button>
 
                             </div>
                         </div>
@@ -184,18 +201,20 @@ const InstallationManagement = () => {
                                     <h3 className="text-lg font-semibold">
                                         {currentStatus === 'All' ? t("jobStatus") : currentStatus}
                                     </h3>
-                                    <div className="flex gap-2">
-                                        {JOB_STATUSES.map((status) => (
-                                            <Button
-                                                key={status}
-                                                variant={currentStatus === status ? "contained" : "outlined"}
-                                                size="small"
-                                                onClick={() => handleStatusChange(status)}
-                                            >
-                                                {status}
-                                            </Button>
-                                        ))}
-                                    </div>
+                                    {!showDetail &&
+                                        <div className="flex gap-2">
+                                            {JOB_STATUSES.map((status) => (
+                                                <Button
+                                                    key={status}
+                                                    variant={currentStatus === status ? "contained" : "outlined"}
+                                                    size="small"
+                                                    onClick={() => handleStatusChange(status)}
+                                                >
+                                                    {status}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    }
                                 </div>
                                 <Grid container spacing={2} columns={{ xs: 2, sm: 6, md: 12 }}>
                                     {console.log('Jobs data:', data)}
@@ -236,7 +255,7 @@ const InstallationManagement = () => {
                                                             <button className="text-gray-700 flex-1 mr-5">
                                                                 <CiCircleChevRight size={20} />
                                                             </button>
-                                                            <button className="text-gray-600 flex-1">
+                                                            <button onClick={() => deleteJob(job)} className="text-gray-600 flex-1">
                                                                 <FiTrash2 size={20} />
                                                             </button>
                                                         </div>
@@ -290,18 +309,30 @@ const InstallationManagement = () => {
                                     </>
                                 ) : (
                                     <>
+                                        {(selectedRow?.job_status === 'Finished Installation' || selectedRow?.job_status === 'Updated') && (
+                                            <Tooltip title={'Review Installation'} placement="bottom-start" arrow>
+                                                <Button
+                                                    className="px-6 mr-2"
+                                                    onClick={() => onShowModalReview(selectedRow.id)}
+                                                    startIcon={<FaCheckCircle className="h-5 w-5" />}
+                                                    variant="outlined"
+                                                >
+                                                    {t("reviewInstallation")}
+                                                </Button>
+                                            </Tooltip>
+                                        )}
                                         <Tooltip title={'Delete'} placement="bottom-start" arrow>
                                             <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
                                                 <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
                                             </button>
                                         </Tooltip>
 
-                                        <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
                                                 <span>{t("edit")}</span>
                                             </button>
-                                        </Tooltip>
+                                        </Tooltip> */}
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                         &nbsp;
                                         {/* <IoFilterOutline className="h-5 w-5 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" /> */}
@@ -351,7 +382,8 @@ const InstallationManagement = () => {
                     submitError={() => setTriggleSubmit(false)}
                 />
             </FormDisplay>
-            <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
+            <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
+            <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
             <AssignJob open={openAssignJob} setOpen={setOpenAssignJob} />
         </>
     );
