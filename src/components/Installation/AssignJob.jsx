@@ -69,7 +69,6 @@ const AssignJob = ({ open, setOpen }) => {
   }
 
   const fetchJob = async (name) => {
-    if (name) {
       try {
         setIsLoadingJob(true)
         const response = await api.fetchJob(`status=New&search=${name}`);
@@ -86,7 +85,6 @@ const AssignJob = ({ open, setOpen }) => {
         setIsLoadingJob(false)
         // toast.error(error.response.data?.title);
       }
-    }
   }
 
   const {

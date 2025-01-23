@@ -865,5 +865,14 @@
   "inspectionForm": "Inspection Form",
   "add": "Add",
   "technicianId": "Technician",
-  "searchJob": "Search (by VIN or location)"
+  "searchJob": "Search (by VIN or location)",
+  "accessoriesImage": "Accessories Image",
+  "additionalEquipmentImage": "Additional Equipment Image",
+  "additionalEquipmentImage1": "Additional Equipment Image 1",
+  "additionalEquipmentImage2": "Additional Equipment Image 2",
+  "vinNo": "Vin No",
+  "reviewInstallation": "Review Installation",
+  "ReviewTitle": "Review Installation with ID:",
+  "ReviewSubtitle": "Please review carefully and confirm the evaluation result.",
+  "complete": "Complete"
 }

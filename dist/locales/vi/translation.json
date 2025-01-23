@@ -170,19 +170,15 @@
   "add": "Thêm",
   "update": "Cập nhật",
   "edit": "Sửa",
-
   "truck": "Xe tải",
   "road": "Tuyến đường",
   "ladingCode": "Mã vận đơn",
   "orderCode": "Mã đơn hàng",
   "order": "Đơn hàng",
   "dateCreated": "Ngày tạo",
-
   "created": "Khởi tạo",
-
   "typeA": "Loại A",
   "typeB": "Loại B",
-
   "plateLicence": "Số đăng ký xe",
   "insuranceExpirationDate": "Ngày hết hạn bảo hiểm",
   "registrationExpirationDate": "Ngày hết hạn đăng ký",
@@ -190,17 +186,14 @@
   "detail": "Chi tiết",
   "addressDetail": "Địa chỉ chi tiết",
   "licensePlate": "Biển số xe",
-
   "chooseLanguages": "Chọn ngôn ngữ",
   "rememberPassword": "Ghi nhớ mật khẩu",
-
   "solutionInformation": "Thông tin giải pháp",
   "userManual": "Hướng dẫn sử dụng",
   "connectFacebook": "Kết nối Facebook",
   "aboutUs": "Về chúng tôi",
   "intelligent": "Công ty cổ phần giao thông thông minh",
   "footer_1": "Tầng 2, toà A2 Ecolife Capiral, 58 Tố Hữu, P. Trung Văn, Q. Nam Từ Liêm, TP. Hà Nội",
-
   "addCustomer": "Thêm khách hàng",
   "customerID": "ID",
   "customerCode": "Mã KH",
@@ -209,18 +202,14 @@
   "taxCode": "Mã số thuế",
   "individual": "Cá nhân",
   "corporate": "Doanh nghiệp",
-
   "addContract": "Thêm hợp đồng",
   "contractCode": "Mã HĐ",
   "contractType": "Loại HĐ",
-
   "deleteCustomerTitle": "Xoá khách hàng",
   "deleteCustomerNoti": "Bạn có chắc chắn muốn xoá khách hàng",
-
   "address": "Địa chỉ",
   "contract": "Hợp đồng",
   "changeAvatar": "Thay ảnh",
-
   "contractName": "Tên HĐ",
   "amount": "Giá trị HĐ",
   "bankAccount": "Tài khoản NH",
@@ -236,7 +225,6 @@
   "contractInfo": "Thông tin hợp đồng",
   "document": "Tài liệu",
   "sign": "Chữ ký",
-
   "draft": "Bản nháp",
   "submitting": "Trình ký",
   "signed": "Đã ký",
@@ -259,7 +247,6 @@
   "tab_canceled": "Huỷ bỏ",
   "returnGoods": "Trả hàng",
   "duplicate": "Nhân bản",
-
   "plateLicense": "Biển số xe",
   "none": "Không có",
   "attachFile": "Tệp đính kèm",
@@ -267,7 +254,6 @@
   "HNBranch": "Chi nhánh Hà Nội",
   "HCMBranch": "Chi nhánh Hồ Chí Minh",
   "allBranch": "Tất cả chi nhánh",
-
   "notApproved": "Tài khoản chưa được phê duyệt",
   "approved": "Tài khoản đã được phê duyệt",
   "customerName": "Tên khách hàng",
@@ -351,7 +337,6 @@
   "pickup_success": "Nhận hàng thành công",
   "delivery_failed": "Giao hàng thất bại",
   "delivery_success": "Giao hàng thành công",
-
   "message": {
     "validation": {
       "required": "{{field}} không được để trống",
@@ -362,9 +347,7 @@
       "delete": "Đã xoá {{field}} thành công!"
     }
   },
-
   "publishJobList": "Thêm danh sách chuyến hàng",
-
   "importExcel": "Nhập từ tệp Excel",
   "exportExcel": "Xuất tệp Excel",
   "downloadTemplate": "Tải tệp excel mẫu",
@@ -372,7 +355,6 @@
   "addTitle": "Thêm {{field}}",
   "updateTitle": "Cập nhật {{field}}",
   "addSubtitle": "Hãy bắt đầu bằng cách điền các thông tin bên dưới để tạo {{field}} mới.",
-
   "truckId": "Mã xe",
   "importTruckExcelTitle": "Nhập xe từ tệp Excel",
   "route-planning": "Kế hoạch tuyến đường",
@@ -410,7 +392,6 @@
   "shipmentImprove": "Shipment improve",
   "recommened": "Recommened",
   "reAssign": "Re-assign",
-
   "truckType": {
     "label": {
       "minivanTruck": "Xe tải nhẹ",
@@ -617,5 +598,16 @@
   "registerUserTitle": "Đăng ký người dùng",
   "inspectionForm": "Đăng ký lắp đặt",
   "add": "Thêm",
-  "technicianId": "Kỹ thuật viên"
+  "technicianId": "Kỹ thuật viên",
+  "accessoriesImage": "Hình ảnh phụ kiện",
+  "additionalEquipmentImage": "Hình ảnh thiết bị bổ sung",
+  "additionalEquipmentImage1": "Hình ảnh thiết bị bổ sung 1",
+  "additionalEquipmentImage2": "Hình ảnh thiết bị bổ sung 2",
+  "vinNo": "Số VIN",
+  "installationLocation": "Vị trí lắp đặt",
+  "installationDate": "Ngày lắp đặt",
+  "reviewInstallation": "Đánh giá lắp đặt",
+  "ReviewTitle": "Đánh giá lắp đặt với ID:",
+  "ReviewSubtitle": "Vui lòng kiểm tra kỹ và xác nhận kết quả đánh giá",
+  "complete": "Hoàn thành"
 }
