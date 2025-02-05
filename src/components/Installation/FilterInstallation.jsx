@@ -139,6 +139,7 @@ const FilterInstallation = ({ filter, setFilter, triggleFiter, setTriggleFiter }
                                 control={control}
                                 errors={errors.from_date}
                             />
+
                             <CustomDateField
                                 name="to_date"
                                 label={t("toDate")}

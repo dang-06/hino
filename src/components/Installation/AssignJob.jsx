@@ -69,22 +69,22 @@ const AssignJob = ({ open, setOpen }) => {
   }
 
   const fetchJob = async (name) => {
-      try {
-        setIsLoadingJob(true)
-        const response = await api.fetchJob(`status=New&search=${name}`);
-        if (response.status === 200) {
-          const value = (response?.data?.data.jobs || []).map(x => {
-            return Object.assign({ id: x.job_id, text: `${x.vin_no} || ${x.installation_location} || ${x.job_status}` })
-          })
-          setListjob(value)
-          console.log(setListjob(value))
-          setIsLoadingJob(false)
-        }
+    try { 
+      setIsLoadingJob(true)
+      const response = await api.fetchJob(`status=New&search=${name}`);
+      if (response.status === 200) {
+        const value = (response?.data?.data.jobs || []).map(x => {
+          return Object.assign({ id: x.job_id, text: `${x.vin_no} || ${x.installation_location} || ${x.job_status}` })
+        })
+        setListjob(value)
+        console.log(setListjob(value))
         setIsLoadingJob(false)
-      } catch (error) {
-        setIsLoadingJob(false)
-        // toast.error(error.response.data?.title);
       }
+      setIsLoadingJob(false)
+    } catch (error) {
+      setIsLoadingJob(false)
+      // toast.error(error.response.data?.title);
+    }
   }
 
   const {
@@ -171,20 +171,20 @@ const AssignJob = ({ open, setOpen }) => {
                       options={listTechnician}
                     />
                     <CustomAsyncApiSelect2
-                     className="w-full"
-                     name="job_ids"
-                     fetchApi={fetchJob}
-                     label="jobs"
-                     defaultValue={[]}
-                     data={listJob}
-                     multiple={true}
-                     errors={errors.job_ids}
-                     isFetching={isLoadingJob}
-                     isLoading={isLoadingJob}
-                     control={control}
-                     onChange={(e) => {
-                       setValue(`job_ids`, e, { shouldValidate: true })
-                     }}
+                      className="w-full"
+                      name="job_ids"
+                      fetchApi={fetchJob}
+                      label="jobs"
+                      defaultValue={[]}
+                      data={listJob}
+                      multiple={true}
+                      errors={errors.job_ids}
+                      isFetching={isLoadingJob}
+                      isLoading={isLoadingJob}
+                      control={control}
+                      onChange={(e) => {
+                        setValue(`job_ids`, e, { shouldValidate: true })
+                      }}
                     />
                   </div>
                 </div>

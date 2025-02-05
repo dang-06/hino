@@ -1,128 +1,120 @@
 import { Button, LinearProgress, MenuItem, Select, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from "react-i18next";
 import { MdEngineering, MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
 import { CgImport } from "react-icons/cg";
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import { DataGrid } from "@mui/x-data-grid";
+import { useGetOverviewQuery, useGetTechnicianKPIQuery } from '../services/apiSlice';
+import CustomDateRangePicker from '../components/FormField/CustomDateRangePicker';
+import moment from 'moment';
 
-
-
-const datafake = {
-    content: [
-        {
-            id: 1,
-            teachicianName: "Nguyễn Văn A",
-            Assigned: 20,
-            FinishedInstallation: 15,
-            Completed: 10,
-            NeedUpdate: 5,
-            Updated: 3,
-        },
-        {
-            id: 2,
-            teachicianName: "Trần Thị B",
-            Assigned: 25,
-            FinishedInstallation: 20,
-            Completed: 18,
-            NeedUpdate: 7,
-            Updated: 6,
-        },
-        {
-            id: 3,
-            teachicianName: "Lê Văn C",
-            Assigned: 30,
-            FinishedInstallation: 25,
-            Completed: 22,
-            NeedUpdate: 8,
-            Updated: 7,
-        },
-        {
-            id: 4,
-            teachicianName: "Phạm Thị D",
-            Assigned: 18,
-            FinishedInstallation: 14,
-            Completed: 12,
-            NeedUpdate: 4,
-            Updated: 3,
-        },
-        {
-            id: 5,
-            teachicianName: "Hoàng Văn E",
-            Assigned: 22,
-            FinishedInstallation: 18,
-            Completed: 15,
-            NeedUpdate: 6,
-            Updated: 5,
-        },
-    ],
-    totalElements: 5,
-    size: 25,
-};
 
 const TechnicianKPIManagement = () => {
     const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
-    const [timeUnit, setTimeUnit] = useState("Tất cả");
+    const [timeUnit, setTimeUnit] = useState("monthly");
     const [value, setValue] = useState("");
+    const formatDate = (date) => {
+        return date ? moment(date).format("ddd MMM DD YYYY HH:mm:ss [GMT]Z (GMT+07:00)") : "";
+      };
+    const [fromDate, setFromDate] = useState(formatDate(moment().startOf("month").toDate()));
+    const [toDate, setToDate] = useState(formatDate(moment().toDate()));
+
+    console.log(fromDate, toDate)
 
     const handleTimeUnitChange = (event) => {
-        setTimeUnit(event.target.value);
-        setValue("");
+        const newTimeUnit = event.target.value;
+        setTimeUnit(newTimeUnit);
+        setCriterias((prev) => ({
+            ...prev,
+            type: newTimeUnit,
+        }));
     };
+
+
+    const [criterias, setCriterias] = useState({
+        type: 'monthly',
+    });
+
+    const [criteriasKPI, setCriteriasKPI] = useState({
+        page: 1,
+        size: 10,
+        search: '',
+        from_date: '',
+        to_date: ''
+    });
+    const { data, isLoadingChart, isFetching, isSuccess, error, refetch } = useGetOverviewQuery(criterias);
+    const { data: dataKPI, isLoadingChartKPI, isFetchingKPI, isSuccessKPI, errorKPI, refetchKPI } = useGetTechnicianKPIQuery(criteriasKPI);
+
+    useEffect(() => {
+        if (fromDate) {
+            setCriteriasKPI((prevState) => ({
+                ...prevState,
+                from_date: moment(fromDate).format("YYYY-MM-DD"),
+            }));
+        }
+        if (toDate) {
+            setCriteriasKPI((prevState) => ({
+                ...prevState,
+                to_date: moment(toDate).format("YYYY-MM-DD"),
+            }));
+        }
+    }, [toDate]);
+
+    useEffect(() => {
+        console.log(dataKPI)
+
+    }, [dataKPI]);
+
 
     const handleValueChange = (event) => {
-        setValue(event.target.value);
+        const { name, value } = event.target;
+
+        setCriteriasKPI((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
-
-    const data = [
-        { id: 0, value: 10, label: 'New' },
-        { id: 1, value: 15, label: 'Assigned' },
-        { id: 2, value: 20, label: 'Finished Installation' },
-        { id: 3, value: 25, label: 'Completed' },
-        { id: 4, value: 18, label: 'Need Update' },
-        { id: 5, value: 12, label: 'Updated' },
-    ];
-
 
     const columns = [
         {
-            field: "id",
+            field: "technician_id",
             headerName: t("id"),
             renderCell: ({ row }) => (
                 <div>
-                    {row.id}
+                    {row.technician_id}
                 </div>
             ),
             minWidth: 150,
         },
         {
-            field: "teachicianName",
+            field: "full_name",
             headerName: "teachicianName",
             minWidth: 300,
         },
         {
-            field: "Assigned",
+            field: "total_assigned",
             headerName: "Assigned",
             minWidth: 150,
         },
         {
-            field: "FinishedInstallation",
+            field: "total_finished_instalaltion",
             headerName: "Finished Installation",
             minWidth: 180,
         },
         {
-            field: "Completed",
+            field: "total_completed",
             headerName: "Completed",
             minWidth: 150,
         },
         {
-            field: "NeedUpdate",
+            field: "total_need_update",
             headerName: "Need Update",
             minWidth: 180,
         },
         {
-            field: "Updated",
+            field: "total_updated",
             headerName: "Updated",
             minWidth: 150,
         },
@@ -158,14 +150,13 @@ const TechnicianKPIManagement = () => {
                                                 <Select
                                                     value={timeUnit}
                                                     onChange={handleTimeUnitChange}
-                                                    displayEmpty
                                                     variant="outlined"
                                                     sx={{ minWidth: 150 }}
                                                 >
-                                                    <MenuItem value="All">All</MenuItem>
-                                                    <MenuItem value="Day">Day</MenuItem>
-                                                    <MenuItem value="Month">Month</MenuItem>
-                                                    <MenuItem value="Year">Year</MenuItem>
+                                                    <MenuItem value="all">All</MenuItem>
+                                                    <MenuItem value="daily">Day</MenuItem>
+                                                    <MenuItem value="weekly">Week</MenuItem>
+                                                    <MenuItem value="monthly">Month</MenuItem>
                                                 </Select>
 
                                                 {/* TextField Input */}
@@ -186,7 +177,14 @@ const TechnicianKPIManagement = () => {
                                                         arcLabel: (item) => `${item.value}`,
                                                         arcLabelMinAngle: 15,
                                                         arcLabelRadius: '70%',
-                                                        data,
+                                                        data: [
+                                                            { id: 0, value: data?.data?.total_new, label: 'New' },
+                                                            { id: 1, value: data?.data?.total_assigned, label: 'Assigned' },
+                                                            { id: 2, value: data?.data?.total_finished_instalaltion, label: 'Finished Installation' },
+                                                            { id: 3, value: data?.data?.total_completed, label: 'Completed' },
+                                                            { id: 4, value: data?.data?.total_need_update, label: 'Need Update' },
+                                                            { id: 5, value: data?.data?.total_updated, label: 'Updated' },
+                                                        ],
                                                     },
                                                 ]}
                                                 sx={{
@@ -200,9 +198,24 @@ const TechnicianKPIManagement = () => {
                                         </div>
                                     </div>
                                     <div className="card focus:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden cursor-pointer p-4">
-                                        <h3 className="text-lg font-semibold">
-                                            {t("Techinician KPI")}
-                                        </h3>
+
+                                        <div className="flex justify-between mb-2">
+                                            <h3 className="text-lg font-semibold">
+                                                {t("Techinician KPI")}
+                                            </h3>
+                                            <div className="flex flex-end gap-4">
+                                                <TextField
+                                                    value={criteriasKPI.search}
+                                                    onChange={handleValueChange}
+                                                    label="Name"
+                                                    variant="outlined"
+                                                    type="text"
+                                                    name="search"
+                                                    sx={{ minWidth: 150 }}
+                                                />
+                                                <CustomDateRangePicker fromDate={fromDate} setFromDate={setFromDate} todate={toDate} setToDate={setToDate} label='Date Range' />
+                                            </div>
+                                        </div>
                                         <div className="h-[500px] lg:mx-auto lg:max-w-full ">
                                             <div className="flex h-full  min-h-[500px] bg-white ">
                                                 <div className="flex flex-1 flex-col">
@@ -228,16 +241,16 @@ const TechnicianKPIManagement = () => {
                                                                 outline: "none !important",
                                                             },
                                                         }}
-                                                        getRowId={(row) => row.id}
-                                                        rows={datafake?.content || []}
+                                                        getRowId={(row) => row.technician_id}
+                                                        rows={dataKPI?.data?.technicians || []}
                                                         headerHeight={38}
                                                         rowHeight={38}
                                                         onRowClick={(params) => showDetailRow(params)}
                                                         columns={columns}
                                                         rowsPerPageOptions={[25, 50, 100]}
                                                         paginationMode="server"
-                                                        rowCount={datafake?.totalElements || 0}
-                                                        pageSize={datafake?.size || 25}
+                                                        rowCount={dataKPI?.data?.total_records || 0}
+                                                        pageSize={criteriasKPI?.size || 25}
                                                         onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                                         onPageSizeChange={(rowsPerPage) => { setCriterias({ ...criterias, rowsPerPage }) }}
                                                     />

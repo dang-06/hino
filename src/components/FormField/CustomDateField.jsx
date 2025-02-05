@@ -12,10 +12,12 @@ const CustomDateField = ({ name, label, format = "DD/MM/YYYY", control, errors, 
     <Controller
       name={name}
       control={control}
+     
       render={({ field: { value, onChange } }) => (
         <DatePicker
-          value={value}
-          minDate={minDate ? minDate :false}
+          value={value ? value : null}
+          sx={{ width: '100%' }}
+          minDate={minDate ? minDate : null}
           onChange={(value) => {
             onChange(dayjs(value).format());
           }}

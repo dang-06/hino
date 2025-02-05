@@ -312,6 +312,30 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Job']
         }),
+        getOverview: builder.query({
+            query: (params) => ({
+                url: 'report/overview',
+                method: 'GET',
+                params: {
+                    type: params?.type || 'all',
+                }
+            }),
+            providesTags: ['Overview']
+        }),
+        getTechnicianKPI: builder.query({
+            query: (params) => ({
+                url: 'report/technician-kpi/all',
+                method: 'GET',
+                params: {
+                    page: params?.page || 1,
+                    size: params?.size || 10,
+                    search: params?.search || '',
+                    from_date: params?.from_date || '',
+                    to_date: params?.to_date || ''
+                }
+            }),
+            providesTags: ['Overview']
+        }),
     }),
 });
 
@@ -346,4 +370,7 @@ export const {
     useGetJobQuery,
     useGetJobDetailQuery,
     useSearchJobsQuery,
+    //KPI
+    useGetOverviewQuery,
+    useGetTechnicianKPIQuery
 } = apiSlice;
