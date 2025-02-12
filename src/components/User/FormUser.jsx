@@ -10,10 +10,10 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { FiUserPlus } from "react-icons/fi";
 import * as yup from "yup";
-import {
-    useAddUserMutation,
-    useUpdateUserMutation
-} from "../../services/apiSlice";
+// import {
+//     useAddUserMutation,
+//     useUpdateUserMutation
+// } from "../../services/apiSlice";
 import CustomNumberField from "../FormField/CustomNumberField";
 import CustomTextField from "../FormField/CustomTextField";
 import CustomSelect from "../FormField/CustomSelect";
@@ -42,8 +42,8 @@ const defaultValues = {
 
 const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, refetch, setOpenForm, listRole }) => {
     const { t } = useTranslation();
-    const [updateForm, { isLoading: isLoading1 }] = useUpdateUserMutation();
-    const [addForm, { isLoading: isLoading2 }] = useAddUserMutation();
+    // const [updateForm, { isLoading: isLoading1 }] = useUpdateUserMutation();
+    // const [addForm, { isLoading: isLoading2 }] = useAddUserMutation();
     const [isLoadingSender, setLoadingSender] = useState(false)
     const [listSender, setListSender] = useState([])
 
@@ -58,7 +58,7 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
             //         reset(i.data)
             //     })
             console.log(selectedItem)
-            if(selectedItem.sender){
+            if (selectedItem.sender) {
                 let sender = selectedItem.sender
                 setListSender([{ id: sender.idSender, text: sender.senderName }])
             }
@@ -227,7 +227,7 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                             <div className="relative flex">
                                 <div className="px-4 sm:px-6 w-full h-full">
                                     <div className="space-y-6 pt-6 pb-5">
-                                        
+
 
                                         <CustomTextField
                                             name="userName"
@@ -249,6 +249,20 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                             label="Role"
                                             control={control}
                                             setValue={setValue}
+                                            options={[
+                                                { id: 1, value: "Admin" },
+                                                { id: 2, value: "User" },
+                                                ...(listRole?.content || []).map((x) => {
+                                                    return { id: x.id, value: x.roleName };
+                                                })
+                                            ]}
+                                            errors={errors.roleId}
+                                        />
+                                        {/* <CustomSelect
+                                            name="roleId"
+                                            label="Role"
+                                            control={control}
+                                            setValue={setValue}
                                             // errors={errors.truckType}
                                             options={(listRole?.content || []).map((x) => {
                                                 return { id: x.id, value: x.roleName };
@@ -256,8 +270,8 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                             errors={errors.roleId}
                                         // options={truckTypeList?.content || []}
                                         // required
-                                        />
-                                        <CustomSelect
+                                        /> */}
+                                        {/* <CustomSelect
                                             name="branchIdString"
                                             label="Site ID"
                                             control={control}
@@ -269,13 +283,13 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                             errors={errors.branchId}
                                         // options={truckTypeList?.content || []}
                                         // required
-                                        />
-                                        <CustomAsyncApiSelect
+                                        /> */}
+                                        {/* <CustomAsyncApiSelect
                                             className="w-full"
                                             name="senderIdString"
                                             fetchApi={fetchSender}
                                             label="idSender"
-                                            defaultValue={(selectedItem && selectedItem.sender) ? {id: selectedItem.sender.idSender, text: selectedItem.sender.senderName } : null}
+                                            defaultValue={(selectedItem && selectedItem.sender) ? { id: selectedItem.sender.idSender, text: selectedItem.sender.senderName } : null}
                                             data={listSender}
                                             multiple={false}
                                             errors={errors.senderIdString}
@@ -285,13 +299,13 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                             onChange={(e) => {
                                                 setValue(`senderIdString`, e, { shouldValidate: true })
                                             }}
-                                        />
+                                        /> */}
                                         <CustomTextField
                                             name="phone"
                                             label="phone"
                                             control={control}
                                             errors={errors.phone}
-                                            disabled={selectedItem?.id && selectedItem.phone ? true : false}
+                                        // disabled={selectedItem?.id && selectedItem.phone ? true : false}
                                         />
                                         <CustomTextField
                                             name="email"
@@ -307,7 +321,7 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                             control={control}
                                             errors={errors.avatar}
                                         /> */}
-                                        <CustomSelect
+                                        {/* <CustomSelect
                                             name="isActive"
                                             label="Status"
                                             setValue={setValue}
@@ -317,8 +331,8 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                                 { id: true, value: t("Active") },
                                                 { id: false, value: t("Inactive") },
                                             ]}
-                                        />
-                                        {
+                                        /> */}
+                                        {/* {
                                             selectedItem?.id &&
                                             <CustomSelect
                                                 name="isLocked"
@@ -331,7 +345,7 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                                                     { id: false, value: t("Normal") },
                                                 ]}
                                             />
-                                        }
+                                        } */}
                                         {/* <CustomTextField
                                             name="branchIdString"
                                             label="branchId"

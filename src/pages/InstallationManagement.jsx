@@ -224,7 +224,7 @@ const InstallationManagement = () => {
                                             sm={showDetail ? 12 : 3}
                                             md={showDetail ? 12 : 3}
                                             key={job.job_id}>
-                                            <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[400px] cursor-pointer"
+                                            <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[500px] cursor-pointer"
                                                 onClick={() => showDetailRow(job)}
                                                 role="button"
                                                 tabIndex={0}>
@@ -237,7 +237,7 @@ const InstallationManagement = () => {
                                                 <img
                                                     src={job.segment_img}
                                                     alt={`Job ${job.job_id}`}
-                                                    className="w-full h-2/5 object-cover"
+                                                    className="w-full h-3/5 object-contain"
                                                 />
                                                 <div className='p-4 h-1/6'>
                                                     <p className="text-lg mt-2 font-bold">{t("jobId")}: {job.job_id}</p>

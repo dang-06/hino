@@ -874,5 +874,9 @@
   "reviewInstallation": "Review Installation",
   "ReviewTitle": "Review Installation with ID:",
   "ReviewSubtitle": "Please review carefully and confirm the evaluation result.",
-  "complete": "Complete"
+  "complete": "Complete",
+  "jobsCompleted": "Jobs completed",
+  "jobsFinished": "Jobs finished",
+  "newJobs": "New Jobs",
+  "changePassword": "Change Password"
 }

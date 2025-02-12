@@ -609,5 +609,9 @@
   "reviewInstallation": "Đánh giá lắp đặt",
   "ReviewTitle": "Đánh giá lắp đặt với ID:",
   "ReviewSubtitle": "Vui lòng kiểm tra kỹ và xác nhận kết quả đánh giá",
-  "complete": "Hoàn thành"
+  "complete": "Hoàn thành",
+  "jobsCompleted": "Công việc đã hoàn thành",
+  "jobsFinished": "Công việc đã kết thúc",
+  "newJobs": "Công việc mới",
+  "changePassword": "Đổi mật khẩu"
 }

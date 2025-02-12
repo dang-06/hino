@@ -14,17 +14,21 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Tooltip } from "@mui/material";
-import { FaWrench,FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase } from "react-icons/fa";
+import { FaWrench, FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { LiaFileInvoiceSolid, LiaClipboardListSolid  } from "react-icons/lia";
+import { LiaFileInvoiceSolid, LiaClipboardListSolid } from "react-icons/lia";
 import { useDispatch } from "react-redux";
 import { updateCommonValue } from "../features/common/commonSlice";
 
 const navigation = [
     { name: "Installation", href: "installation", icon: FaWrench, current: false },
     { name: "Job", href: "job", icon: FaBriefcase, current: false },
-    { name: "Technician KPI", href: "tech-kpi", icon: FaChartLine, current: false },
+    { name: "New Jobs", href: "new-jobs", icon: FaBriefcase, current: false },
+    { name: "Jobs Finished", href: "jobs-finished", icon: FaBriefcase, current: false },
+    { name: "Jobs Completed", href: "jobs-completed", icon: FaBriefcase, current: false },
+    { name: "Users Management", href: "users-management", icon: FaRegUser, current: false },
+    { name: "Technician KPI", href: "tech-kpi", icon: FaChartLine, current: false }
 ];
 
 const toggleSideBar = (e) => {
@@ -93,7 +97,8 @@ const Sidebar = ({ sidebarOpen }) => {
                 <ul className="h-full overflow-x-hidden">
                     {navigation.map((item, index) => {
                         // console.log(location.pathname.includes(item.href), item.href, location.pathname)
-                        const current = location.pathname.includes(item.href);
+                        const current = location.pathname === `/${item.href}`;
+
                         return (
                             <li className="relative" key={index}>
                                 <Tooltip title={item.name} placement="right-start" arrow>

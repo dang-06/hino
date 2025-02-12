@@ -312,6 +312,42 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Job']
         }),
+        getNewJobs: builder.query({
+            query: (params) => ({
+                url: `job/search`,
+                method: "GET",
+                params: {
+                    page: params?.page,
+                    size: params?.size || 10,
+                    status: 'New,Need Update'
+                }
+            }),
+            providesTags: ["Job"],
+        }),
+        getFinishedJobs: builder.query({
+            query: (params) => ({
+                url: `job/search`,
+                method: "GET",
+                params: {
+                    page: params?.page,
+                    size: params?.size || 10,
+                    status: 'Finished Installation,Updated'
+                }
+            }),
+            providesTags: ["Job"],
+        }),
+        getCompletedJobs: builder.query({
+            query: (params) => ({
+                url: `job/search`,
+                method: "GET",
+                params: {
+                    page: params?.page,
+                    size: params?.size || 10,
+                    status: 'Completed'
+                }
+            }),
+            providesTags: ["Job"],
+        }),
         getOverview: builder.query({
             query: (params) => ({
                 url: 'report/overview',
@@ -336,6 +372,9 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Overview']
         }),
+
+        //user
+
     }),
 });
 
@@ -370,6 +409,9 @@ export const {
     useGetJobQuery,
     useGetJobDetailQuery,
     useSearchJobsQuery,
+    useGetNewJobsQuery,
+    useGetFinishedJobsQuery,
+    useGetCompletedJobsQuery,
     //KPI
     useGetOverviewQuery,
     useGetTechnicianKPIQuery
