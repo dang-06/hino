@@ -23,7 +23,7 @@ const style = {
     boxShadow: 10,
     borderRadius: 2,
     p: 3,
-  };
+};
 
 const ChangePassword = ({ user, open, setOpen, refetch }) => {
     const { t } = useTranslation();
@@ -54,7 +54,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
     });
 
     const handleClose = (e) => {
-        if(e && e.reason == 'backdropClick'){
+        if (e && e.reason == 'backdropClick') {
             console.log(1)
         }
         setOpen(false);
@@ -77,7 +77,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
 
         } catch (error) {
             console.log(error)
-            if(error?.originalStatus == 200){
+            if (error?.originalStatus == 200) {
                 toast.success(
                     t("message.success.update", {
                         field: t("User Password"),
@@ -86,7 +86,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                 refetch();
                 reset()
                 handleClose();
-            }else{
+            } else {
 
                 toast.error(error?.data || error?.message || error?.data?.title);
             }
@@ -121,7 +121,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                         </Typography>
                         <div className="mt-4 space-y-5">
 
-                            
+
                             <InputValidation
                                 id="password"
                                 label={t("oldPassword")}
@@ -140,7 +140,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                                 placeholder={t("New Password")}
                                 autoComplete="new-password"
 
-                            />  
+                            />
 
                             <div className="text-right">
                                 <Button className="mr-4" variant="outlined" onClick={handleClose}>{t('Close')}</Button>

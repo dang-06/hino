@@ -19,7 +19,7 @@ import AssignJob from '../components/Installation/AssignJob';
 import ReviewInstallation from "../components/Installation/ReviewInstallation";
 import DetailUser from "../components/User/DetailUser";
 import FilterUser from "../components/User/FilterUser";
-// import DeleteUser from "../components/User/DeleteUser";
+import DeleteUser from "../components/User/DeleteUser";
 import FormUser from "../components/User/FormUser";
 
 
@@ -255,9 +255,7 @@ const UserManagement = () => {
                                             </Button>
                                         </Tooltip>
                                         <Tooltip title={'Delete'} placement="bottom-start" arrow>
-                                            <button
-                                                // onClick={() => onShowModalDelete(selectedRow.id)}
-                                                className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                            <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
                                                 <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
                                             </button>
                                         </Tooltip>
@@ -307,7 +305,7 @@ const UserManagement = () => {
             <FormDisplay open={openForm} setOpen={setOpenForm} >
                 <FormUser selectedItem={null} />
             </FormDisplay>
-            <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
+            <DeleteUser open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
         </>
     );
 };
