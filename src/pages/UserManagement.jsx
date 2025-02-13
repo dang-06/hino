@@ -39,7 +39,7 @@ const UserManagement = () => {
     const [triggleFiter, setTriggleFiter] = useState(false);
     const [selectedCheckbox, setSelectedCheckbox] = useState({});
     const [enableCheckbox, setEnableCheckbox] = useState(false);
-    const [openChangePassword, setOpenChangePassword] = useState(false); // Add state for ChangePassword modal
+    const [openChangePassword, setOpenChangePassword] = useState(false);
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
@@ -91,7 +91,7 @@ const UserManagement = () => {
     };
 
     const onShowModalChangePassword = (id) => {
-        setOpenChangePassword(true); // Show the ChangePassword modal
+        setOpenChangePassword(true);
     };
 
     const updateFilter = (value) => {
@@ -111,7 +111,6 @@ const UserManagement = () => {
     const onDoneEdit = () => {
         setOpenEdit(false);
         setShowDetail(false);
-        // Add any additional logic needed after editing
     };
 
     const columns = [
@@ -252,7 +251,7 @@ const UserManagement = () => {
                                             <Button
                                                 className="px-6 mr-2"
                                                 variant="outlined"
-                                                onClick={() => onShowModalChangePassword(selectedRow.id)} // Update onClick handler
+                                                onClick={() => onShowModalChangePassword(selectedRow.id)}
                                             >
                                                 {t("changePassword")}
                                             </Button>
@@ -310,7 +309,7 @@ const UserManagement = () => {
             </FormDisplay>
             <DeleteUser open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
             <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
-            <ChangePassword user={selectedRow} open={openChangePassword} setOpen={setOpenChangePassword} refetch={() => { setOpenChangePassword(false); setShowDetail(false); }} /> {/* Add ChangePassword component */}
+            <ChangePassword user={selectedRow} open={openChangePassword} setOpen={setOpenChangePassword} refetch={() => { setOpenChangePassword(false); setShowDetail(false); }} />
         </>
     );
 };
