@@ -11,7 +11,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useChangePasswordUserMutation } from "../../services/apiSlice";
+// import { useChangePasswordUserMutation } from "../../services/apiSlice";
 
 const style = {
     position: "absolute",
@@ -28,16 +28,12 @@ const style = {
 const ChangePassword = ({ user, open, setOpen, refetch }) => {
     const { t } = useTranslation();
 
-    const [changePass, { isLoading, isError, error }] = useChangePasswordUserMutation();
+    // const [changePass, { isLoading, isError, error }] = useChangePasswordUserMutation();
 
     const schema = yup.object().shape({
         newPassword: yup.string().required(t("newPasswordRequired")),
         oldPassword: yup.string().required(t("oldPasswordRequired")),
     });
-
-    // useEffect(_ => {
-    //     document.addEventListener('scroll', trackScrolling());
-    // }, [showPolicy]) 
 
     const {
         control,
@@ -59,8 +55,6 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
         }
         setOpen(false);
         reset();
-
-        // if (setOpenPopupJobDetail) setOpenPopupJobDetail(false);
     };
 
     const onSubmit = async (data) => {
@@ -87,7 +81,6 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                 reset()
                 handleClose();
             } else {
-
                 toast.error(error?.data || error?.message || error?.data?.title);
             }
         }
@@ -97,7 +90,6 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
         <>
             <Modal
                 open={open}
-                // onClose={}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
                 sx={{
@@ -120,8 +112,6 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                             {t("Change Password")}
                         </Typography>
                         <div className="mt-4 space-y-5">
-
-
                             <InputValidation
                                 id="password"
                                 label={t("oldPassword")}
@@ -129,9 +119,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                                 errors={errors.confirmNewPassword}
                                 placeholder={t("oldPassword")}
                                 autoComplete="new-password"
-
                             />
-
                             <InputValidation
                                 id="password"
                                 label={t("New Password")}
@@ -139,15 +127,13 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                                 errors={errors.newPassword}
                                 placeholder={t("New Password")}
                                 autoComplete="new-password"
-
                             />
-
                             <div className="text-right">
                                 <Button className="mr-4" variant="outlined" onClick={handleClose}>{t('Close')}</Button>
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"
-                                    loading={isLoading}
+                                // loading={isLoading}
                                 >
                                     {t("Update")}
                                 </LoadingButton>

@@ -21,6 +21,7 @@ import DetailUser from "../components/User/DetailUser";
 import FilterUser from "../components/User/FilterUser";
 import DeleteUser from "../components/User/DeleteUser";
 import FormUser from "../components/User/FormUser";
+import ChangePassword from "../components/User/ChangePassword"; // Import the ChangePassword component
 
 
 const UserManagement = () => {
@@ -38,6 +39,7 @@ const UserManagement = () => {
     const [triggleFiter, setTriggleFiter] = useState(false);
     const [selectedCheckbox, setSelectedCheckbox] = useState({});
     const [enableCheckbox, setEnableCheckbox] = useState(false);
+    const [openChangePassword, setOpenChangePassword] = useState(false); // Add state for ChangePassword modal
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
@@ -88,8 +90,8 @@ const UserManagement = () => {
         setOpen(true);
     };
 
-    const onShowModalReview = (id) => {
-        setOpenReview(true);
+    const onShowModalChangePassword = (id) => {
+        setOpenChangePassword(true); // Show the ChangePassword modal
     };
 
     const updateFilter = (value) => {
@@ -250,6 +252,7 @@ const UserManagement = () => {
                                             <Button
                                                 className="px-6 mr-2"
                                                 variant="outlined"
+                                                onClick={() => onShowModalChangePassword(selectedRow.id)} // Update onClick handler
                                             >
                                                 {t("changePassword")}
                                             </Button>
@@ -306,6 +309,8 @@ const UserManagement = () => {
                 <FormUser selectedItem={null} />
             </FormDisplay>
             <DeleteUser open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
+            <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
+            <ChangePassword user={selectedRow} open={openChangePassword} setOpen={setOpenChangePassword} refetch={() => { setOpenChangePassword(false); setShowDetail(false); }} /> {/* Add ChangePassword component */}
         </>
     );
 };
