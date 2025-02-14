@@ -122,7 +122,6 @@
   "seeAll": "See all",
   "showOnMap": "Show on map",
   "map_1": "Item on page",
-  "jobStatus": "Job status",
   "save": "Save",
   "cancel": "Cancel",
   "areYouSureDeleteRecord": "Are you sure delete this record?",
@@ -878,5 +877,18 @@
   "jobsCompleted": "Jobs completed",
   "jobsFinished": "Jobs finished",
   "newJobs": "New Jobs",
-  "changePassword": "Change Password"
+  "changePassword": "Change Password",
+  "specialEquipment": "Special Equipment",
+  "manufactureDate": "Manufacture Date",
+  "imeiNo": "Imei No",
+  "simNo": "Sim No",
+  "installationImage": "Installation Image",
+  "afterInstallationImg": "After Installation Image",
+  "deviceAndSimImg": "Device And Sim Image",
+  "deviceStatusImg": "Device Status Image",
+  "vehicleInforImg": "Vehicle Infor Image",
+  "usersManagement": "Users Management",
+  "technicianKPI": "Technician KPI",
+  "gender": "Gender",
+  "createdTime": "Created Time"
 }

@@ -43,7 +43,15 @@ const ModalRegister = ({ open, setOpen }) => {
 
     // Validation
     const schema = yup.object().shape({
-
+        user_name: yup.string().required("User name is required"),
+        full_name: yup.string().required("Full name is required"),
+        email: yup.string().email("Invalid email format").required("Email is required"),
+        phone_number: yup.string().matches(/^\d{10,15}$/, "Phone number must be 10-15 digits").required("Phone number is required"),
+        date_of_birth: yup.date().max(new Date(), "Date of birth cannot be in the future").required("Date of birth is required"),
+        password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+        role_id: yup.number().oneOf([1, 2, 3], "Invalid role").required("Role is required"),
+        gender: yup.string().oneOf(["male", "female", "other"], "Invalid gender").required("Gender is required"),
+        address: yup.string().required("Address is required"),
     });
 
     const {
@@ -125,81 +133,49 @@ const ModalRegister = ({ open, setOpen }) => {
                         className="flex h-full flex-col"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <div className="flex min-h-0 flex-1 flex-col">
+                        <div className="flex min-h-0 flex-1 flex-col pb-4">
                             <div className="relative flex">
-                                <div className="px-4 sm:px-6 w-full h-full flex flex-row gap-3 justify-between">
-                                    <div className="space-y-3 pt-6 pb-5 basis-1/2">
-                                        <CustomTextField
-                                            name="user_name"
-                                            label="user_name"
-                                            control={control}
-                                            errors={errors.user_name}
-                                        />
+                                <div className="px-4 sm:px-6 w-full h-full">
+                                    <div className="my-4 flex flex-col sm:flex-row gap-4">
+                                        {/* Cột trái */}
+                                        <div className="space-y-4 flex-1">
+                                            <CustomTextField name="user_name" label="User Name" control={control} errors={errors.user_name} required />
+                                            <CustomTextField name="full_name" label="Full Name" control={control} errors={errors.full_name} required />
+                                            <CustomTextField name="email" label="Email" control={control} errors={errors.email} required />
+                                            <CustomTextField name="phone_number" label="Phone Number" control={control} errors={errors.phone_number} required />
+                                        </div>
 
-                                        <CustomTextField
-                                            name="full_name"
-                                            label="full_name"
-                                            control={control}
-                                            errors={errors.full_name}
-                                        />
-
-                                        <CustomTextField
-                                            name="email"
-                                            label="email"
-                                            control={control}
-                                            errors={errors.email}
-                                        />
-
-                                        <CustomTextField
-                                            name="phone_number"
-                                            label="phone_number"
-                                            control={control}
-                                            errors={errors.phone_number}
-                                        />
-
-                                        <CustomDateField
-                                            name="date_of_birth"
-                                            label="date_of_birth"
-                                            control={control}
-                                            errors={errors.date_of_birth}
-                                        />
+                                        {/* Cột phải */}
+                                        <div className="space-y-4 flex-1">
+                                            <CustomPasswordField name="password" label="Password" control={control} errors={errors.password} required />
+                                            <CustomSelect
+                                                name="role_id"
+                                                label="Role"
+                                                control={control}
+                                                setValue={setValue}
+                                                options={[
+                                                    { id: 1, value: 'ADMIN' },
+                                                    { id: 2, value: 'TECHNICIAN' },
+                                                    { id: 3, value: 'QA' },
+                                                ]}
+                                                required
+                                            />
+                                            <CustomSelect
+                                                name="gender"
+                                                label="Gender"
+                                                control={control}
+                                                setValue={setValue}
+                                                options={[
+                                                    { id: 'male', value: 'Male' },
+                                                    { id: 'female', value: 'Female' },
+                                                    { id: 'other', value: 'Other' },
+                                                ]}
+                                                required
+                                            />
+                                            <CustomDateField name="date_of_birth" label="Date of Birth" control={control} errors={errors.date_of_birth} required />
+                                        </div>
                                     </div>
-                                    <div className="space-y-3 pt-6 pb-5 basis-1/2">
-                                        <CustomPasswordField
-                                            name="password"
-                                            label="password"
-                                            control={control}
-                                            errors={errors.password}
-                                        />
-                                        <CustomSelect
-                                            name="role_id"
-                                            label="role"
-                                            control={control}
-                                            setValue={setValue}
-                                            options={[
-                                                { id: 1, value: 'ADMIN' },
-                                                { id: 2, value: 'TECHNICIAN' },
-                                                { id: 3, value: 'QA' },
-                                            ]}
-                                        />
-                                        <CustomSelect
-                                            name="gender"
-                                            label="gender"
-                                            control={control}
-                                            setValue={setValue}
-                                            options={[
-                                                { id: 'male', value: 'male' },
-                                                { id: 'female', value: 'female' },
-                                                { id: 'other', value: 'other' },
-                                            ]}
-                                        />
-                                        <CustomTextField
-                                            name="address"
-                                            label="address"
-                                            control={control}
-                                            errors={errors.address}
-                                        />
-                                    </div>
+                                    <CustomTextField name="address" label="Address" control={control} errors={errors.address} required />
                                 </div>
                             </div>
                         </div>

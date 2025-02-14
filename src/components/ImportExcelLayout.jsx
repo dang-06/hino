@@ -146,7 +146,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                 </span>
                             </div>
                             <a
-                                href="/templates/OLV_HC2Installation_Plan_TemplateImport.xlsx"
+                                href="/templates/HC2_Plan_Template.xlsx"
                                 download
                                 className="self-end text-indigo-500 underline"
                             >

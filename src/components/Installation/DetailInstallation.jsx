@@ -22,7 +22,7 @@ import { AiFillEdit } from "react-icons/ai";
 import Tooltip from "@mui/material/Tooltip";
 import { fetchInstallationDetail } from "../../api";
 
-const   DetailInstallation = ({ detailRow }) => {
+const DetailInstallation = ({ detailRow }) => {
     const { t } = useTranslation();
     //   const [openEdit, setOpenEdit] = useState(false);
     const [detail, setDetail] = useState({});
@@ -67,148 +67,145 @@ const   DetailInstallation = ({ detailRow }) => {
                         <p className="text-[16px] leading-[1.2]">{detail.job_id}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("accessories")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.accessories}</p>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("vinNo")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.vin_no}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("accessoriesImage")}</label>
-                        {detail.accessories_img_path && (<img
-                            src={detail.accessories_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("engineNo")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.engine_no}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("additionalEquipmentImage")}</label>
-                        {detail.additional_img_path && (<img
-                            src={detail.additional_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("model")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.model}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("additionalEquipmentImage1")}</label>
-                        {detail.additional_equipment_img1_path && (<img
-                            src={detail.additional_equipment_img1_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("lotNo")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.lot_no}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("additionalEquipmentImage2")}</label>
-                        {detail.additional_equipment_img2_path && (<img
-                            src={detail.additional_equipment_img2_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("manufactureDate")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.manufacture_date}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("afterInstallationImage")}</label>
-                        {detail.after_installation_img_path && (<img
-                            src={detail.after_installation_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("segment")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.segment}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("antenGpsGsmImage")}</label>
-                        {detail.anten_gps_gsm_img_path && (<img
-                            src={detail.anten_gps_gsm_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("frontViewImage")}</label>
-                        {detail.front_view_img_path && (<img
-                            src={detail.front_view_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("backViewImage")}</label>
-                        {detail.back_view_img_path && (<img
-                            src={detail.back_view_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("beforeInstallationImage")}</label>
-                        {detail.before_installation_img_path && (<img
-                            src={detail.before_installation_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("carChassisImage")}</label>
-                        {detail.car_chassis_img_path && (<img
-                            src={detail.car_chassis_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("gpsDevicesImage")}</label>
-                        {detail.gps_devices_img_path && (<img
-                            src={detail.gps_devices_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("carChassisImage")}</label>
-                        {detail.car_chassis_img_path && (<img
-                            src={detail.car_chassis_img_path}
-                            alt="Additional Equipment 1"
-                            className="max-w-full max-h-80"
-                        />)}
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationDate")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.installation_date}</p>
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationLocation")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.installation_location}</p>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("specialEquipment")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.special_equipment}</p>
                     </div>
                     <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("installationType")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.installation_type}</p>
                     </div>
                     <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationLocation")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.installation_location}</p>
+                    </div>
+                    <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("installationDate")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.installation_date}</p>
+                    </div>
+                    <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("jobStatus")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.job_status}</p>
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("differentialStatus")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.differential_status}</p>
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("engineOilStatus")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.engine_oil_status}</p>
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("transmissionStatus")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.transmission_status}</p>
-                    </div>
-                    <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("odometerReading")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.odometer_reading}</p>
                     </div>
                     <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("note")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.note}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("notes")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.notes}</p>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("imeiNo")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.imei_no}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="text-[13px] font-normal text-[#5f6368]">{t("other")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.other}</p>
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("simNo")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.sim_no}</p>
+                    </div>
+                    <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">
+                            {t("installationImage")}
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                            {detail.installation_img_paths?.length > 0 && (
+                                detail.installation_img_paths.map((imgPath, index) => (
+                                    <img
+                                        key={index}
+                                        src={imgPath}
+                                        alt={`Installation Image ${index + 1}`}
+                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                    />
+                                ))
+                            )}
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">
+                            {t("afterInstallationImg")}
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                            {detail.after_installation_img_paths?.length > 0 && (
+                                detail.after_installation_img_paths.map((imgPath, index) => (
+                                    <img
+                                        key={index}
+                                        src={imgPath}
+                                        alt={`Installation Image ${index + 1}`}
+                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                    />
+                                ))
+                            )}
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">
+                            {t("deviceAndSimImg")}
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                            {detail.device_and_sim_img_paths?.length > 0 && (
+                                detail.device_and_sim_img_paths.map((imgPath, index) => (
+                                    <img
+                                        key={index}
+                                        src={imgPath}
+                                        alt={`Installation Image ${index + 1}`}
+                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                    />
+                                ))
+                            )}
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">
+                            {t("deviceStatusImg")}
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                            {detail.device_status_img_paths?.length > 0 && (
+                                detail.device_status_img_paths.map((imgPath, index) => (
+                                    <img
+                                        key={index}
+                                        src={imgPath}
+                                        alt={`Installation Image ${index + 1}`}
+                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                    />
+                                ))
+                            )}
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">
+                            {t("vehicleInforImg")}
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                            {detail.vehicle_infor_img_paths?.length > 0 && (
+                                detail.vehicle_infor_img_paths.map((imgPath, index) => (
+                                    <img
+                                        key={index}
+                                        src={imgPath}
+                                        alt={`Installation Image ${index + 1}`}
+                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                    />
+                                ))
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

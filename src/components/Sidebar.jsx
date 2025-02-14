@@ -22,13 +22,13 @@ import { useDispatch } from "react-redux";
 import { updateCommonValue } from "../features/common/commonSlice";
 
 const navigation = [
-    { name: "Installation", href: "installation", icon: FaWrench, current: false },
-    { name: "Job", href: "job", icon: FaBriefcase, current: false },
-    { name: "New Jobs", href: "new-jobs", icon: FaBriefcase, current: false },
-    { name: "Jobs Finished", href: "jobs-finished", icon: FaBriefcase, current: false },
-    { name: "Jobs Completed", href: "jobs-completed", icon: FaBriefcase, current: false },
-    { name: "Users Management", href: "users-management", icon: FaRegUser, current: false },
-    { name: "Technician KPI", href: "tech-kpi", icon: FaChartLine, current: false }
+    { name: "installation", href: "installation", icon: FaWrench, current: false },
+    { name: "job", href: "job", icon: FaBriefcase, current: false },
+    { name: "newJobs", href: "new-jobs", icon: FaBriefcase, current: false },
+    { name: "jobsFinished", href: "jobs-finished", icon: FaBriefcase, current: false },
+    { name: "jobsCompleted", href: "jobs-completed", icon: FaBriefcase, current: false },
+    { name: "usersManagement", href: "users-management", icon: FaUser, current: false },
+    { name: "technicianKPI", href: "tech-kpi", icon: FaChartLine, current: false }
 ];
 
 const toggleSideBar = (e) => {
@@ -118,7 +118,7 @@ const Sidebar = ({ sidebarOpen }) => {
                                             }}>
                                             <item.icon className={(current ? 'text-green-600 bg-gray-100' : 'text-[#0000008a]') + " w-[21px] h-[21px] min-w-[21px] z-10"}></item.icon>
                                             <span className="ml-4 whitespace-nowrap">
-                                                {item.name}
+                                                {t(item.name)}
                                             </span>
                                         </Link>
                                         {item.children && (
@@ -153,7 +153,7 @@ const Sidebar = ({ sidebarOpen }) => {
                                                                     : "hover:bg-gray-100 hover:text-green-600",
                                                             )} to={item.href + "/" + sub.href}>
                                                                 <span className="ml-4 whitespace-nowrap">
-                                                                    {sub.name}
+                                                                    {t(sub.name)}
                                                                 </span>
                                                             </Link>
                                                         </Tooltip>

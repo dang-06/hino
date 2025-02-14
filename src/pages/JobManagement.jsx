@@ -157,7 +157,7 @@ const JobManagement = ({ jobType }) => {
         },
         {
             field: 'job_status',
-            headerName: t('Job Status'),
+            headerName: t('jobStatus'),
             minWidth: 200,
             renderCell: (params) => <JobStatusCell value={params.value} />,
         },

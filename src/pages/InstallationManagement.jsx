@@ -66,8 +66,6 @@ const InstallationManagement = () => {
 
     const [currentStatus, setCurrentStatus] = useState('All');
 
-    const JOB_STATUSES = ['All', 'New', 'Assigned', 'Finished Installation', 'Completed', 'Need Update', 'Updated'];
-
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
         refetch()
@@ -162,12 +160,12 @@ const InstallationManagement = () => {
                                 </h1>
                             </div>
                             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex justify-between items-center">
-                                <Button
+                                {/* <Button
                                     className="px-6 mr-2"
                                     onClick={() => setOpenAssignJob(true)}
                                     startIcon={<MdEngineering className="h-5 w-5" />}
                                     variant="outlined"
-                                > {t("assignJobToTechnician")}</Button>
+                                > {t("assignJobToTechnician")}</Button> */}
                                 <Button
                                     className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
                                     onClick={() => setShowImportModal(true)}
@@ -197,25 +195,6 @@ const InstallationManagement = () => {
                             </div>
                         ) : (
                             <>
-                                <div className="flex justify-between items-center mb-4">
-                                    <h3 className="text-lg font-semibold">
-                                        {currentStatus === 'All' ? t("jobStatus") : currentStatus}
-                                    </h3>
-                                    {!showDetail &&
-                                        <div className="flex gap-2">
-                                            {JOB_STATUSES.map((status) => (
-                                                <Button
-                                                    key={status}
-                                                    variant={currentStatus === status ? "contained" : "outlined"}
-                                                    size="small"
-                                                    onClick={() => handleStatusChange(status)}
-                                                >
-                                                    {status}
-                                                </Button>
-                                            ))}
-                                        </div>
-                                    }
-                                </div>
                                 <Grid container spacing={2} columns={{ xs: 2, sm: 6, md: 12 }}>
                                     {console.log('Jobs data:', data)}
                                     {getFilteredJobs().map((job) => (
@@ -231,14 +210,17 @@ const InstallationManagement = () => {
                                                 <div className="flex items-center p-4">
                                                     <div className="flex flex-col">
                                                         <h3 className="text-sm font-semibold">{t("vin")}: {job.vin_no}</h3>
+                                                        <h3 className="text-sm font-semibold">{t("model")}: {job.model}</h3>
                                                         <p className="text-xs text-gray-500">{t("jobStatus")}: {job.job_status}</p>
                                                     </div>
                                                 </div>
-                                                <img
-                                                    src={job.segment_img}
-                                                    alt={`Job ${job.job_id}`}
-                                                    className="w-full h-3/5 object-contain"
-                                                />
+                                                <div className="h-[45%]">
+                                                    <img
+                                                        src={job.segment_img}
+                                                        alt={`Job ${job.job_id}`}
+                                                        className="w-full h-full object-contain"
+                                                    />
+                                                </div>
                                                 <div className='p-4 h-1/6'>
                                                     <p className="text-lg mt-2 font-bold">{t("jobId")}: {job.job_id}</p>
                                                     <p className="text-xs text-gray-500">{t("installationDate")}: {job.installation_date}</p>
@@ -384,7 +366,7 @@ const InstallationManagement = () => {
             </FormDisplay>
             <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
             <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
-            <AssignJob open={openAssignJob} setOpen={setOpenAssignJob} />
+            {/* <AssignJob open={openAssignJob} setOpen={setOpenAssignJob} /> */}
         </>
     );
 };

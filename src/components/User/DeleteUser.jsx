@@ -3,13 +3,13 @@ import Modal from "@mui/material/Modal";
 import { ExclamationIcon } from "@heroicons/react/outline";
 import { useTranslation } from "react-i18next";
 import LoadingButton from "@mui/lab/LoadingButton";
-// import { useDeleteUserMutation } from "../../services/apiSlice";
+import { useDeleteUserMutation } from "../../services/apiSlice";
 import toast from "react-hot-toast";
 
 const DeleteUser = ({ open, setOpen, deleteId }) => {
   const { t } = useTranslation();
 
-  // const [deleteQuery, { isLoading }] = useDeleteUserMutation();
+  const [deleteQuery, { isLoading }] = useDeleteUserMutation();
 
   const onDelete = async () => {
     try {

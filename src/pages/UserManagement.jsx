@@ -1,5 +1,5 @@
 import LinearProgress from "@mui/material/LinearProgress";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import { DataGrid } from "@mui/x-data-grid";
@@ -21,7 +21,8 @@ import DetailUser from "../components/User/DetailUser";
 import FilterUser from "../components/User/FilterUser";
 import DeleteUser from "../components/User/DeleteUser";
 import FormUser from "../components/User/FormUser";
-import ChangePassword from "../components/User/ChangePassword"; // Import the ChangePassword component
+import ChangePassword from "../components/User/ChangePassword";
+import { useGetUserQuery } from "../services/apiSlice";
 
 
 const UserManagement = () => {
@@ -43,18 +44,21 @@ const UserManagement = () => {
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
-        search: '',
-        status: '',
-        from_date: '',
-        to_date: ''
+        user_name: '',
+        full_name: '',
+        phone_number: '',
+        email: ''
     });
 
-    const data = {
-        content: [
-            { id: 1, userName: 'user1', fullName: 'A', email: 'user1@example.com', roleName: 'Admin', phone: '0123456789' },
-            { id: 2, userName: 'user2', fullName: 'B', email: 'user2@example.com', roleName: 'User', phone: '1231231232' }
-        ]
-    };
+    const { data, isLoading, isFetching, isSuccess, error, refetch } = useGetUserQuery(criterias);
+
+
+    console.log('API Response:', {
+        data,
+        isLoading,
+        isSuccess,
+        error
+    });
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row);
@@ -69,19 +73,19 @@ const UserManagement = () => {
     };
 
     const getPrevRow = () => {
-        if (selectedRow && selectedRow.id) {
-            let findIndex = data.content.findIndex(i => i.id == selectedRow.id);
+        if (selectedRow && selectedRow.user_id) {
+            let findIndex = data.data.users.findIndex(i => i.user_id == selectedRow.user_id);
             if (findIndex > 0) {
-                setSelectedRow(data.content[findIndex - 1]);
+                setSelectedRow(data.data.users[findIndex - 1]);
             }
         }
     };
 
     const getNextRow = () => {
-        if (selectedRow && selectedRow.id) {
-            let findIndex = data.content.findIndex(i => i.id == selectedRow.id);
-            if (findIndex >= 0 && findIndex < data.content.length - 1) {
-                setSelectedRow(data.content[findIndex + 1]);
+        if (selectedRow && selectedRow.user_id) {
+            let findIndex = data.data.users.findIndex(i => i.user_id == selectedRow.user_id);
+            if (findIndex >= 0 && findIndex < data.data.users.length - 1) {
+                setSelectedRow(data.data.users[findIndex + 1]);
             }
         }
     };
@@ -96,16 +100,13 @@ const UserManagement = () => {
 
     const updateFilter = (value) => {
         setCriterias({ ...criterias, ...value });
+        refetch()
     };
 
     const onDoneDelete = (e) => {
         setOpen(false);
         setShowDetail(false);
-    };
-
-    const onDoneReview = (e) => {
-        setOpenReview(false);
-        setShowDetail(false);
+        refetch()
     };
 
     const onDoneEdit = () => {
@@ -113,36 +114,64 @@ const UserManagement = () => {
         setShowDetail(false);
     };
 
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        return date.toLocaleDateString("vi-VN");
+    };
+
     const columns = [
         {
-            field: "id",
+            field: "user_id",
             headerName: t("ID"),
-            minWidth: 150,
+            minWidth: 50,
         },
         {
-            field: "userName",
-            headerName: t("User Name"),
-            minWidth: 150,
+            field: "user_name",
+            headerName: t("userName"),
+            minWidth: 180,
         },
         {
-            field: "fullName",
-            headerName: t("Full Name"),
-            minWidth: 150,
+            field: "full_name",
+            headerName: t("fullName"),
+            minWidth: 220,
         },
         {
             field: "email",
-            headerName: t("Email"),
-            minWidth: 200,
+            headerName: t("email"),
+            minWidth: 220,
         },
         {
-            field: "roleName",
-            headerName: t("Role"),
-            minWidth: 150,
+            field: "role_name",
+            headerName: t("role"),
+            minWidth: 120,
         },
         {
-            field: "phone",
-            headerName: t("Phone"),
-            minWidth: 150,
+            field: "phone_number",
+            headerName: t("phone"),
+            minWidth: 120,
+        },
+        {
+            field: "gender",
+            headerName: t("gender"),
+            minWidth: 80,
+        },
+        {
+            field: "address",
+            headerName: t("address"),
+            minWidth: 250,
+        },
+        {
+            field: "date_of_birth",
+            headerName: t("dateOfBirth"),
+            minWidth: 120,
+            valueGetter: (params) => formatDate(params.value),
+        },
+        {
+            field: "created_time",
+            headerName: t("createdTime"),
+            minWidth: 120,
+            valueGetter: (params) => formatDate(params.value),
         }
     ];
 
@@ -202,8 +231,8 @@ const UserManagement = () => {
                                             outline: "none !important",
                                         },
                                     }}
-                                    getRowId={(row) => row.id}
-                                    rows={data.content}
+                                    getRowId={(row) => row.user_id}
+                                    rows={data?.data?.users || []}  
                                     headerHeight={38}
                                     rowHeight={38}
                                     onRowClick={(params) => showDetailRow(params)}
@@ -211,7 +240,7 @@ const UserManagement = () => {
                                     selectionModel={selectedRow?.id}
                                     rowsPerPageOptions={[25, 50, 100]}
                                     paginationMode="server"
-                                    rowCount={data.content.length}
+                                    rowCount={data?.data?.total_users}
                                     pageSize={criterias.size}
                                     onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                     onPageSizeChange={(size) => { setCriterias({ ...criterias, size }) }}
@@ -296,7 +325,7 @@ const UserManagement = () => {
                     </div>
                     <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full overflow-auto">
                         <div className="max-w-[700px] p-4 min-h-[50vh] bg-white border m-auto ">
-                            {showDetail && (openEdit ? <FormUser selectedItem={selectedRow} refetch={() => { setOpenEdit(false) }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailUser detailRow={selectedRow} />)}
+                            {showDetail && (openEdit ? <FormUser selectedItem={selectedRow} refetch={() => { setOpenEdit(false); refetch() }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailUser detailRow={selectedRow} />)}
                         </div>
                     </div>
                 </div>
@@ -307,9 +336,8 @@ const UserManagement = () => {
             <FormDisplay open={openForm} setOpen={setOpenForm} >
                 <FormUser selectedItem={null} />
             </FormDisplay>
-            <DeleteUser open={open} setOpen={onDoneDelete} deleteId={selectedRow?.id} />
-            <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
-            <ChangePassword user={selectedRow} open={openChangePassword} setOpen={setOpenChangePassword} refetch={() => { setOpenChangePassword(false); setShowDetail(false); }} />
+            <DeleteUser open={open} setOpen={onDoneDelete} deleteId={selectedRow?.user_id} />
+            <ChangePassword user={selectedRow} open={openChangePassword} setOpen={setOpenChangePassword} refetch={() => { setOpenChangePassword(false); setShowDetail(false); refetch() }} />
         </>
     );
 };

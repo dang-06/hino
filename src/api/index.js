@@ -251,3 +251,6 @@ export const fetchDeliveryType = (data) => axiosInstance.post('/api/rtt/delivery
 //
 export const fetchVehicleDetail = (id) => axiosInstance.get('/vehicle/' + id)
 export const fetchCustomer = (params = '') => axiosInstance.get(`/customer${params}`)
+
+// User
+export const changePass = (data) => axiosInstance.put(`/user/change-password/${data.id}`, {new_password: data.newPassword})

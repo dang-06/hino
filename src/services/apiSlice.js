@@ -31,7 +31,8 @@ export const apiSlice = createApi({
     tagTypes: [
         'Installation',
         'SaleOrder',
-        'Job'
+        'Job',
+        'User'
     ],
     endpoints: (builder) => ({
         // getInstallation: builder.query({
@@ -374,7 +375,66 @@ export const apiSlice = createApi({
         }),
 
         //user
-
+        getUser: builder.query({
+            query: (params) => ({
+                url: 'user/users',
+                method: 'GET',
+                params: {
+                    page: params?.page || 1,
+                    size: params?.size || 10,
+                    user_name: params?.user_name || '',
+                    full_name: params?.full_name || '',
+                    phone_number: params?.phone_number || '',
+                    email: params?.email || ''
+                }
+            }),
+            providesTags: ['User']
+        }),
+        addUser: builder.mutation({
+            query: (data) => ({
+                url: "invoice",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['User']
+                }
+                return []
+            },
+        }),
+        updateUser: builder.mutation({
+            query: (data) => ({
+                url: `user/users/${data.user_id}`,
+                method: "PUT",
+                body: {
+                    full_name: data.full_name,
+                    email: data.email,
+                    gender: data.gender,
+                    phone_number: data.phone_number,
+                    address: data.address,
+                    date_of_birth: data.date_of_birth,
+                },
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['User']
+                }
+                return []
+            },
+        }),
+        deleteUser: builder.mutation({
+            query: (id) => ({
+                url: `user/users/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['User']
+                }
+                return []
+            },
+        }),
     }),
 });
 
@@ -414,5 +474,10 @@ export const {
     useGetCompletedJobsQuery,
     //KPI
     useGetOverviewQuery,
-    useGetTechnicianKPIQuery
+    useGetTechnicianKPIQuery,
+    //User
+    useGetUserQuery,
+    useAddUserMutation,
+    useUpdateUserMutation,
+    useDeleteUserMutation
 } = apiSlice;

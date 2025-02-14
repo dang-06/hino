@@ -45,17 +45,16 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
 
   const defaultValues = {
     "id": "",
-    "segent": "",
     "model": "",
     "lot_no": "",
     "vin_no": "",
     "engine_no": "",
     "installation_type": "",
-    "accessories": "",
     "note": "",
     "installation_location": "",
-    "installation_date": ""
-
+    "installation_date": "",
+    "special_equipment": "",
+    "manufacture_date": ""
   }
 
   // Validation
@@ -87,12 +86,18 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
     defaultValues,
   });
 
+  const formatDate = (date) => {
+    const _date = new Date(date);
+    _date.setDate(_date.getDate() + 1);
+    const formattedDate = _date.toISOString().split('T')[0];
+    return formattedDate
+  }
+
   const onSubmit = async (data) => {
-    const date = new Date(data.installation_date);
-    const formattedDate = date.toISOString().split('T')[0];
     const transformData = {
       ...data,
-      installation_date: formattedDate
+      installation_date: formatDate(data.installation_date),
+      manufacture_date: formatDate(data.manufacture_date),
     };
 
     try {
@@ -147,7 +152,7 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
               </div>
               <div className="flex flex-col ml-3 items-start">
                 <h2 className="text-lg font-medium capitalize ">
-                  {t("inspectionForm", { field: t("Installation") })}
+                  {t("addTitle", { field: t("Installation") })}
                 </h2>
                 {/* <div className="mt-1">
                                     <p className="text-sm text-light">
@@ -184,12 +189,6 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                   <div className="px-4 sm:px-6 w-full h-full">
                     <div className="space-y-6 pt-6 pb-5">
                       <CustomTextField
-                        name="segment"
-                        label={t("segment")}
-                        control={control}
-                        errors={errors.englishName}
-                      />
-                      <CustomTextField
                         name="model"
                         label={t("model")}
                         control={control}
@@ -220,29 +219,12 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         // errors={errors.isActive}
                         options={[
                           { id: 'Install Demo', value: 'Install Demo' },
+                          { id: 'New Install', value: 'New Install' },
                           { id: 'Reinstall', value: 'Reinstall' },
-                          { id: 'Stick to move the car', value: 'Stick to move the car' },
-                          { id: 'Repair/fix', value: 'Repair/fix' },
-                          { id: 'Remove Onlink', value: 'Remove Onlink' },
-                          { id: 'Take it off at the customer', value: 'Take it off at the customer' },
-                        ]}
-                      />
-                      <CustomSelect
-                        name="accessories"
-                        label={t("accessories")}
-                        control={control}
-                        // errors={errors.isActive}
-                        options={[
-                          { id: 'Fuel', value: 'Fuel' },
-                          { id: 'Door Control', value: 'Door Control' },
-                          { id: 'Speed Alert', value: 'Speed Alert' },
-                          { id: 'Conversation equipment', value: 'Conversation equipment' },
-                          { id: 'Shut Down Engine', value: 'Shut Down Engine' },
-                          { id: 'Emergency Button', value: 'Emergency Button' },
-                          { id: 'Magnetic Card Reader', value: 'Magnetic Card Reader' },
-                          { id: 'Temp', value: 'Temp' },
-                          { id: 'PTO', value: 'PTO' },
-                          { id: 'Others', value: 'Others' },
+                          { id: 'Transfer Installation', value: 'Transfer Installation' },
+                          { id: 'Repair/Fix', value: 'Repair/Fix' },
+                          { id: 'Uninstall Onelink', value: 'Uninstall Onelink' },
+                          { id: 'Remove it for the customer', value: 'Remove it for the customer' },
                         ]}
                       />
                       <CustomTextField
@@ -260,6 +242,18 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                       <CustomDateField
                         name="installation_date"
                         label={t("installationDate")}
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="special_equipment"
+                        label={t("specialEquipment")}
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomDateField
+                        name="manufacture_date"
+                        label={t("manufactureDate")}
                         control={control}
                         errors={errors.englishName}
                       />
@@ -298,26 +292,15 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         name="installation_type"
                         label={t("installationType")}
                         control={control}
+                        // errors={errors.isActive}
                         options={[
-                          { id: 'New', value: t("new") },
-                          { id: 'Assigned', value: t("assigned") },
-                          { id: 'Finished Installation', value: t("finishedInstallation") },
-                          { id: 'Completed', value: t("completed") },
-                          { id: 'Need Update', value: t("needUpdate") },
-                          { id: 'Updated', value: t("updated") },
-                        ]}
-                      />
-                      <CustomSelect
-                        name="accessories"
-                        label={t("accessories")}
-                        control={control}
-                        options={[
-                          { id: 'Install Demo', value: t("installDemo") },
-                          { id: 'Reinstall', value: t("reinstall") },
-                          { id: 'Stick to move the car', value: t("stickToMoveTheCar") },
-                          { id: 'Repair/fix', value: t("repairFix") },
-                          { id: 'Remove Onlink', value: t("removeOnlink") },
-                          { id: 'Take it off at the customer', value: t("takeItOffAtTheCustomer") },
+                          { id: 'Install Demo', value: 'Install Demo' },
+                          { id: 'New Install', value: 'New Install' },
+                          { id: 'Reinstall', value: 'Reinstall' },
+                          { id: 'Transfer Installation', value: 'Transfer Installation' },
+                          { id: 'Repair/fix', value: 'Repair/fix' },
+                          { id: 'Uninstall Onelink', value: 'Uninstall Onelink' },
+                          { id: 'Remove it for the customer', value: 'Remove it for the customer' },
                         ]}
                       />
                       <CustomTextField
@@ -335,6 +318,18 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                       <CustomDateField
                         name="installation_date"
                         label={t("installationDate")}
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="special_equipment"
+                        label={t("specialEquipment")}
+                        control={control}
+                        errors={errors.englishName}
+                      />
+                      <CustomTextField
+                        name="manufacture_date"
+                        label={t("manufactureDate")}
                         control={control}
                         errors={errors.englishName}
                       />
