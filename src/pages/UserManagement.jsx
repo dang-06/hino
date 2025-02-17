@@ -155,6 +155,7 @@ const UserManagement = () => {
             field: "gender",
             headerName: t("gender"),
             minWidth: 80,
+            valueGetter: (params) => t(params.value),
         },
         {
             field: "address",

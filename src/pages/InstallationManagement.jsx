@@ -147,6 +147,25 @@ const InstallationManagement = () => {
         return data.data.jobs.filter(job => job.job_status === currentStatus);
     };
 
+    const getStatusStyle = (status) => {
+        switch (status) {
+            case 'New':
+                return { color: 'blue', label: 'NEW' };
+            case 'Assigned':
+                return { color: 'orange', label: 'ASSIGNED' };
+            case 'Finished Installation':
+                return { color: 'green', label: 'FINISHED INSTALLATION' };
+            case 'Completed':
+                return { color: 'gray', label: 'COMPLETED' };
+            case 'Need Update':
+                return { color: 'red', label: 'NEED UPDATE' };
+            case 'Updated':
+                return { color: 'teal', label: 'UPDATED' };
+            default:
+                return { color: 'black', label: 'UNKNOWN' };
+        }
+    };
+
     return (
         <>
             <div className=" flex">
@@ -197,55 +216,60 @@ const InstallationManagement = () => {
                             <>
                                 <Grid container spacing={2} columns={{ xs: 2, sm: 6, md: 12 }}>
                                     {console.log('Jobs data:', data)}
-                                    {getFilteredJobs().map((job) => (
-                                        <Grid item
-                                            xs={showDetail ? 12 : 2}
-                                            sm={showDetail ? 12 : 3}
-                                            md={showDetail ? 12 : 3}
-                                            key={job.job_id}>
-                                            <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[500px] cursor-pointer"
-                                                onClick={() => showDetailRow(job)}
-                                                role="button"
-                                                tabIndex={0}>
-                                                <div className="flex items-center p-4">
-                                                    <div className="flex flex-col">
-                                                        <h3 className="text-sm font-semibold">{t("vin")}: {job.vin_no}</h3>
-                                                        <h3 className="text-sm font-semibold">{t("model")}: {job.model}</h3>
-                                                        <p className="text-xs text-gray-500">{t("jobStatus")}: {job.job_status}</p>
+                                    {getFilteredJobs().map((job) => {
+                                        const statusStyle = getStatusStyle(job.job_status);
+                                        return (
+                                            <Grid item
+                                                xs={showDetail ? 12 : 2}
+                                                sm={showDetail ? 12 : 3}
+                                                md={showDetail ? 12 : 3}
+                                                key={job.job_id}>
+                                                <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[500px] cursor-pointer"
+                                                    onClick={() => showDetailRow(job)}
+                                                    role="button"
+                                                    tabIndex={0}>
+                                                    <div className="flex items-center p-4">
+                                                        <div className="flex flex-col">
+                                                            <h3 className="text-sm font-semibold">{t("vin")}: {job.vin_no}</h3>
+                                                            <h3 className="text-sm font-semibold">{t("model")}: {job.model}</h3>
+                                                            <p className={`text-xs`}>
+                                                                {t("jobStatus")}: <span style={{ color: statusStyle.color }}> {t(statusStyle.label)} </span>
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="h-[45%]">
-                                                    <img
-                                                        src={job.segment_img}
-                                                        alt={`Job ${job.job_id}`}
-                                                        className="w-full h-full object-contain"
-                                                    />
-                                                </div>
-                                                <div className='p-4 h-1/6'>
-                                                    <p className="text-lg mt-2 font-bold">{t("jobId")}: {job.job_id}</p>
-                                                    <p className="text-xs text-gray-500">{t("installationDate")}: {job.installation_date}</p>
-                                                </div>
-                                                <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">
-                                                    {t("installationLocation")}: {job.installation_location}
-                                                </p>
-                                                <div className="pl-4 pr-4">
-                                                    <div className="flex justify-between items-center mt-auto">
-                                                        <a href="#" className="text-green-600 text-sm mt-4 block">
-                                                            {t("viewMap")}
-                                                        </a>
-                                                        <div className='flex justify-between items-center'>
-                                                            <button className="text-gray-700 flex-1 mr-5">
-                                                                <CiCircleChevRight size={20} />
-                                                            </button>
-                                                            <button onClick={() => deleteJob(job)} className="text-gray-600 flex-1">
-                                                                <FiTrash2 size={20} />
-                                                            </button>
+                                                    <div className="h-[45%]">
+                                                        <img
+                                                            src={job.segment_img}
+                                                            alt={`Job ${job.job_id}`}
+                                                            className="w-full h-full object-contain"
+                                                        />
+                                                    </div>
+                                                    <div className='p-4 h-1/6'>
+                                                        <p className="text-lg mt-2 font-bold">{t("jobId")}: {job.job_id}</p>
+                                                        <p className="text-xs text-gray-500">{t("installationDate")}: {job.installation_date}</p>
+                                                    </div>
+                                                    <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">
+                                                        {t("installationLocation")}: {job.installation_location}
+                                                    </p>
+                                                    <div className="pl-4 pr-4">
+                                                        <div className="flex justify-between items-center mt-auto">
+                                                            <a href="#" className="text-green-600 text-sm mt-4 block">
+                                                                {t("viewMap")}
+                                                            </a>
+                                                            <div className='flex justify-between items-center'>
+                                                                <button className="text-gray-700 flex-1 mr-5">
+                                                                    <CiCircleChevRight size={20} />
+                                                                </button>
+                                                                <button onClick={() => deleteJob(job)} className="text-gray-600 flex-1">
+                                                                    <FiTrash2 size={20} />
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Grid>
-                                    ))}
+                                            </Grid>
+                                        )
+                                    })}
                                 </Grid>
 
                                 {data?.data?.jobs && <div className="flex justify-center mt-4">

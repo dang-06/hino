@@ -90,32 +90,27 @@ const TechnicianKPIManagement = () => {
         },
         {
             field: "full_name",
-            headerName: "teachicianName",
+            headerName: t("teachicianName"),
             minWidth: 300,
         },
         {
-            field: "total_assigned",
-            headerName: "Assigned",
+            field: "total_completed",
+            headerName: t("completed"),
             minWidth: 150,
         },
         {
             field: "total_finished_instalaltion",
-            headerName: "Finished Installation",
+            headerName: t("finishedInstallation"),
             minWidth: 180,
         },
         {
-            field: "total_completed",
-            headerName: "Completed",
-            minWidth: 150,
-        },
-        {
             field: "total_need_update",
-            headerName: "Need Update",
+            headerName: t("needUpdate"),
             minWidth: 180,
         },
         {
             field: "total_updated",
-            headerName: "Updated",
+            headerName: t("updated"),
             minWidth: 150,
         },
     ];
@@ -128,7 +123,7 @@ const TechnicianKPIManagement = () => {
                         <div className="pl-4 h-[50px] border-b sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                                 <h1 className="text-xl font-semibold text-gray-900">
-                                    {t("Technician KPI")}
+                                    {t("TechnicianKPI")}
                                 </h1>
                             </div>
                         </div>
@@ -144,7 +139,7 @@ const TechnicianKPIManagement = () => {
                                     <div className="card focus:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden cursor-pointer p-4">
                                         <div className="flex justify-between">
                                             <h3 className="text-lg font-semibold">
-                                                {t("Installation Status Overview")}
+                                                {t("installationStatusOverview")}
                                             </h3>
                                             <div className="flex flex-end gap-4">
                                                 <Select
@@ -153,10 +148,10 @@ const TechnicianKPIManagement = () => {
                                                     variant="outlined"
                                                     sx={{ minWidth: 150 }}
                                                 >
-                                                    <MenuItem value="all">All</MenuItem>
-                                                    <MenuItem value="daily">Day</MenuItem>
-                                                    <MenuItem value="weekly">Week</MenuItem>
-                                                    <MenuItem value="monthly">Month</MenuItem>
+                                                    <MenuItem value="all">{t("all")}</MenuItem>
+                                                    <MenuItem value="daily">{t("day")}</MenuItem>
+                                                    <MenuItem value="weekly">{t("week")}</MenuItem>
+                                                    <MenuItem value="monthly">{t("month")}</MenuItem>
                                                 </Select>
 
                                                 {/* TextField Input */}
@@ -178,12 +173,11 @@ const TechnicianKPIManagement = () => {
                                                         arcLabelMinAngle: 15,
                                                         arcLabelRadius: '70%',
                                                         data: [
-                                                            { id: 0, value: data?.data?.total_new, label: 'New' },
-                                                            { id: 1, value: data?.data?.total_assigned, label: 'Assigned' },
-                                                            { id: 2, value: data?.data?.total_finished_instalaltion, label: 'Finished Installation' },
-                                                            { id: 3, value: data?.data?.total_completed, label: 'Completed' },
-                                                            { id: 4, value: data?.data?.total_need_update, label: 'Need Update' },
-                                                            { id: 5, value: data?.data?.total_updated, label: 'Updated' },
+                                                            { id: 0, value: data?.data?.total_new, label: t('NEW') },
+                                                            { id: 1, value: data?.data?.total_finished_instalaltion, label: t('FINISHED INSTALLATION') },
+                                                            { id: 2, value: data?.data?.total_completed, label: t('COMPLETED') },
+                                                            { id: 3, value: data?.data?.total_need_update, label: t('NEED UPDATE') },
+                                                            { id: 4, value: data?.data?.total_updated, label: t('UPDATED') },
                                                         ],
                                                     },
                                                 ]}
@@ -192,7 +186,7 @@ const TechnicianKPIManagement = () => {
                                                         fontWeight: 'bold',
                                                     },
                                                 }}
-                                                width={700}
+                                                width={900}
                                                 height={400}
                                             />
                                         </div>
@@ -201,19 +195,19 @@ const TechnicianKPIManagement = () => {
 
                                         <div className="flex justify-between mb-2">
                                             <h3 className="text-lg font-semibold">
-                                                {t("Techinician KPI")}
+                                                {t("technicianKPI")}
                                             </h3>
                                             <div className="flex flex-end gap-4">
                                                 <TextField
                                                     value={criteriasKPI.search}
                                                     onChange={handleValueChange}
-                                                    label="Name"
+                                                    label={t("teachicianName")}
                                                     variant="outlined"
                                                     type="text"
                                                     name="search"
                                                     sx={{ minWidth: 150 }}
                                                 />
-                                                <CustomDateRangePicker fromDate={fromDate} setFromDate={setFromDate} todate={toDate} setToDate={setToDate} label='Date Range' />
+                                                <CustomDateRangePicker fromDate={fromDate} setFromDate={setFromDate} todate={toDate} setToDate={setToDate} label={t('dateRange')} />
                                             </div>
                                         </div>
                                         <div className="h-[500px] lg:mx-auto lg:max-w-full ">

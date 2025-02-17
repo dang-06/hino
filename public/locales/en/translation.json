@@ -864,7 +864,7 @@
   "inspectionForm": "Inspection Form",
   "add": "Add",
   "technicianId": "Technician",
-  "searchJob": "Search (by VIN or location)",
+  "searchJob": "Search",
   "accessoriesImage": "Accessories Image",
   "additionalEquipmentImage": "Additional Equipment Image",
   "additionalEquipmentImage1": "Additional Equipment Image 1",
@@ -890,5 +890,11 @@
   "usersManagement": "Users Management",
   "technicianKPI": "Technician KPI",
   "gender": "Gender",
-  "createdTime": "Created Time"
+  "createdTime": "Created Time",
+  "TechnicianKPI": "KPI",
+  "installationStatusOverview": "Installation Status Overview",
+  "teachicianName": "Teachician Name",
+  "dateRange": "Date Range",
+  "male": "Male",
+  "female": "Female"
 }

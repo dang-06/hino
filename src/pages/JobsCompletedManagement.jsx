@@ -104,7 +104,7 @@ const JobsCompletedManagement = () => {
         const getStatusStyle = (status) => {
             switch (status) {
                 case 'Completed':
-                    return { color: 'gray', label: 'COMPLETED' };
+                    return { color: 'gray', label: t('COMPLETED') };
                 default:
                     return { color: 'black', label: 'UNKNOWN' };
             }

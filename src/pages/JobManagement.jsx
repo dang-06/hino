@@ -117,19 +117,19 @@ const JobManagement = ({ jobType }) => {
         const getStatusStyle = (status) => {
             switch (status) {
                 case 'New':
-                    return { color: 'blue', label: 'NEW' };
+                    return { color: 'blue', label: t('NEW') };
                 case 'Assigned':
-                    return { color: 'orange', label: 'ASSIGNED' };
+                    return { color: 'orange', label: t('ASSIGNED') };
                 case 'Finished Installation':
-                    return { color: 'green', label: 'FINISHED INSTALLATION' };
+                    return { color: 'green', label: t('FINISHED INSTALLATION') };
                 case 'Completed':
-                    return { color: 'gray', label: 'COMPLETED' };
+                    return { color: 'gray', label: t('COMPLETED') };
                 case 'Need Update':
-                    return { color: 'red', label: 'NEED UPDATE' };
+                    return { color: 'red', label: t('NEED UPDATE') };
                 case 'Updated':
-                    return { color: 'teal', label: 'UPDATED' };
+                    return { color: 'teal', label: t('UPDATED') };
                 default:
-                    return { color: 'black', label: 'UNKNOWN' };
+                    return { color: 'black', label: t('UNKNOWN') };
             }
         };
 

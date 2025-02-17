@@ -164,12 +164,12 @@ const Navbar = ({ sidebarOpen, toggleSidebar }) => {
                                         />
                                     </div>
                                 </div> */}
-                                <div className="searchSection w-5/12 ">
+                                {/* <div className="searchSection w-5/12 ">
                                     <div className="w-[24] relative flex items-center justify-center h-[35px]" >
                                         <SearchIcon className="absolute h-6 w-6 mr-8 left-[12px] top-[7px] text-[#666]" aria-hidden="true" />
                                         <input type="search" placeholder={`Search ${common?.currentPage}`} className="text-[#666] overflow-hidden rounded-[8px] h-[40px] pl-[50px] pr-3 flex-1 bg-gray-100 outline-none border-0 bg-[#f7f7f7] focus:bg-[#fff] focus:shadow-2xl" />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="hidden space-x-3 sm:ml-6 sm:flex sm:items-center">
                                     <button onClick={()=> {setOpenModalResgister(true)}} className="text-center border-0 h-[32px] flex items-center justify-center w-[32px] outline-none rounded-sm transition-all duration-[400ms] overflow-hidden border-[#0000003b] hover:bg-[#f1f1f1]">
                                         <span className="inline-block">

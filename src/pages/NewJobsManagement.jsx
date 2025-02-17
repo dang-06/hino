@@ -104,9 +104,9 @@ const NewJobsManagement = () => {
         const getStatusStyle = (status) => {
             switch (status) {
                 case 'New':
-                    return { color: 'blue', label: 'NEW' };
+                    return { color: 'blue', label: t('NEW') };
                 case 'Need Update':
-                    return { color: 'red', label: 'NEED UPDATE' };
+                    return { color: 'red', label: t('NEED UPDATE') };
                 default:
                     return { color: 'black', label: 'UNKNOWN' };
             }

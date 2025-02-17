@@ -104,9 +104,9 @@ const JobsFinishedManagement = () => {
         const getStatusStyle = (status) => {
             switch (status) {
                 case 'Finished Installation':
-                    return { color: 'green', label: 'FINISHED INSTALLATION' };
+                    return { color: 'green', label: t('FINISHED INSTALLATION') };
                 case 'Updated':
-                    return { color: 'teal', label: 'UPDATED' };
+                    return { color: 'teal', label: t('UPDATED') };
                 default:
                     return { color: 'black', label: 'UNKNOWN' };
             }
