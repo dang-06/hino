@@ -29,15 +29,15 @@ const FilterRightBar = ({ open, setOpen, children, triggleFilter, setTriggleFite
                             <div className="pointer-events-auto flex flex-col w-screen max-w-[400px] bg-white shadow-lg">
                                 <div className="px-4 h-[57px] py-3 border-b">
                                     <h3 className="text-[20px] flex items-center cursor-pointer" onClick={() => setOpen(false)}>
-                                        <FaArrowLeft className="w-5 h-5 mr-3"/>
-                                        <span>Filter</span>
+                                        <FaArrowLeft className="w-5 h-5 mr-3" />
+                                        <span>{t('Filter')}</span>
                                     </h3>
                                 </div>
                                 <div className="flex-1 overflow-auto p-3">
                                     {children}
                                 </div>
                                 <div className="self-end w-full border-t">
-                                     <div className="flex flex-shrink-0 justify-end gap-4 px-4 h-[50px] py-3">
+                                    <div className="flex flex-shrink-0 justify-end gap-4 px-4 h-[50px] py-3">
                                         <button className="border rounded-lg hover:bg-[#eeeaea] border-[#e4e4e4] w-[100px]" onClick={() => setOpen(false)}>
                                             {t("Close")}
                                         </button>
@@ -45,7 +45,7 @@ const FilterRightBar = ({ open, setOpen, children, triggleFilter, setTriggleFite
                                             {t("search")}
                                         </button> */}
                                         <LoadingButton
-                                            onClick={() => {setTriggleFiter(true)}}
+                                            onClick={() => { setTriggleFiter(true) }}
                                             type="submit"
                                             variant="contained"
                                             loading={triggleFilter}

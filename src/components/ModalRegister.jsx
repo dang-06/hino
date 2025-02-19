@@ -139,18 +139,18 @@ const ModalRegister = ({ open, setOpen }) => {
                                     <div className="my-4 flex flex-col sm:flex-row gap-4">
                                         {/* Cột trái */}
                                         <div className="space-y-4 flex-1">
-                                            <CustomTextField name="user_name" label="User Name" control={control} errors={errors.user_name} required />
-                                            <CustomTextField name="full_name" label="Full Name" control={control} errors={errors.full_name} required />
-                                            <CustomTextField name="email" label="Email" control={control} errors={errors.email} required />
-                                            <CustomTextField name="phone_number" label="Phone Number" control={control} errors={errors.phone_number} required />
+                                            <CustomTextField name="user_name" label={t("userName")} control={control} errors={errors.user_name} required />
+                                            <CustomTextField name="full_name" label={t("fullName")} control={control} errors={errors.full_name} required />
+                                            <CustomTextField name="email" label={t("email")} control={control} errors={errors.email} required />
+                                            <CustomTextField name="phone_number" label={t("phone")} control={control} errors={errors.phone_number} required />
                                         </div>
 
                                         {/* Cột phải */}
                                         <div className="space-y-4 flex-1">
-                                            <CustomPasswordField name="password" label="Password" control={control} errors={errors.password} required />
+                                            <CustomPasswordField name="password" label={t("password")} control={control} errors={errors.password} required />
                                             <CustomSelect
                                                 name="role_id"
-                                                label="Role"
+                                                label={t("role")}
                                                 control={control}
                                                 setValue={setValue}
                                                 options={[
@@ -162,20 +162,20 @@ const ModalRegister = ({ open, setOpen }) => {
                                             />
                                             <CustomSelect
                                                 name="gender"
-                                                label="Gender"
+                                                label={t("gender")}
                                                 control={control}
                                                 setValue={setValue}
                                                 options={[
-                                                    { id: 'male', value: 'Male' },
-                                                    { id: 'female', value: 'Female' },
-                                                    { id: 'other', value: 'Other' },
+                                                    { id: 'male', value: t('male') },
+                                                    { id: 'female', value: t('female') },
+                                                    { id: 'other', value: t('other') },
                                                 ]}
                                                 required
                                             />
-                                            <CustomDateField name="date_of_birth" label="Date of Birth" control={control} errors={errors.date_of_birth} required />
+                                            <CustomDateField name="date_of_birth" label={t("dateOfBirth")} control={control} errors={errors.date_of_birth} required />
                                         </div>
                                     </div>
-                                    <CustomTextField name="address" label="Address" control={control} errors={errors.address} required />
+                                    <CustomTextField name="address" label={t("address")} control={control} errors={errors.address} required />
                                 </div>
                             </div>
                         </div>

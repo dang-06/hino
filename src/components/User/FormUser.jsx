@@ -99,7 +99,7 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
     const onSubmit = async (data) => {
 
         const transformData = {
-           ...data,
+            ...data,
             date_of_birth: formatDate(data.date_of_birth),
         };
 

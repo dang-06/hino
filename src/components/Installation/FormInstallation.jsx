@@ -218,13 +218,13 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         control={control}
                         // errors={errors.isActive}
                         options={[
-                          { id: 'Install Demo', value: 'Install Demo' },
-                          { id: 'New Install', value: 'New Install' },
-                          { id: 'Reinstall', value: 'Reinstall' },
-                          { id: 'Transfer Installation', value: 'Transfer Installation' },
-                          { id: 'Repair/Fix', value: 'Repair/Fix' },
-                          { id: 'Uninstall Onelink', value: 'Uninstall Onelink' },
-                          { id: 'Remove it for the customer', value: 'Remove it for the customer' },
+                          { id: 'Install Demo', value: t('Install Demo') },
+                          { id: 'New Install', value: t('New Install') },
+                          { id: 'Reinstall', value: t('Reinstall') },
+                          { id: 'Transfer Installation', value: t('Transfer Installation') },
+                          { id: 'Repair/Fix', value: t('Repair/Fix') },
+                          { id: 'Uninstall Onelink', value: t('Uninstall Onelink') },
+                          { id: 'Remove it for the customer', value: t('Remove it for the customer') },
                         ]}
                       />
                       <CustomTextField

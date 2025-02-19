@@ -113,7 +113,7 @@ const FilterInstallation = ({ filter, setFilter, triggleFiter, setTriggleFiter }
                         <div className="space-y-4 pt-6 pb-5">
                             <CustomTextField
                                 name="search"
-                                label="searchJob"
+                                label={t("searchJob")}
                                 control={control}
                                 errors={errors.search}
                             // required

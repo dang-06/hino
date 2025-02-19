@@ -96,7 +96,7 @@ const DetailInstallation = ({ detailRow }) => {
                     </div>
                     <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("installationType")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.installation_type}</p>
+                        <p className="text-[16px] leading-[1.2]">{t(detail.installation_type)}</p>
                     </div>
                     <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("installationLocation")}</label>
@@ -108,7 +108,7 @@ const DetailInstallation = ({ detailRow }) => {
                     </div>
                     <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("jobStatus")}</label>
-                        <p className="text-[16px] leading-[1.2]">{detail.job_status}</p>
+                        <p className="text-[16px] leading-[1.2]">{t(detail.job_status)}</p>
                     </div>
                     <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("note")}</label>

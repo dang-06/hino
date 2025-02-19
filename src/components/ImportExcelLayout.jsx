@@ -164,7 +164,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                     >
                                         <div className="drop-file-input__label">
                                             <img src="/images/cloud-upload.png" alt="cloud upload" />
-                                            <p>Drag & Drop your files here</p>
+                                            <p>{t('Drag & Drop your files here')}</p>
                                         </div>
                                         <input type="file" value="" onChange={onFileDrop} />
                                     </div>

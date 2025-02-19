@@ -66,7 +66,7 @@ const DetailUser = ({ detailRow }) => {
             </div>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("gender")}</label>
-                <p className="text-[16px] leading-[1.2]">{detailRow.gender}</p>
+                <p className="text-[16px] leading-[1.2]">{t(detailRow.gender)}</p>
             </div>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("address")}</label>

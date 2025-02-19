@@ -197,7 +197,7 @@ const UserManagement = () => {
                                 ) : (
                                     <>
                                         <h1 className="text-xl font-semibold text-gray-900">
-                                            {t("Users")}
+                                            {t("users")}
                                         </h1>
                                         <div className="action flex items-center gap-[8px]">
                                             <IoFilterOutline onClick={() => setOpenFilter(true)} className="h-5 w-5 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
@@ -233,7 +233,7 @@ const UserManagement = () => {
                                         },
                                     }}
                                     getRowId={(row) => row.user_id}
-                                    rows={data?.data?.users || []}  
+                                    rows={data?.data?.users || []}
                                     headerHeight={38}
                                     rowHeight={38}
                                     onRowClick={(params) => showDetailRow(params)}
@@ -294,7 +294,7 @@ const UserManagement = () => {
                                         <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
-                                                <span>Edit</span>
+                                                <span>{t("edit")}</span>
                                             </button>
                                         </Tooltip>
                                         <Divider orientation="vertical" flexItem variant="middle" />

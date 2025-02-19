@@ -69,7 +69,7 @@ const AssignJob = ({ open, setOpen }) => {
   }
 
   const fetchJob = async (name) => {
-    try { 
+    try {
       setIsLoadingJob(true)
       const response = await api.fetchJob(`status=New&search=${name}`);
       if (response.status === 200) {
@@ -145,7 +145,7 @@ const AssignJob = ({ open, setOpen }) => {
               className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none"
               onClick={onClose}
             >
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t('Close')}</span>
               <XIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
