@@ -94,7 +94,7 @@ const ChangePassword = ({ user, open, setOpen, refetch }) => {
                 aria-describedby="modal-modal-description"
                 sx={{
                     ".MuiBox-root": {
-                        top: '40px'
+                        top: '250px'
                     }
                 }}
             >
