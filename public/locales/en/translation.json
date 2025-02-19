@@ -896,5 +896,7 @@
   "teachicianName": "Teachician Name",
   "dateRange": "Date Range",
   "male": "Male",
-  "female": "Female"
+  "female": "Female",
+  "rowsPerPage": "Rows per page",
+  "rowSelected": "row selected"
 }

@@ -245,6 +245,13 @@ const UserManagement = () => {
                                     pageSize={criterias.size}
                                     onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                     onPageSizeChange={(size) => { setCriterias({ ...criterias, size }) }}
+                                    localeText={{
+                                        MuiTablePagination: {
+                                            labelRowsPerPage: t('rowsPerPage'),
+                                            labelDisplayedRows: ({ from, to, count }) => `${from}-${to} ${t('of')} ${count !== -1 ? count : `more than ${to}`}`,
+                                            labelRowSelected: t('rowSelected'),
+                                        },
+                                    }}
                                 />
                             </div>
                         </div>
@@ -259,7 +266,7 @@ const UserManagement = () => {
                                     <>
                                         <Tooltip title={'Cancel'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(false)} className="btn-primary border py-[5px] px-3 rounded-[5px] text-primary-900 border-primary-500 hover:bg-primary-100 text-[13px]">
-                                                <span>Cancel</span>
+                                                <span>{t("cancel")}</span>
                                             </button>
                                         </Tooltip>
                                         <Tooltip title={'Edit'} placement="bottom-start" arrow>

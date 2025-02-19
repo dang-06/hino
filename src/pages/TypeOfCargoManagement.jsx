@@ -46,15 +46,15 @@ const TypeOfCargoManagement = () => {
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row)
-            if (enableCheckbox) {
-                setSelectedCheckbox(prevState => ({
-                    ...prevState,
-                    [params.id]: prevState[params.id] ? !prevState[params.id] : true
-                }))
+        if (enableCheckbox) {
+            setSelectedCheckbox(prevState => ({
+                ...prevState,
+                [params.id]: prevState[params.id] ? !prevState[params.id] : true
+            }))
 
-            } else {
-                setShowDetail(true)
-            }
+        } else {
+            setShowDetail(true)
+        }
     }
 
     const getPrevRow = () => {
@@ -281,7 +281,7 @@ const TypeOfCargoManagement = () => {
                                                 <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-primary-900 cursor-pointer" aria-hidden="true" />
                                             </button>
                                         </Tooltip>
-                                        
+
                                         <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-primary-900 text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
@@ -319,13 +319,13 @@ const TypeOfCargoManagement = () => {
                     </div>
                     <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full p-[16px] overflow-auto">
                         <div className="max-w-[700px] p-4 min-h-[50vh] bg-white border m-auto ">
-                            {showDetail && (openEdit ? <FormTypeOfCargo selectedItem={selectedRow} refetch={() => {refetch(); setOpenEdit(false)}} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)}  /> : <DetailTypeOfCargo detailRow={selectedRow} />)}
+                            {showDetail && (openEdit ? <FormTypeOfCargo selectedItem={selectedRow} refetch={() => { refetch(); setOpenEdit(false) }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailTypeOfCargo detailRow={selectedRow} />)}
                         </div>
                     </div>
                 </div>
             </div>
             <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>
-                <FilterTypeOfCargo fleets={[]} filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}/>
+                <FilterTypeOfCargo fleets={[]} filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
             </FilterRightBar>
             <FormDisplay open={openForm} setOpen={setOpenForm} >
                 <FormTypeOfCargo selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />

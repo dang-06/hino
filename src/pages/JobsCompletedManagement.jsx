@@ -224,6 +224,13 @@ const JobsCompletedManagement = () => {
                                     pageSize={criterias?.size || 25}
                                     onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                     onPageSizeChange={(size) => { setCriterias({ ...criterias, size }) }}
+                                    localeText={{
+                                        MuiTablePagination: {
+                                            labelRowsPerPage: t('rowsPerPage'),
+                                            labelDisplayedRows: ({ from, to, count }) => `${from}-${to} ${t('of')} ${count !== -1 ? count : `more than ${to}`}`,
+                                            labelRowSelected: t('rowSelected'),
+                                        },
+                                    }}
                                 />
                             </div>
                         </div>

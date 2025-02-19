@@ -663,5 +663,8 @@
   "deleteSubtitle": "Bạn có chắc chắn muốn xóa {{name}} này không? Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn khỏi máy chủ của chúng tôi. Không thể hoàn tác hành động này.",
   "deleteTitle": "Xóa {{field}}",
   "user": "người dùng",
-  "Filter": "Bộ lọc"
+  "Filter": "Bộ lọc",
+  "rowsPerPage": "Dòng mỗi trang",
+  "of": "trên",
+  "rowSelected": "dòng được chọn"
 }
