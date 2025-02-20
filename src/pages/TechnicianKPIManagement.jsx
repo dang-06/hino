@@ -86,7 +86,7 @@ const TechnicianKPIManagement = () => {
                     {row.technician_id}
                 </div>
             ),
-            minWidth: 150,
+            minWidth: 50,
         },
         {
             field: "full_name",
@@ -236,14 +236,14 @@ const TechnicianKPIManagement = () => {
                                                             },
                                                         }}
                                                         getRowId={(row) => row.technician_id}
-                                                        rows={dataKPI?.data?.technicians || []}
+                                                        rows={dataKPI?.data?.paging_data.technicians || []}
                                                         headerHeight={38}
                                                         rowHeight={38}
                                                         onRowClick={(params) => showDetailRow(params)}
                                                         columns={columns}
                                                         rowsPerPageOptions={[25, 50, 100]}
                                                         paginationMode="server"
-                                                        rowCount={dataKPI?.data?.total_records || 0}
+                                                        rowCount={dataKPI?.data?.paging_data.total_records || 0}
                                                         pageSize={criteriasKPI?.size || 25}
                                                         onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                                         onPageSizeChange={(rowsPerPage) => { setCriterias({ ...criterias, rowsPerPage }) }}

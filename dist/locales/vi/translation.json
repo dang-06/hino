@@ -624,8 +624,18 @@
   "deviceStatusImg": "Ảnh trạng thái thiết bị",
   "vehicleInforImg": "Ảnh thông tin xe",
   "usersManagement": "Quản lí người dùng",
-  "technicianKPI": "Hiệu suất nhân viên",
+  "technicianKPI": "KPI",
   "gender": "Giới tính",
   "dateOfBirth": "Ngày sinh",
-  "createdTime": "Ngày tạo"
+  "createdTime": "Ngày tạo",
+  "NEW": "Mới tạo",
+  "NEED UPDATE": "Cần cập nhật",
+  "FINISHED INSTALLATION": "Hoàn thành lắp đặt",
+  "COMPLETED": "Hoàn thành",
+  "UPDATED": "Đã cập nhật",
+  "installationStatusOverview": "Tổng quan tình trạng lắp đặt",
+  "teachicianName": "Tên nhân viên",
+  "dateRange": "Khoảng ngày",
+  "male": "Nam",
+  "female": "Nữ"
 }
