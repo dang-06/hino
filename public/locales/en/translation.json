@@ -898,5 +898,6 @@
   "male": "Male",
   "female": "Female",
   "rowsPerPage": "Rows per page",
-  "rowSelected": "row selected"
+  "rowSelected": "row selected",
+  "totalJobCreated": "total job created"
 }

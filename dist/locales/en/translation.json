@@ -874,8 +874,8 @@
   "ReviewTitle": "Review Installation with ID:",
   "ReviewSubtitle": "Please review carefully and confirm the evaluation result.",
   "complete": "Complete",
-  "jobsCompleted": "Jobs completed",
-  "jobsFinished": "Jobs finished",
+  "jobsCompleted": "Jobs Completed",
+  "jobsFinished": "Jobs Finished",
   "newJobs": "New Jobs",
   "changePassword": "Change Password",
   "specialEquipment": "Special Equipment",
@@ -896,5 +896,7 @@
   "teachicianName": "Teachician Name",
   "dateRange": "Date Range",
   "male": "Male",
-  "female": "Female"
+  "female": "Female",
+  "rowsPerPage": "Rows per page",
+  "rowSelected": "row selected"
 }

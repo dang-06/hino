@@ -195,7 +195,7 @@ const TechnicianKPIManagement = () => {
 
                                         <div className="flex justify-between mb-2">
                                             <h3 className="text-lg font-semibold">
-                                                {t("technicianKPI")}
+                                                {t("technicianKPI")} ({t("totalJobCreated")}: {dataKPI?.data?.total_job_created})
                                             </h3>
                                             <div className="flex flex-end gap-4">
                                                 <TextField

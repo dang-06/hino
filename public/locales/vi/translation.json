@@ -666,5 +666,6 @@
   "Filter": "Bộ lọc",
   "rowsPerPage": "Dòng mỗi trang",
   "of": "trên",
-  "rowSelected": "dòng được chọn"
+  "rowSelected": "dòng được chọn",
+  "totalJobCreated": "tổng số công việc đã tạo"
 }
