@@ -898,5 +898,24 @@
   "male": "Male",
   "female": "Female",
   "rowsPerPage": "Rows per page",
-  "rowSelected": "row selected"
+  "rowSelected": "row selected",
+  "newPasswordRequired": "New password is required!",
+  "User Password": "user password",
+  "validation": {
+    "userNameRequired": "Username is required",
+    "fullNameRequired": "Full name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email format",
+    "phoneNumberRequired": "Phone number is required",
+    "phoneNumberInvalid": "Phone number must be 10-15 digits",
+    "dateOfBirthRequired": "Date of birth is required",
+    "dateOfBirthInvalid": "Date of birth cannot be in the future",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 6 characters",
+    "roleRequired": "Role is required",
+    "roleInvalid": "Invalid role",
+    "genderRequired": "Gender is required",
+    "genderInvalid": "Invalid gender",
+    "addressRequired": "Address is required"
+  }
 }

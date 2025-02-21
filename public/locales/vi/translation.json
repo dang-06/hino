@@ -344,7 +344,9 @@
     },
     "success": {
       "add": "Đã thêm {{field}} thành công!",
-      "delete": "Đã xoá {{field}} thành công!"
+      "delete": "Đã xoá {{field}} thành công!",
+      "update": "Cập nhật {{field}} thành công!",
+      "Review": "Đánh giá {{field}} thành công!"
     }
   },
   "publishJobList": "Thêm danh sách chuyến hàng",
@@ -666,5 +668,24 @@
   "Filter": "Bộ lọc",
   "rowsPerPage": "Dòng mỗi trang",
   "of": "trên",
-  "rowSelected": "dòng được chọn"
+  "rowSelected": "dòng được chọn",
+  "newPasswordRequired": "Mật khẩu mới không được để trống",
+  "User Password": "mật khẩu người dùng",
+  "validation": {
+    "userNameRequired": "Tên đăng nhập là bắt buộc",
+    "fullNameRequired": "Họ và tên là bắt buộc",
+    "emailRequired": "Email là bắt buộc",
+    "emailInvalid": "Định dạng email không hợp lệ",
+    "phoneNumberRequired": "Số điện thoại là bắt buộc",
+    "phoneNumberInvalid": "Số điện thoại phải có 10-15 chữ số",
+    "dateOfBirthRequired": "Ngày sinh là bắt buộc",
+    "dateOfBirthInvalid": "Ngày sinh không thể ở tương lai",
+    "passwordRequired": "Mật khẩu là bắt buộc",
+    "passwordMin": "Mật khẩu phải có ít nhất 6 ký tự",
+    "roleRequired": "Vai trò là bắt buộc",
+    "roleInvalid": "Vai trò không hợp lệ",
+    "genderRequired": "Giới tính là bắt buộc",
+    "genderInvalid": "Giới tính không hợp lệ",
+    "addressRequired": "Địa chỉ là bắt buộc"
+  }
 }

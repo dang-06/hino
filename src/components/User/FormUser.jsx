@@ -108,14 +108,14 @@ const FormUser = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitError, 
                 await updateForm(transformData).unwrap();
                 toast.success(
                     t("message.success.update", {
-                        field: t("User"),
+                        field: t("user"),
                     })
                 );
             } else {
                 await addForm(transformData).unwrap();
                 toast.success(
                     t("message.success.add", {
-                        field: t("User"),
+                        field: t("user"),
                     })
                 );
             }
