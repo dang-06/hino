@@ -32,7 +32,7 @@ const ModalRegister = ({ open, setOpen }) => {
         "gender": "",
         "phone_number": "",
         "address": "",
-        "date_of_birth": ""
+        "date_of_birth": null
     }
 
 
@@ -43,15 +43,15 @@ const ModalRegister = ({ open, setOpen }) => {
 
     // Validation
     const schema = yup.object().shape({
-        user_name: yup.string().required("User name is required"),
-        full_name: yup.string().required("Full name is required"),
-        email: yup.string().email("Invalid email format").required("Email is required"),
-        phone_number: yup.string().matches(/^\d{10,15}$/, "Phone number must be 10-15 digits").required("Phone number is required"),
-        date_of_birth: yup.date().max(new Date(), "Date of birth cannot be in the future").required("Date of birth is required"),
-        password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
-        role_id: yup.number().oneOf([1, 2, 3], "Invalid role").required("Role is required"),
-        gender: yup.string().oneOf(["male", "female", "other"], "Invalid gender").required("Gender is required"),
-        address: yup.string().required("Address is required"),
+        user_name: yup.string().required(t("validation.userNameRequired")),
+        full_name: yup.string().required(t("validation.fullNameRequired")),
+        email: yup.string().email(t("validation.emailInvalid")).required(t("validation.emailRequired")),
+        phone_number: yup.string().matches(/^\d{10,15}$/, t("validation.phoneNumberInvalid")).required(t("validation.phoneNumberRequired")),
+        date_of_birth: yup.date().nullable().max(new Date(), t("validation.dateOfBirthInvalid")).required(t("validation.dateOfBirthRequired")),
+        password: yup.string().min(6, t("validation.passwordMin")).required(t("validation.passwordRequired")),
+        role_id: yup.number().oneOf([1, 2, 3], t("validation.roleInvalid")).required(t("validation.roleRequired")),
+        gender: yup.string().oneOf(["male", "female", "other"], t("validation.genderInvalid")).required(t("validation.genderRequired")),
+        address: yup.string().required(t("validation.addressRequired")),
     });
 
     const {
@@ -97,6 +97,8 @@ const ModalRegister = ({ open, setOpen }) => {
             }
         }
     };
+
+
 
     const onClose = () => {
         setOpen(false);

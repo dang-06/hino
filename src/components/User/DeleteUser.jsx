@@ -14,7 +14,7 @@ const DeleteUser = ({ open, setOpen, deleteId }) => {
   const onDelete = async () => {
     try {
       await deleteQuery(deleteId);
-      toast.success(t("message.success.delete", { field: t("User") }));
+      toast.success(t("message.success.delete", { field: t("user") }));
       setOpen(false);
     } catch (error) {
       console.log(error);
