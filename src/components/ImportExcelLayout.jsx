@@ -33,6 +33,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
     const { t } = useTranslation();
     //   const [open, setOpen] = useState(false);
     const [uploadPercentage, setUploadPercentage] = useState(0);
+    const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
 
     const [modalResult, setModalResult] = useState(false)
@@ -85,7 +86,9 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
         };
 
         try {
-            await apiPath(fd, options);
+            const response = await apiPath(fd, options);
+            console.log("API Response:", response);
+            setData(response);
             setUploadPercentage(100);
             // toast.success('Import successfully');
             setModalResultValue({ type: 'success', message: '' })
@@ -171,7 +174,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                     {fileList && (
                                         <div className="drop-file-preview w-full">
                                             <p className="drop-file-preview__title">
-                                                Ready to upload
+                                                {t("readyToUpload")}
                                             </p>
                                             <div className="drop-file-preview__item">
                                                 <img
@@ -231,17 +234,37 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                         <div className="flex justify-center text-center flex-col gap-[30px]">
                             {modalResultValue.type == 'success' && (
                                 <>
-                                    <div className="mx-auto flex flex-shrink-0 items-center justify-center rounded-full bg-[#21DF7F38]">
-
-                                        <CheckIcon
-                                            className="h-[80px] w-[80px] text-[#21DF7F]"
-                                            aria-hidden="true"
-                                        />
-                                    </div>
-                                    <div className="text-center sm:mt-0">
-                                        <h3 className="text-lg font-medium leading-6 text-[#21DF7F]">
-                                            Import Plan Data Successfully
-                                        </h3>
+                                    {data?.data?.data?.total_new_jobs_imported === 0 ? (
+                                        <>
+                                            <div className="mx-auto flex flex-shrink-0 items-center justify-center rounded-full bg-red-100">
+                                                <ExclamationIcon className="h-[80px] w-[80px] text-red-600" aria-hidden="true" />
+                                            </div>
+                                            <div className="text-center sm:mt-0">
+                                                <h3 className="text-lg font-medium leading-6 text-red-600">
+                                                    {t("importFailed")}
+                                                </h3>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="mx-auto flex flex-shrink-0 items-center justify-center rounded-full bg-[#21DF7F38]">
+                                                <CheckIcon className="h-[80px] w-[80px] text-[#21DF7F]" aria-hidden="true" />
+                                            </div>
+                                            <div className="text-center sm:mt-0">
+                                                <h3 className="text-lg font-medium leading-6 text-[#21DF7F]">
+                                                    {t("importPlanDataSuccessfully")}
+                                                </h3>
+                                            </div>
+                                        </>
+                                    )}
+                                    <div className="flex flex-col gap-[4px] text-left  text-sm text-gray-700">
+                                        <p><strong>{t("totalNewJobsImported")}: </strong>{data?.data?.data?.total_new_jobs_imported}</p>
+                                        {data?.data?.data?.existed_vin_no?.length > 0 && (
+                                            <p><strong>{t("existedVinNo")}: </strong>{data.data.data.existed_vin_no.join(", ")}</p>
+                                        )}
+                                        {data?.data?.data?.missing_data_rows?.length > 0 && (
+                                            <p><strong>{t("missingDataRows")}:</strong> {data.data.data.missing_data_rows.join(", ")}</p>
+                                        )}
                                     </div>
                                 </>
                             )}
@@ -257,7 +280,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                     </div>
                                     <div className="text-center sm:mt-0">
                                         <h3 className="text-lg font-medium leading-6 text-red-600">
-                                            Import Failed
+                                            {t("importFailed")}
                                             {/* <span className="font-semibold text-red-500">{deleteId}</span> */}
                                         </h3>
                                         <div className="mt-2">
@@ -276,7 +299,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                 className="mt-3 mx-auto inline-flex w-3/4 justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none "
                                 onClick={() => setModalResult(false)}
                             >
-                                {t("Close")}
+                                {t("close")}
                             </button>
                         </div>
                     </div>

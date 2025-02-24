@@ -21,6 +21,8 @@ import CustomTextField from "../FormField/CustomTextField";
 import { AiFillEdit } from "react-icons/ai";
 import Tooltip from "@mui/material/Tooltip";
 import { fetchInstallationDetail } from "../../api";
+import Lightbox from "react-image-lightbox";
+import 'react-image-lightbox/style.css';
 
 const DetailInstallation = ({ detailRow }) => {
     const { t } = useTranslation();
@@ -28,6 +30,9 @@ const DetailInstallation = ({ detailRow }) => {
     const [detail, setDetail] = useState({});
     const { masterDatas } = useSelector((state) => state.masterDatas);
     const [updateInstallation, { isLoading }] = useUpdateInstallationMutation();
+    const [isOpen, setIsOpen] = useState(false);
+    const [photoIndex, setPhotoIndex] = useState(0);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         if (detailRow.job_id) {
@@ -115,6 +120,10 @@ const DetailInstallation = ({ detailRow }) => {
                         <p className="text-[16px] leading-[1.2]">{detail.note}</p>
                     </div>
                     <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("ODO")}</label>
+                        <p className="text-[16px] leading-[1.2]">{detail.odometer_reading}</p>
+                    </div>
+                    <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("imeiNo")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.imei_no}</p>
                     </div>
@@ -126,14 +135,19 @@ const DetailInstallation = ({ detailRow }) => {
                         <label className="text-[13px] font-normal text-[#5f6368]">
                             {t("installationImage")}
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        <div className="flex gap-2 mt-2">
                             {detail.installation_img_paths?.length > 0 && (
                                 detail.installation_img_paths.map((imgPath, index) => (
                                     <img
                                         key={index}
                                         src={imgPath}
                                         alt={`Installation Image ${index + 1}`}
-                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                        className="max-w-full h-40 object-cover rounded-lg shadow cursor-pointer"
+                                        onClick={() => {
+                                            setPhotoIndex(index);
+                                            setImages(detail.installation_img_paths);
+                                            setIsOpen(true);
+                                        }}
                                     />
                                 ))
                             )}
@@ -143,14 +157,19 @@ const DetailInstallation = ({ detailRow }) => {
                         <label className="text-[13px] font-normal text-[#5f6368]">
                             {t("afterInstallationImg")}
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        <div className="flex gap-2 mt-2">
                             {detail.after_installation_img_paths?.length > 0 && (
                                 detail.after_installation_img_paths.map((imgPath, index) => (
                                     <img
                                         key={index}
                                         src={imgPath}
                                         alt={`Installation Image ${index + 1}`}
-                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                        className="max-w-full h-40 object-cover rounded-lg shadow cursor-pointer"
+                                        onClick={() => {
+                                            setPhotoIndex(index);
+                                            setImages(detail.after_installation_img_paths);
+                                            setIsOpen(true);
+                                        }}
                                     />
                                 ))
                             )}
@@ -160,14 +179,19 @@ const DetailInstallation = ({ detailRow }) => {
                         <label className="text-[13px] font-normal text-[#5f6368]">
                             {t("deviceAndSimImg")}
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        <div className="flex gap-2 mt-2">
                             {detail.device_and_sim_img_paths?.length > 0 && (
                                 detail.device_and_sim_img_paths.map((imgPath, index) => (
                                     <img
                                         key={index}
                                         src={imgPath}
                                         alt={`Installation Image ${index + 1}`}
-                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                        className="max-w-full h-40 object-cover rounded-lg shadow cursor-pointer"
+                                        onClick={() => {
+                                            setPhotoIndex(index);
+                                            setImages(detail.device_and_sim_img_paths);
+                                            setIsOpen(true);
+                                        }}
                                     />
                                 ))
                             )}
@@ -177,14 +201,19 @@ const DetailInstallation = ({ detailRow }) => {
                         <label className="text-[13px] font-normal text-[#5f6368]">
                             {t("deviceStatusImg")}
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        <div className="flex gap-2 mt-2">
                             {detail.device_status_img_paths?.length > 0 && (
                                 detail.device_status_img_paths.map((imgPath, index) => (
                                     <img
                                         key={index}
                                         src={imgPath}
                                         alt={`Installation Image ${index + 1}`}
-                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                        className="max-w-full h-40 object-cover rounded-lg shadow cursor-pointer"
+                                        onClick={() => {
+                                            setPhotoIndex(index);
+                                            setImages(detail.device_status_img_paths);
+                                            setIsOpen(true);
+                                        }}
                                     />
                                 ))
                             )}
@@ -194,14 +223,19 @@ const DetailInstallation = ({ detailRow }) => {
                         <label className="text-[13px] font-normal text-[#5f6368]">
                             {t("vehicleInforImg")}
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        <div className="flex gap-2 mt-2">
                             {detail.vehicle_infor_img_paths?.length > 0 && (
                                 detail.vehicle_infor_img_paths.map((imgPath, index) => (
                                     <img
                                         key={index}
                                         src={imgPath}
                                         alt={`Installation Image ${index + 1}`}
-                                        className="max-w-full h-40 object-cover rounded-lg shadow"
+                                        className="max-w-full h-40 object-cover rounded-lg shadow cursor-pointer"
+                                        onClick={() => {
+                                            setPhotoIndex(index);
+                                            setImages(detail.vehicle_infor_img_paths);
+                                            setIsOpen(true);
+                                        }}
                                     />
                                 ))
                             )}
@@ -209,6 +243,17 @@ const DetailInstallation = ({ detailRow }) => {
                     </div>
                 </div>
             </div>
+            {isOpen && (
+                <Lightbox
+                    mainSrc={images[photoIndex]}
+                    nextSrc={images[(photoIndex + 1) % images.length]}
+                    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                    onCloseRequest={() => setIsOpen(false)}
+                    onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
+                    onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
+                    imagePadding={80}
+                />
+            )}
         </>
     );
 };

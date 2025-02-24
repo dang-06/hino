@@ -25,13 +25,6 @@ const DropdownLanguage = () => {
           <span className="hidden sm:block">English</span>
         </>
       );
-    } else {
-      return (
-        <>
-          <img src={th} alt="th" />
-          <span className="hidden sm:block">ไทย</span>
-        </>
-      );
     }
   };
 
@@ -81,22 +74,6 @@ const DropdownLanguage = () => {
                   >
                     <img src={en} alt="us" className="w-5" />{" "}
                     <span className="hidden sm:block">English</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    onClick={() => {
-                      i18n.changeLanguage("th");
-                      close();
-                    }}
-                    className={`flex items-center justify-start gap-2 py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${
-                      currentLanguageMode === "th"
-                        ? "disabled"
-                        : "cursor-pointer"
-                    } `}
-                  >
-                    <img src={th} alt="th" />{" "}
-                    <span className="hidden sm:block">ไทย</span>
                   </a>
                 </li>
               </ul>

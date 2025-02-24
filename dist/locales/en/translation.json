@@ -898,5 +898,11 @@
   "male": "Male",
   "female": "Female",
   "rowsPerPage": "Rows per page",
-  "rowSelected": "row selected"
+  "rowSelected": "row selected",
+  "totalJobCreated": "total job created",
+  "importFailed": "Import failed",
+  "importPlanDataSuccessfully": "Import plan data successfully",
+  "totalNewJobsImported": "Total new jobs imported",
+  "existedVinNo": "Existed VIN Numbers",
+  "missingDataRows": "Missing data rows"
 }

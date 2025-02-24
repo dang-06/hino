@@ -110,11 +110,11 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: (result, error, arg) => {
                 if (!error && result) {
-                    return ['Installation']
+                    return ['Installation', 'Job Completed']
                 }
                 return []
             },
-            invalidatesTags: ['Installation'],
+            // invalidatesTags: ['Installation'],
         }),
         reviewInstallation: builder.mutation({
             query: (data) => ({
@@ -347,7 +347,7 @@ export const apiSlice = createApi({
                     status: 'Completed'
                 }
             }),
-            providesTags: ["Job"],
+            providesTags: ["Job Completed"],
         }),
         getOverview: builder.query({
             query: (params) => ({
@@ -472,6 +472,7 @@ export const {
     useGetNewJobsQuery,
     useGetFinishedJobsQuery,
     useGetCompletedJobsQuery,
+    useLazyGetCompletedJobsQuery,
     //KPI
     useGetOverviewQuery,
     useGetTechnicianKPIQuery,

@@ -666,5 +666,11 @@
   "Filter": "Bộ lọc",
   "rowsPerPage": "Dòng mỗi trang",
   "of": "trên",
-  "rowSelected": "dòng được chọn"
+  "rowSelected": "dòng được chọn",
+  "totalJobCreated": "tổng số công việc đã tạo",
+  "importFailed": "Nhập dữ liệu thất bại",
+  "importPlanDataSuccessfully": "Nhập kế hoạch dữ liệu thành công",
+  "totalNewJobsImported": "Tổng số công việc mới đã nhập",
+  "existedVinNo": "Số VIN đã tồn tại",
+  "missingDataRows": "Hàng dữ liệu bị thiếu"
 }

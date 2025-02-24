@@ -326,7 +326,6 @@ const JobsFinishedManagement = () => {
             </FormDisplay>
             <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
             <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
-            <AssignJob open={openAssignJob} setOpen={setOpenAssignJob} />
         </>
     );
 };

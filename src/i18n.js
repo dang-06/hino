@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    supportedLngs: ["vi", "en", "th"],
+    supportedLngs: ["vi", "en"],
     fallbackLng: "en",
     detection: {
       order: ["cookie", "path", "htmlTag", "localStorage", "subdomain"],
@@ -17,6 +17,9 @@ i18n
     backend: {
       loadPath: "/locales/{{lng}}/translation.json",
     },
+    interpolation: {
+      escapeValue: false,
+    }
   });
 
 export default i18n;

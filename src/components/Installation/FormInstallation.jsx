@@ -59,7 +59,14 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
 
   // Validation
   const schema = yup.object().shape({
-
+    model: yup.string().required("Model is required"),
+    lot_no: yup.string().required("Lot number is required"),
+    vin_no: yup.string().required("VIN number is required"),
+    engine_no: yup.string().required("Engine number is required"),
+    note: yup.string().nullable(),
+    installation_location: yup.string().nullable(),
+    installation_date: yup.date().required("Installation date is required"),
+    special_equipment: yup.string().nullable(),
   });
 
   useEffect(_ => {
@@ -87,10 +94,12 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
   });
 
   const formatDate = (date) => {
-    const _date = new Date(date);
-    _date.setDate(_date.getDate() + 1);
-    const formattedDate = _date.toISOString().split('T')[0];
-    return formattedDate
+    if (date) {
+      const _date = new Date(date);
+      _date.setDate(_date.getDate() + 1);
+      const formattedDate = _date.toISOString().split('T')[0];
+      return formattedDate
+    } else return ''
   }
 
   const onSubmit = async (data) => {
@@ -122,10 +131,13 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
       setOpenForm(false);
     } catch (error) {
       setTriggleSubmit(false)
-      if (error?.data?.status === 400) {
-        toast.error('Error');
-        // toast.error(error.data.validMsgList?.plateLicence[0]);
-      }
+      console.log(error)
+      console.log(data.vin_no)
+      toast.error(t("vinNoAlreadyExists", { vin_no: data.vin_no }));
+      // if (error?.data?.status === 400) {
+      //   toast.error('Error');
+      //   toast.error(error.data.validMsgList?.plateLicence[0]);
+      // }
     }
   };
 
@@ -192,31 +204,35 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         name="model"
                         label={t("model")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.model}
+                        required
                       />
                       <CustomTextField
                         name="lot_no"
                         label={t("lotNo")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.lot_no}
+                        required
                       />
                       <CustomTextField
                         name="vin_no"
                         label={t("vin")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.vin_no}
+                        required
                       />
                       <CustomTextField
                         name="engine_no"
                         label={t("engineNo")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.engine_no}
+                        required
                       />
                       <CustomSelect
                         name="installation_type"
                         label={t("installationType")}
                         control={control}
-                        // errors={errors.isActive}
+                        errors={errors.installation_type}
                         options={[
                           { id: 'Install Demo', value: t('Install Demo') },
                           { id: 'New Install', value: t('New Install') },
@@ -231,31 +247,32 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
                         name="note"
                         label={t("note")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.note}
                       />
                       <CustomTextField
                         name="installation_location"
                         label={t("installationLocation")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.installation_location}
                       />
                       <CustomDateField
                         name="installation_date"
                         label={t("installationDate")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.installation_date}
+                        required
                       />
                       <CustomTextField
                         name="special_equipment"
                         label={t("specialEquipment")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.special_equipment}
                       />
                       <CustomDateField
                         name="manufacture_date"
                         label={t("manufactureDate")}
                         control={control}
-                        errors={errors.englishName}
+                        errors={errors.manufacture_date}
                       />
                     </div>
                   </div>

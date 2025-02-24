@@ -2,7 +2,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-    useGetCompletedJobsQuery,
+    useGetCompletedJobsQuery,useLazyGetCompletedJobsQuery
 } from "../services/apiSlice";
 import Tooltip from "@mui/material/Tooltip";
 import { DataGrid } from "@mui/x-data-grid";
@@ -44,7 +44,14 @@ const JobsCompletedManagement = () => {
         from_date: '',
         to_date: ''
     });
-    const { data, isLoading, isFetching, refetch } = useGetCompletedJobsQuery(criterias);
+    // const { data, isLoading, isFetching, refetch } = useGetCompletedJobsQuery(criterias);
+    const [fetchData, { data, isLoading, isFetching }] = useLazyGetCompletedJobsQuery();
+
+    useEffect(_ => {
+        fetchData(criterias)
+    }, [])
+
+
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row)
@@ -91,13 +98,13 @@ const JobsCompletedManagement = () => {
     const onDoneDelete = (e) => {
         setOpen(false)
         setShowDetail(false)
-        refetch()
+        // refetch()
     }
 
     const onDoneReview = (e) => {
         setOpenReview(false)
         setShowDetail(false)
-        refetch()
+        // refetch()
     }
 
     const JobStatusCell = ({ value }) => {
@@ -311,7 +318,7 @@ const JobsCompletedManagement = () => {
                     </div>
                     <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full overflow-auto">
                         <div className="min-h-[50vh] m-auto overflow-auto" style={{ height: 'calc(100vh - 110px)' }}>
-                            {showDetail && (openEdit ? <FormInstallation selectedItem={selectedRow} refetch={() => { refetch(); setOpenEdit(false) }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailInstallation detailRow={selectedRow} />)}
+                            {showDetail && (openEdit ? <FormInstallation selectedItem={selectedRow} refetch={() => { setOpenEdit(false) }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailInstallation detailRow={selectedRow} />)}
                         </div>
                     </div>
                 </div>
@@ -320,11 +327,10 @@ const JobsCompletedManagement = () => {
                 <FilterInstallation fleets={[]} filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
             </FilterRightBar>
             <FormDisplay open={openForm} setOpen={setOpenForm} >
-                <FormInstallation selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
+                <FormInstallation selectedItem={null} refetch={console.log} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
             </FormDisplay>
             <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
             <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
-            <AssignJob open={openAssignJob} setOpen={setOpenAssignJob} />
         </>
     );
 };
