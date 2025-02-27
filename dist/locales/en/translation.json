@@ -904,5 +904,25 @@
   "importPlanDataSuccessfully": "Import plan data successfully",
   "totalNewJobsImported": "Total new jobs imported",
   "existedVinNo": "Existed VIN Numbers",
-  "missingDataRows": "Missing data rows"
+  "missingDataRows": "Missing data rows",
+  "vinNoAlreadyExists": "VIN number {{vin_no}} already exists",
+  "newPasswordRequired": "New password is required!",
+  "User Password": "user password",
+  "validation": {
+    "userNameRequired": "Username is required",
+    "fullNameRequired": "Full name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email format",
+    "phoneNumberRequired": "Phone number is required",
+    "phoneNumberInvalid": "Phone number must be 10-15 digits",
+    "dateOfBirthRequired": "Date of birth is required",
+    "dateOfBirthInvalid": "Date of birth cannot be in the future",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 6 characters",
+    "roleRequired": "Role is required",
+    "roleInvalid": "Invalid role",
+    "genderRequired": "Gender is required",
+    "genderInvalid": "Invalid gender",
+    "addressRequired": "Address is required"
+  }
 }
