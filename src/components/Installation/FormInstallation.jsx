@@ -52,20 +52,20 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
     "installation_type": "",
     "note": "",
     "installation_location": "",
-    "installation_date": "",
+    "installation_date": null,
     "special_equipment": "",
     "manufacture_date": ""
   }
 
   // Validation
   const schema = yup.object().shape({
-    model: yup.string().required("Model is required"),
-    lot_no: yup.string().required("Lot number is required"),
-    vin_no: yup.string().required("VIN number is required"),
-    engine_no: yup.string().required("Engine number is required"),
+    model: yup.string().required(t("Model is required")),
+    lot_no: yup.string().required(t("Lot number is required")),
+    vin_no: yup.string().required(t("VIN number is required")),
+    engine_no: yup.string().required(t("Engine number is required")),
     note: yup.string().nullable(),
     installation_location: yup.string().nullable(),
-    installation_date: yup.date().required("Installation date is required"),
+    installation_date: yup.date().nullable().required(t("Installation date is required")),
     special_equipment: yup.string().nullable(),
   });
 
@@ -94,13 +94,15 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
   });
 
   const formatDate = (date) => {
-    if (date) {
+    if (date && !isNaN(Date.parse(date))) {
       const _date = new Date(date);
       _date.setDate(_date.getDate() + 1);
       const formattedDate = _date.toISOString().split('T')[0];
-      return formattedDate
-    } else return ''
-  }
+      return formattedDate;
+    } else {
+      return '';
+    }
+  };
 
   const onSubmit = async (data) => {
     const transformData = {

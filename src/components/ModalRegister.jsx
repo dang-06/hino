@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 import CustomPasswordField from "./FormField/CustomPasswordField";
 
 
-const ModalRegister = ({ open, setOpen }) => {
+const ModalRegister = ({ open, setOpen, refetch }) => {
     const { t } = useTranslation();
 
     const [registerUser, { isLoading: isLoading }] = useRegisterUserMutation();
@@ -83,12 +83,13 @@ const ModalRegister = ({ open, setOpen }) => {
             await registerUser(transformData).unwrap();
             toast.success(
                 t("message.success.add", {
-                    field: t("Installation"),
+                    field: t("user"),
                 })
             );
-            setTriggleSubmit(false)
+            // setTriggleSubmit(false)
             reset(defaultValues);
             setOpen(false);
+            refetch();
         } catch (error) {
             setTriggleSubmit(false)
             if (error?.data?.status === 400) {

@@ -23,6 +23,7 @@ import DeleteUser from "../components/User/DeleteUser";
 import FormUser from "../components/User/FormUser";
 import ChangePassword from "../components/User/ChangePassword";
 import { useGetUserQuery } from "../services/apiSlice";
+import ModalRegister from "../components/ModalRegister";
 
 
 const UserManagement = () => {
@@ -346,6 +347,7 @@ const UserManagement = () => {
             </FormDisplay>
             <DeleteUser open={open} setOpen={onDoneDelete} deleteId={selectedRow?.user_id} />
             <ChangePassword user={selectedRow} open={openChangePassword} setOpen={setOpenChangePassword} refetch={() => { setOpenChangePassword(false); setShowDetail(false); refetch() }} />
+            <ModalRegister open={openForm} setOpen={setOpenForm} refetch={refetch} />
         </>
     );
 };

@@ -108,8 +108,6 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
         setIsLoading(false);
     };
 
-
-
     return (
         <>
             {/* <div className="mt-4 flex items-center space-x-4 sm:mt-0">
@@ -261,6 +259,9 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                         <p><strong>{t("totalNewJobsImported")}: </strong>{data?.data?.data?.total_new_jobs_imported}</p>
                                         {data?.data?.data?.existed_vin_no?.length > 0 && (
                                             <p><strong>{t("existedVinNo")}: </strong>{data.data.data.existed_vin_no.join(", ")}</p>
+                                        )}
+                                        {data?.data?.data?.existed_engine_no?.length > 0 && (
+                                            <p><strong>{t("existedEngineNo")}: </strong>{data.data.data.existed_engine_no.join(", ")}</p>
                                         )}
                                         {data?.data?.data?.missing_data_rows?.length > 0 && (
                                             <p><strong>{t("missingDataRows")}:</strong> {data.data.data.missing_data_rows.join(", ")}</p>
