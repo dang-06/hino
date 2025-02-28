@@ -259,7 +259,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: (result, error, arg) => {
                 if (!error && result) {
-                    return ['Register']
+                    return ['User']
                 }
                 return []
             },

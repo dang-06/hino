@@ -229,7 +229,7 @@ const InstallationManagement = () => {
                                                     role="button"
                                                     tabIndex={0}>
                                                     <div className="flex items-center justify-between p-3">
-                                                        <div className="flex flex-col">
+                                                        <div className="flex flex-col space-y-2" style={{ marginTop: '-1.5rem' }}>
                                                             <h3 className="text-sm font-semibold">{t("vin")}: {job.vin_no}</h3>
                                                             <h3 className="text-sm font-semibold">{t("model")}: {job.model}</h3>
                                                             <p className="text-xs">
@@ -240,23 +240,23 @@ const InstallationManagement = () => {
                                                             <img
                                                                 src={job.segment_img}
                                                                 alt={`Job ${job.job_id}`}
-                                                                className="w-full h-full object-contain rounded-lg"
+                                                                className="w-[90] object-contain rounded-lg"
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className='p-2'>
+                                                    <div className="pl-3">
                                                         <p className="text-lg font-bold">{t("jobId")}: {job.job_id}</p>
                                                         <p className="text-xs text-gray-500">{t("installationDate")}: {job.installation_date}</p>
                                                     </div>
-                                                    <p className="text-sm pl-2 pr-2 h-[13%] flex justify-between items-center">
+                                                    <p className="text-sm pl-3 pr-2 h-[13%] flex justify-between items-center">
                                                         {t("installationLocation")}: {job.installation_location}
                                                     </p>
-                                                    <div className="pl-2 pr-2 mb-5">
+                                                    <div className="pl-3 pr-2 mb-3">
                                                         <div className="flex justify-between items-center mt-auto">
                                                             <a href="#" className="text-green-600 text-sm mt-2 block">
                                                                 {t("viewMap")}
                                                             </a>
-                                                            <div className='flex justify-between items-center mr-4'>
+                                                            <div className='flex justify-between items-center mr-5'>
                                                                 <button className="text-gray-700 flex-1 mr-2">
                                                                     <CiCircleChevRight size={20} />
                                                                 </button>

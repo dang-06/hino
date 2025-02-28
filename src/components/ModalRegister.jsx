@@ -79,22 +79,17 @@ const ModalRegister = ({ open, setOpen, refetch }) => {
         };
 
         try {
-
             await registerUser(transformData).unwrap();
             toast.success(
                 t("message.success.add", {
                     field: t("user"),
                 })
             );
-            // setTriggleSubmit(false)
             reset(defaultValues);
             setOpen(false);
-            refetch();
         } catch (error) {
-            setTriggleSubmit(false)
             if (error?.data?.status === 400) {
                 toast.error('Error');
-                // toast.error(error.data.validMsgList?.plateLicence[0]);
             }
         }
     };
