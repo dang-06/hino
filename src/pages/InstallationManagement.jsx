@@ -31,7 +31,7 @@ const InstallationManagement = () => {
     const { t } = useTranslation();
     const [criterias, setCriterias] = useState({
         page: 1,
-        size: 12,
+        size: 16,
         search: '',
         status: '',
         from_date: '',
