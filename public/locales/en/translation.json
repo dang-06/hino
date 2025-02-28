@@ -906,6 +906,7 @@
   "existedVinNo": "Existed VIN Numbers",
   "missingDataRows": "Missing data rows",
   "vinNoAlreadyExists": "VIN number {{vin_no}} already exists",
+  "engineNoAlreadyExists": "Engine number {{engine_no}} already exists",
   "newPasswordRequired": "New password is required!",
   "User Password": "user password",
   "validation": {

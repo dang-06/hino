@@ -31,7 +31,7 @@ const InstallationManagement = () => {
     const { t } = useTranslation();
     const [criterias, setCriterias] = useState({
         page: 1,
-        size: 8,
+        size: 12,
         search: '',
         status: '',
         from_date: '',
@@ -224,40 +224,40 @@ const InstallationManagement = () => {
                                                 sm={showDetail ? 12 : 3}
                                                 md={showDetail ? 12 : 3}
                                                 key={job.job_id}>
-                                                <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden h-[500px] cursor-pointer"
+                                                <div className="card focus:shadow-2xl hover:shadow-2xl w-full border bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-transform transform"
                                                     onClick={() => showDetailRow(job)}
                                                     role="button"
                                                     tabIndex={0}>
-                                                    <div className="flex items-center p-4">
+                                                    <div className="flex items-center justify-between p-3">
                                                         <div className="flex flex-col">
                                                             <h3 className="text-sm font-semibold">{t("vin")}: {job.vin_no}</h3>
                                                             <h3 className="text-sm font-semibold">{t("model")}: {job.model}</h3>
-                                                            <p className={`text-xs`}>
+                                                            <p className="text-xs">
                                                                 {t("jobStatus")}: <span style={{ color: statusStyle.color }}> {t(statusStyle.label)} </span>
                                                             </p>
                                                         </div>
+                                                        <div className="w-1/3 h-24 ml-2">
+                                                            <img
+                                                                src={job.segment_img}
+                                                                alt={`Job ${job.job_id}`}
+                                                                className="w-full h-full object-contain rounded-lg"
+                                                            />
+                                                        </div>
                                                     </div>
-                                                    <div className="h-[45%]">
-                                                        <img
-                                                            src={job.segment_img}
-                                                            alt={`Job ${job.job_id}`}
-                                                            className="w-full h-full object-contain"
-                                                        />
-                                                    </div>
-                                                    <div className='p-4 h-1/6'>
-                                                        <p className="text-lg mt-2 font-bold">{t("jobId")}: {job.job_id}</p>
+                                                    <div className='p-2'>
+                                                        <p className="text-lg font-bold">{t("jobId")}: {job.job_id}</p>
                                                         <p className="text-xs text-gray-500">{t("installationDate")}: {job.installation_date}</p>
                                                     </div>
-                                                    <p className="text-sm pl-4 pr-4 h-[13%] flex justify-between items-center">
+                                                    <p className="text-sm pl-2 pr-2 h-[13%] flex justify-between items-center">
                                                         {t("installationLocation")}: {job.installation_location}
                                                     </p>
-                                                    <div className="pl-4 pr-4">
+                                                    <div className="pl-2 pr-2 mb-5">
                                                         <div className="flex justify-between items-center mt-auto">
-                                                            <a href="#" className="text-green-600 text-sm mt-4 block">
+                                                            <a href="#" className="text-green-600 text-sm mt-2 block">
                                                                 {t("viewMap")}
                                                             </a>
-                                                            <div className='flex justify-between items-center'>
-                                                                <button className="text-gray-700 flex-1 mr-5">
+                                                            <div className='flex justify-between items-center mr-4'>
+                                                                <button className="text-gray-700 flex-1 mr-2">
                                                                     <CiCircleChevRight size={20} />
                                                                 </button>
                                                                 <button onClick={() => deleteJob(job)} className="text-gray-600 flex-1">

@@ -14,7 +14,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Tooltip } from "@mui/material";
-import { FaWrench, FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase } from "react-icons/fa";
+import { FaWrench, FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase, FaPlusSquare, FaCheckCircle, FaCheckDouble } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { LiaFileInvoiceSolid, LiaClipboardListSolid } from "react-icons/lia";
@@ -24,9 +24,9 @@ import { updateCommonValue } from "../features/common/commonSlice";
 const navigation = [
     { name: "installation", href: "installation", icon: FaWrench, current: false },
     { name: "job", href: "job", icon: FaBriefcase, current: false },
-    { name: "newJobs", href: "new-jobs", icon: FaBriefcase, current: false },
-    { name: "jobsFinished", href: "jobs-finished", icon: FaBriefcase, current: false },
-    { name: "jobsCompleted", href: "jobs-completed", icon: FaBriefcase, current: false },
+    { name: "newJobs", href: "new-jobs", icon: FaPlusSquare, current: false },
+    { name: "jobsFinished", href: "jobs-finished", icon: FaCheckCircle, current: false },
+    { name: "jobsCompleted", href: "jobs-completed", icon: FaCheckDouble, current: false },
     { name: "usersManagement", href: "users-management", icon: FaUser, current: false },
     { name: "technicianKPI", href: "tech-kpi", icon: FaChartLine, current: false }
 ];

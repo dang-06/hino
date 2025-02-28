@@ -676,6 +676,7 @@
   "existedVinNo": "Số VIN đã tồn tại",
   "missingDataRows": "Hàng dữ liệu bị thiếu",
   "vinNoAlreadyExists": "Số VIN {{vin_no}} đã tồn tại",
+  "engineNoAlreadyExists": "Số máy {{engine_no}} đã tồn tại",
   "newPasswordRequired": "Mật khẩu mới không được để trống",
   "User Password": "mật khẩu người dùng",
   "validation": {
@@ -694,5 +695,11 @@
     "genderRequired": "Giới tính là bắt buộc",
     "genderInvalid": "Giới tính không hợp lệ",
     "addressRequired": "Địa chỉ là bắt buộc"
-  }
+  },
+  "existedEngineNo": "Số máy đã tồn tại",
+  "Model is required": "Model là bắt buộc",
+  "Lot number is required": "Số lô là bắt buộc",
+  "VIN number is required": "Số VIN là bắt buộc",
+  "Engine number is required": "Số máy là bắt buộc",
+  "Installation date is required": "Ngày lắp đặt là bắt buộc"
 }

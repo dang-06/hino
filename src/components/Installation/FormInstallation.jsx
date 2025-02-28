@@ -133,9 +133,16 @@ const FormInstallation = ({ selectedItem, triggleSubmit, setTriggleSubmit, submi
       setOpenForm(false);
     } catch (error) {
       setTriggleSubmit(false)
-      console.log(error)
-      console.log(data.vin_no)
-      toast.error(t("vinNoAlreadyExists", { vin_no: data.vin_no }));
+      const errorMessage = error?.data?.message || '';
+    
+      if (errorMessage.toLowerCase().includes('vin no')) {
+        toast.error(t("vinNoAlreadyExists", { vin_no: data.vin_no }));
+      } else if (errorMessage.toLowerCase().includes('engine no')) {
+        toast.error(t("engineNoAlreadyExists", { engine_no: data.engine_no }));
+      } else {
+        toast.error(t("An error occurred"));
+      }
+      // toast.error(t("vinNoAlreadyExists", { vin_no: data.vin_no }));
       // if (error?.data?.status === 400) {
       //   toast.error('Error');
       //   toast.error(error.data.validMsgList?.plateLicence[0]);

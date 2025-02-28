@@ -9,7 +9,7 @@ import { updateMasterDataFieldValue } from "../features/masterDatas/masterDatasS
 
 const MainLayout = () => {
     const dispatch = useDispatch();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
     const sideBar = React.useMemo(() => <Sidebar sidebarOpen={sidebarOpen} />, [sidebarOpen]);
 
     const updateSideBarState = () => {

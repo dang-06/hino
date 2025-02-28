@@ -676,6 +676,7 @@
   "existedVinNo": "Số VIN đã tồn tại",
   "missingDataRows": "Hàng dữ liệu bị thiếu",
   "vinNoAlreadyExists": "Số VIN {{vin_no}} đã tồn tại",
+  "engineNoAlreadyExists": "Số máy {{engine_no}} đã tồn tại",
   "newPasswordRequired": "Mật khẩu mới không được để trống",
   "User Password": "mật khẩu người dùng",
   "validation": {
