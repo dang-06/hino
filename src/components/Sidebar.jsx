@@ -14,7 +14,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Tooltip } from "@mui/material";
-import { FaWrench, FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase, FaPlusSquare, FaCheckCircle, FaCheckDouble } from "react-icons/fa";
+import { FaWrench, FaCog, FaInfoCircle, FaTruckLoading, FaCommentDollar, FaBox, FaChartLine, FaMapMarkerAlt, FaTruck, FaRegPaperPlane, FaMapMarkedAlt, FaThLarge, FaUser, FaClipboardCheck, FaMoneyBillWave, FaBuilding, FaUserTie, FaRegUser, FaBriefcase, FaPlusSquare, FaCheckCircle, FaCheckDouble, FaCar, FaSimCard } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { LiaFileInvoiceSolid, LiaClipboardListSolid } from "react-icons/lia";
@@ -28,6 +28,8 @@ const navigation = [
     { name: "jobsFinished", href: "jobs-finished", icon: FaCheckCircle, current: false },
     { name: "jobsCompleted", href: "jobs-completed", icon: FaCheckDouble, current: false },
     { name: "usersManagement", href: "users-management", icon: FaUser, current: false },
+    { name: "vehicleManagement", href: "vehicle-management", icon: FaCar, current: false },
+    { name: "simManagement", href: "sim-management", icon: FaSimCard, current: false },
     { name: "technicianKPI", href: "tech-kpi", icon: FaChartLine, current: false }
 ];
 

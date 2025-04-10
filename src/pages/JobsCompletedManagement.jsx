@@ -147,7 +147,12 @@ const JobsCompletedManagement = () => {
         {
             field: "vin_no",
             headerName: t("vinNo"),
-            minWidth: 150,
+            minWidth: 200,
+        },
+        {
+            field: "model",
+            headerName: t("model"),
+            minWidth: 200,
         },
         {
             field: "installation_location",
@@ -158,6 +163,11 @@ const JobsCompletedManagement = () => {
             field: "installation_date",
             headerName: t("installationDate"),
             minWidth: 150,
+        },
+        {
+            field: "finished_date",
+            headerName: t("finishedDate"),
+            minWidth: 200,
         },
     ];
 

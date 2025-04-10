@@ -1,0 +1,267 @@
+import LinearProgress from "@mui/material/LinearProgress";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import Tooltip from "@mui/material/Tooltip";
+import { DataGrid } from "@mui/x-data-grid";
+import { AiOutlineExpandAlt } from "react-icons/ai";
+import { MdOutlineCheckBox, MdOutlineClose } from "react-icons/md";
+import { Button, Divider } from "@mui/material";
+import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io5";
+import { FaRegTrashAlt, FaEdit } from "react-icons/fa";
+import { LoadingButton } from "@mui/lab";
+import DetailSim from "../components/Sim/DetailSim";
+import { CgImport } from "react-icons/cg";
+import ImportExcelLayout from "../components/ImportExcelLayout";
+import { importSim } from "../api";
+import FilterSim from "../components/Sim/FilterSim";
+import FilterRightBar from "../components/FilterRightBar";
+import { BsFilter } from "react-icons/bs";
+import { useGetSimsQuery } from "../services/apiSlice";
+import DeleteSim from "../components/Sim/DeleteSim";
+
+const SimManagement = () => {
+    const { t } = useTranslation();
+    const [open, setOpen] = useState(false);
+    const [openFilter, setOpenFilter] = useState(false);
+    const [selectedRow, setSelectedRow] = useState(null);
+    const [showDetail, setShowDetail] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [triggleSubmit, setTriggleSubmit] = useState(false);
+    const [showImportModal, setShowImportModal] = useState(false);
+    const [triggleFiter, setTriggleFiter] = useState(false);
+    const [criterias, setCriterias] = useState({
+        page: 1,
+        size: 25,
+        search: '',
+        status: '',
+        network_carrier: '',
+        data_plan: '',
+        from_date: '',
+        to_date: ''
+    });
+
+    const { data, isLoading, isFetching, isSuccess, error, refetch } = useGetSimsQuery();
+
+    const showDetailRow = (params) => {
+        setSelectedRow(params.row);
+        setShowDetail(true);
+    };
+
+    const getPrevRow = () => {
+        if (selectedRow && selectedRow.device_id) {
+            let findIndex = data?.data?.findIndex(i => i.device_id === selectedRow.device_id);
+            if (findIndex > 0) {
+                setSelectedRow(data.data[findIndex - 1]);
+            }
+        }
+    };
+
+    const getNextRow = () => {
+        if (selectedRow && selectedRow.device_id) {
+            let findIndex = data?.data?.findIndex(i => i.device_id === selectedRow.device_id);
+            if (findIndex >= 0 && findIndex < data.data.length - 1) {
+                setSelectedRow(data.data[findIndex + 1]);
+            }
+        }
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        return date.toLocaleDateString("vi-VN");
+    };
+
+    const columns = [
+        {
+            field: "sim_id",
+            headerName: t("simID"),
+            minWidth: 120,
+        },
+        {
+            field: "sim_no",
+            headerName: t("simNo"),
+            minWidth: 150,
+        },
+        {
+            field: "active_date",
+            headerName: t("activeDate"),
+            minWidth: 120,
+            valueGetter: (params) => formatDate(params.value),
+        },
+        {
+            field: "expire_date",
+            headerName: t("expireDate"),
+            minWidth: 120,
+            valueGetter: (params) => formatDate(params.value),
+        },
+        {
+            field: "network_carrier",
+            headerName: t("networkCarrier"),
+            minWidth: 150,
+        },
+    ];
+
+    const updateFilter = (newFilter) => {
+        setCriterias(newFilter);
+    };
+
+    return (
+        <>
+            <div className="flex">
+                <div className="flex-1 transition-all duration-[300ms]">
+                    <div className="bg-white">
+                        <ImportExcelLayout 
+                            open={showImportModal} 
+                            setOpen={setShowImportModal} 
+                            refetch={refetch} 
+                            apiPath={importSim} 
+                        />
+                        <div className="h-[50px] border-b px-3 flex justify-between items-center">
+                            <h1 className="text-xl font-semibold text-gray-900">
+                                {t("simManagement")}
+                            </h1>
+                            <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex justify-between items-center">
+                                <Button
+                                    className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
+                                    onClick={() => setShowImportModal(true)}
+                                    startIcon={<CgImport className="h-5 w-5" />}
+                                    variant="contained"
+                                > {t("importExcel")}</Button>
+                                <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
+                                <button onClick={() => { setOpenFilter(true) }} className="text-gray-600 flex-1">
+                                    <BsFilter size={22} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full ">
+                        <div className="flex h-full min-h-[calc(100vh_-_110px)] bg-white ">
+                            <div className="flex flex-1 flex-col">
+                                <DataGrid
+                                    loading={isLoading}
+                                    components={{
+                                        LoadingOverlay: LinearProgress,
+                                    }}
+                                    sx={{
+                                        '.MuiDataGrid-columnSeparator': {
+                                            display: 'none',
+                                        },
+                                        '&.MuiDataGrid-root': {
+                                            border: 'none',
+                                        },
+                                        '.MuiDataGrid-columnHeaders': {
+                                            backgroundColor: '#fff',
+                                        },
+                                        '.MuiDataGrid-columnHeader': {
+                                            borderRight: '1px solid #e5e7eb'
+                                        },
+                                        "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+                                            outline: "none !important",
+                                        },
+                                    }}
+                                    getRowId={(row) => row.id}
+                                    rows={data?.data || []}
+                                    headerHeight={38}
+                                    rowHeight={38}
+                                    onRowClick={(params) => showDetailRow(params)}
+                                    columns={columns}
+                                    selectionModel={selectedRow?.id}
+                                    rowsPerPageOptions={[25, 50, 100]}
+                                    pageSize={25}
+                                    rowCount={data?.total || 0}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={(showDetail ? 'w-[600px]' : 'w-[0px]') + " transition-all duration-[300ms] border-l"}>
+                    <div className="bg-white">
+                        <div className="h-[50px] border-b px-3 flex justify-between items-center">
+                            <div></div>
+                            <div className="action flex items-center gap-[8px]">
+                                {openEdit ? (
+                                    <>
+                                        <Tooltip title={'Cancel'} placement="bottom-start" arrow>
+                                            <button onClick={() => setOpenEdit(false)} className="btn-primary border py-[5px] px-3 rounded-[5px] text-primary-900 border-primary-500 hover:bg-primary-100 text-[13px]">
+                                                <span>{t("cancel")}</span>
+                                            </button>
+                                        </Tooltip>
+                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                            <LoadingButton
+                                                type="submit"
+                                                variant="contained"
+                                                className="ml-3"
+                                                onClick={() => setTriggleSubmit(true)}
+                                                loading={triggleSubmit}
+                                            >
+                                                {t("save")}
+                                            </LoadingButton>
+                                        </Tooltip> */}
+                                        <Divider orientation="vertical" flexItem variant="middle" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <Tooltip title={'Delete'} placement="bottom-start" arrow>
+                                            <button onClick={() => setOpen(true)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                                <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
+                                            </button>
+                                        </Tooltip>
+                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                            <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
+                                                <FaEdit className="mr-2" />
+                                                <span>{t("edit")}</span>
+                                            </button>
+                                        </Tooltip> */}
+                                        <Divider orientation="vertical" flexItem variant="middle" />
+                                        &nbsp;
+                                        <Tooltip title={'Back'} placement="bottom-start" arrow>
+                                            <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={getPrevRow}>
+                                                <IoChevronBack className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                                            </button>
+                                        </Tooltip>
+                                        <Tooltip title={'Next'} placement="bottom-start" arrow>
+                                            <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={getNextRow}>
+                                                <IoChevronForward className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                                            </button>
+                                        </Tooltip>
+                                    </>
+                                )}
+                                <Tooltip title={'Expand'} placement="bottom-start" arrow>
+                                    <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]">
+                                        <AiOutlineExpandAlt className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                                    </button>
+                                </Tooltip>
+                                <Tooltip title={'Close'} placement="bottom-start" arrow>
+                                    <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={() => { setShowDetail(false); setOpenEdit(false) }}>
+                                        <MdOutlineClose className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                                    </button>
+                                </Tooltip>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full overflow-auto">
+                        <div className="max-w-[700px] p-4 min-h-[10vh] bg-white border m-auto ">
+                            {showDetail && (openEdit ? <FormVehicle selectedItem={selectedRow} refetch={() => { setOpenEdit(false); refetch() }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailSim detailRow={selectedRow} />)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <DeleteSim 
+                open={open} 
+                setOpen={(value) => {
+                    setOpen(value);
+                    if (!value) {
+                        refetch();
+                        setShowDetail(false);
+                    }
+                }} 
+                deleteId={selectedRow?.device_id} 
+            />
+            <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>
+                <FilterSim filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
+            </FilterRightBar>
+        </>
+    );
+};
+
+export default SimManagement;

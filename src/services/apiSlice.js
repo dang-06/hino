@@ -435,6 +435,59 @@ export const apiSlice = createApi({
                 return []
             },
         }),
+        getSims: builder.query({
+            query: (params) => ({
+                url: `device_installation/device-installations`,
+                method: "GET",
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            importSim: builder.mutation({
+                query: (data) => ({
+                    url: '/api/device_installation/upload-excel',
+                    method: 'POST',
+                    body: data,
+                }),
+                invalidatesTags: (result, error, arg) => {
+                    if (!error && result) {
+                        return ['Sim']
+                    }
+                    return []
+                },
+            }),
+            transformResponse: (response) => {
+                if (response && response.data) {
+                    // Chuyển đổi dữ liệu từ mảng thành đối tượng có cấu trúc phù hợp
+                    const transformedData = response.data.map((item, index) => ({
+                        id: item[5] || index,
+                        sim_id: item[0],
+                        sim_no: item[1],
+                        active_date: item[2],
+                        expire_date: item[3],
+                        network_carrier: item[4]
+                    }));
+                    
+                    return {
+                        data: transformedData,
+                        total: transformedData.length
+                    };
+                }
+                return { data: [], total: 0 };
+            },
+            providesTags: ["Sim"],
+        }),
+        deleteSim: builder.mutation({
+            query: (id) => ({
+                url: `device_installation/device-installations/${id}`,
+                method: "DELETE",
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Sim']
+                }
+                return []
+            },
+        }),
     }),
 });
 
@@ -480,5 +533,8 @@ export const {
     useGetUserQuery,
     useAddUserMutation,
     useUpdateUserMutation,
-    useDeleteUserMutation
+    useDeleteUserMutation,
+    //sim
+    useGetSimsQuery,
+    useDeleteSimMutation,
 } = apiSlice;

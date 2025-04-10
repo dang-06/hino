@@ -16,6 +16,8 @@ import NewJobsManagement from "../pages/NewJobsManagement";
 import JobsFinishedManagement from "../pages/JobsFinishedManagement";
 import JobsCompletedManagement from "../pages/JobsCompletedManagement";
 import UserManagement from "../pages/UserManagement";
+import VehicleManagement from "../pages/VehicleManagement";
+import SimManagement from "../pages/SimManagement";
 
 const Routers = () => {
 
@@ -37,6 +39,8 @@ const Routers = () => {
                     <Route path="jobs-completed" element={<JobsCompletedManagement />} />
                     <Route path="sale-order" element={<SaleOrderManagement />} />
                     <Route path="users-management" element={<UserManagement />} />
+                    <Route path="vehicle-management" element={<VehicleManagement />} />
+                    <Route path="sim-management" element={<SimManagement />} />
                     <Route path="tech-kpi" element={<TechnicianKPIManagement />} />
                 </Route>
 

@@ -928,5 +928,8 @@
   },
   "existedEngineNo": "Existed Engine Numbers",
   "existedEngineNo1": "Existed Engine Numbers",
-  "viewMap": "View Map"
+  "viewMap": "View Map",
+  "vehicleManagement": "Vehicle Management",
+  "simManagement": "SIM Management",
+  "finishedDate": "Finished Date"
 }

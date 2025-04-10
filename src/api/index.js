@@ -31,6 +31,14 @@ export const fetchTechnician = () => axiosInstance.get("user/technicians");
 // SALE ORDER
 export const fetchSaleOrderDetail = (id) => axiosInstance.get("/api/sale-order/detail/" + id);
 
+//SIM
+export const fetchSim = (data) => axiosInstance.post("/api/device_installation/device-installation", data);
+export const importSim = (data, options) => axiosInstance1.post(`/device_installation/upload-excel`, data, {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+  ...options
+});
 
 // DRIVER
 export const fetchDrivers = (data) => axiosInstance.post("/api/drivers/list", data);

@@ -701,5 +701,8 @@
   "Lot number is required": "Số lô là bắt buộc",
   "VIN number is required": "Số VIN là bắt buộc",
   "Engine number is required": "Số máy là bắt buộc",
-  "Installation date is required": "Ngày lắp đặt là bắt buộc"
+  "Installation date is required": "Ngày lắp đặt là bắt buộc",
+  "vehicleManagement": "Quản lý xe",
+  "simManagement": "Quản lý sim",
+  "finishedDate": "Ngày hoàn thành"
 }
