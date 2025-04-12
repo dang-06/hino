@@ -107,6 +107,7 @@ const VehicleManagement = () => {
             headerName: t("Network Carrier"),
             minWidth: 150,
         },
+        
     ];
 
     return (
