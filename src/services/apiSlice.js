@@ -441,19 +441,6 @@ export const apiSlice = createApi({
                 method: "GET",
                 baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
             }),
-            importSim: builder.mutation({
-                query: (data) => ({
-                    url: '/api/device_installation/upload-excel',
-                    method: 'POST',
-                    body: data,
-                }),
-                invalidatesTags: (result, error, arg) => {
-                    if (!error && result) {
-                        return ['Sim']
-                    }
-                    return []
-                },
-            }),
             transformResponse: (response) => {
                 if (response && response.data) {
                     // Chuyển đổi dữ liệu từ mảng thành đối tượng có cấu trúc phù hợp
@@ -475,9 +462,23 @@ export const apiSlice = createApi({
             },
             providesTags: ["Sim"],
         }),
+        importSim: builder.mutation({
+            query: (data) => ({
+                url: `device_installation/upload-excel`,
+                method: "POST",
+                body: data,
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Sim']
+                }
+                return []
+            },
+        }),
         deleteSim: builder.mutation({
-            query: (id) => ({
-                url: `device_installation/device-installations/${id}`,
+            query: (sim_no) => ({
+                url: `device_installation/device-installations/${sim_no}`,
                 method: "DELETE",
                 baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
             }),
@@ -537,4 +538,5 @@ export const {
     //sim
     useGetSimsQuery,
     useDeleteSimMutation,
+    useImportSimMutation,
 } = apiSlice;

@@ -704,5 +704,9 @@
   "Installation date is required": "Ngày lắp đặt là bắt buộc",
   "vehicleManagement": "Quản lý xe",
   "simManagement": "Quản lý sim",
-  "finishedDate": "Ngày hoàn thành"
+  "finishedDate": "Ngày hoàn thành",
+  "simID": "Mã sim",
+  "activeDate": "Ngày kích hoạt",
+  "expireDate": "Ngày hết hạn",
+  "networkCarrier": "Nhà mạng"
 }

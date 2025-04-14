@@ -33,12 +33,19 @@ export const fetchSaleOrderDetail = (id) => axiosInstance.get("/api/sale-order/d
 
 //SIM
 export const fetchSim = (data) => axiosInstance.post("/api/device_installation/device-installation", data);
-export const importSim = (data, options) => axiosInstance1.post(`/device_installation/upload-excel`, data, {
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
-  ...options
-});
+export const importSim = (data, options) => {
+  // Get the token from localStorage
+  const token = localStorage.getItem("token");
+  const formattedToken = token?.replace(/^"(.*)"$/, '$1');
+  
+  return axiosInstance1.post(`/device_installation/upload-excel`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${formattedToken}`
+    },
+    ...options
+  });
+};
 
 // DRIVER
 export const fetchDrivers = (data) => axiosInstance.post("/api/drivers/list", data);

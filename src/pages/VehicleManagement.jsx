@@ -179,7 +179,7 @@ const VehicleManagement = () => {
                                                 <span>{t("cancel")}</span>
                                             </button>
                                         </Tooltip>
-                                        <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <LoadingButton
                                                 type="submit"
                                                 variant="contained"
@@ -189,7 +189,7 @@ const VehicleManagement = () => {
                                             >
                                                 {t("save")}
                                             </LoadingButton>
-                                        </Tooltip>
+                                        </Tooltip> */}
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                     </>
                                 ) : (
@@ -199,12 +199,12 @@ const VehicleManagement = () => {
                                                 <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
                                             </button>
                                         </Tooltip>
-                                        <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
                                                 <span>{t("edit")}</span>
                                             </button>
-                                        </Tooltip>
+                                        </Tooltip> */}
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                         &nbsp;
                                         <Tooltip title={'Back'} placement="bottom-start" arrow>

@@ -1,5 +1,5 @@
 import LinearProgress from "@mui/material/LinearProgress";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import { DataGrid } from "@mui/x-data-grid";
@@ -12,11 +12,10 @@ import { LoadingButton } from "@mui/lab";
 import DetailSim from "../components/Sim/DetailSim";
 import { CgImport } from "react-icons/cg";
 import ImportExcelLayout from "../components/ImportExcelLayout";
-import { importSim } from "../api";
 import FilterSim from "../components/Sim/FilterSim";
 import FilterRightBar from "../components/FilterRightBar";
 import { BsFilter } from "react-icons/bs";
-import { useGetSimsQuery } from "../services/apiSlice";
+import { useGetSimsQuery, useImportSimMutation } from "../services/apiSlice";
 import DeleteSim from "../components/Sim/DeleteSim";
 
 const SimManagement = () => {
@@ -32,15 +31,33 @@ const SimManagement = () => {
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
-        search: '',
-        status: '',
-        network_carrier: '',
-        data_plan: '',
-        from_date: '',
-        to_date: ''
+        sim_no: '',
+        network_carrier: ''
     });
 
     const { data, isLoading, isFetching, isSuccess, error, refetch } = useGetSimsQuery();
+    const [importSimMutation] = useImportSimMutation();
+    const [filteredData, setFilteredData] = useState([]);
+
+    useEffect(() => {
+        if (data && data.data) {
+            let filtered = [...data.data];
+            
+            if (criterias.sim_no) {
+                filtered = filtered.filter(item => 
+                    item.sim_no && item.sim_no.toLowerCase().includes(criterias.sim_no.toLowerCase())
+                );
+            }
+            
+            if (criterias.network_carrier) {
+                filtered = filtered.filter(item => 
+                    item.network_carrier === criterias.network_carrier
+                );
+            }
+            
+            setFilteredData(filtered);
+        }
+    }, [data, criterias]);
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row);
@@ -49,18 +66,18 @@ const SimManagement = () => {
 
     const getPrevRow = () => {
         if (selectedRow && selectedRow.device_id) {
-            let findIndex = data?.data?.findIndex(i => i.device_id === selectedRow.device_id);
+            let findIndex = filteredData.findIndex(i => i.device_id === selectedRow.device_id);
             if (findIndex > 0) {
-                setSelectedRow(data.data[findIndex - 1]);
+                setSelectedRow(filteredData[findIndex - 1]);
             }
         }
     };
 
     const getNextRow = () => {
         if (selectedRow && selectedRow.device_id) {
-            let findIndex = data?.data?.findIndex(i => i.device_id === selectedRow.device_id);
-            if (findIndex >= 0 && findIndex < data.data.length - 1) {
-                setSelectedRow(data.data[findIndex + 1]);
+            let findIndex = filteredData.findIndex(i => i.device_id === selectedRow.device_id);
+            if (findIndex >= 0 && findIndex < filteredData.length - 1) {
+                setSelectedRow(filteredData[findIndex + 1]);
             }
         }
     };
@@ -102,7 +119,10 @@ const SimManagement = () => {
     ];
 
     const updateFilter = (newFilter) => {
-        setCriterias(newFilter);
+        setCriterias(prev => ({
+            ...prev,
+            ...newFilter
+        }));
     };
 
     return (
@@ -114,7 +134,7 @@ const SimManagement = () => {
                             open={showImportModal} 
                             setOpen={setShowImportModal} 
                             refetch={refetch} 
-                            apiPath={importSim} 
+                            apiPath={importSimMutation} 
                         />
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <h1 className="text-xl font-semibold text-gray-900">
@@ -129,7 +149,7 @@ const SimManagement = () => {
                                 > {t("importExcel")}</Button>
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
                                 <button onClick={() => { setOpenFilter(true) }} className="text-gray-600 flex-1">
-                                    <BsFilter size={22} />
+                                    <BsFilter className="h-6 w-6" />
                                 </button>
                             </div>
                         </div>
@@ -160,7 +180,7 @@ const SimManagement = () => {
                                         },
                                     }}
                                     getRowId={(row) => row.id}
-                                    rows={data?.data || []}
+                                    rows={filteredData || []}
                                     headerHeight={38}
                                     rowHeight={38}
                                     onRowClick={(params) => showDetailRow(params)}
@@ -255,7 +275,7 @@ const SimManagement = () => {
                         setShowDetail(false);
                     }
                 }} 
-                deleteId={selectedRow?.device_id} 
+                simNo={selectedRow?.sim_no} 
             />
             <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>
                 <FilterSim filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />

@@ -6,13 +6,13 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useDeleteSimMutation } from "../../services/apiSlice";
 import toast from "react-hot-toast";
 
-const DeleteSim = ({ open, setOpen, deleteId }) => {
+const DeleteSim = ({ open, setOpen, simNo }) => {
   const { t } = useTranslation();
   const [deleteQuery, { isLoading }] = useDeleteSimMutation();
 
   const onDelete = async () => {
     try {
-      await deleteQuery(deleteId);
+      await deleteQuery(simNo);
       toast.success(t("message.success.delete", { field: t("sim") }));
       setOpen(false);
     } catch (error) {
@@ -40,7 +40,7 @@ const DeleteSim = ({ open, setOpen, deleteId }) => {
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
                 {t("deleteTitle", { field: t("sim") })}{" "}
-                <span className="font-semibold text-red-500">{deleteId}</span>
+                <span className="font-semibold text-red-500">{simNo}</span>
               </h3>
               <div className="mt-2">
                 <p className="text-sm text-gray-500">

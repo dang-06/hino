@@ -931,5 +931,10 @@
   "viewMap": "View Map",
   "vehicleManagement": "Vehicle Management",
   "simManagement": "SIM Management",
-  "finishedDate": "Finished Date"
+  "finishedDate": "Finished Date",
+  "simID": "Sim ID",
+  "simNo": "Sim No",
+  "networkCarrier": "Network Carrier",
+  "activeDate": "Active Date",
+  "expireDate": "Expire Date"
 }

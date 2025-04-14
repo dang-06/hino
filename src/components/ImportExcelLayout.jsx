@@ -91,21 +91,42 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
             console.log("API Response:", response);
             setData(response);
             setUploadPercentage(100);
-            // toast.success('Import successfully');
-            setModalResultValue({ type: 'success', message: '' })
+            setModalResultValue({ type: 'success', message: t("importSuccessfully") });
             setTimeout(() => {
                 setUploadPercentage(0)
                 handleClose();
                 refetch();
             }, 1000);
         } catch (error) {
-            console.log(error)
-            let message = error?.response?.data?.title || error.message
-            setModalResultValue({ type: 'error', message })
+            console.error("Import error:", error);
+            let message = "";
+            
+            // Handle different error scenarios
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error("Error response:", error.response);
+                message = error.response.data?.message || 
+                          error.response.data?.title || 
+                          `${t("requestFailedWithStatus")} ${error.response.status}`;
+                
+                if (error.response.status === 401) {
+                    message = t("unauthorizedAccess");
+                }
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error("Error request:", error.request);
+                message = t("noResponseFromServer");
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error("Error message:", error.message);
+                message = error.message;
+            }
+            
+            setModalResultValue({ type: 'error', message });
             setUploadPercentage(0);
-            // toast.error(error.message);
         }
-        setModalResult(true)
+        setModalResult(true);
         setIsLoading(false);
     };
 

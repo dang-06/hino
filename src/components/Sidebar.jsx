@@ -28,7 +28,7 @@ const navigation = [
     { name: "jobsFinished", href: "jobs-finished", icon: FaCheckCircle, current: false },
     { name: "jobsCompleted", href: "jobs-completed", icon: FaCheckDouble, current: false },
     { name: "usersManagement", href: "users-management", icon: FaUser, current: false },
-    { name: "vehicleManagement", href: "vehicle-management", icon: FaCar, current: false },
+    // { name: "vehicleManagement", href: "vehicle-management", icon: FaCar, current: false },
     { name: "simManagement", href: "sim-management", icon: FaSimCard, current: false },
     { name: "technicianKPI", href: "tech-kpi", icon: FaChartLine, current: false }
 ];
