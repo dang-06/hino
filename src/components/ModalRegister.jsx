@@ -49,7 +49,7 @@ const ModalRegister = ({ open, setOpen, refetch }) => {
         phone_number: yup.string().matches(/^\d{10,15}$/, t("validation.phoneNumberInvalid")).required(t("validation.phoneNumberRequired")),
         date_of_birth: yup.date().nullable().max(new Date(), t("validation.dateOfBirthInvalid")).required(t("validation.dateOfBirthRequired")),
         password: yup.string().min(6, t("validation.passwordMin")).required(t("validation.passwordRequired")),
-        role_id: yup.number().oneOf([1, 2, 3], t("validation.roleInvalid")).required(t("validation.roleRequired")),
+        role_id: yup.number().oneOf([1, 2, 3, 4], t("validation.roleInvalid")).required(t("validation.roleRequired")),
         gender: yup.string().oneOf(["male", "female", "other"], t("validation.genderInvalid")).required(t("validation.genderRequired")),
         address: yup.string().required(t("validation.addressRequired")),
     });
@@ -155,6 +155,7 @@ const ModalRegister = ({ open, setOpen, refetch }) => {
                                                     { id: 1, value: 'ADMIN' },
                                                     { id: 2, value: 'TECHNICIAN' },
                                                     { id: 3, value: 'QA' },
+                                                    { id: 4, value: 'HMV ADMIN' },
                                                 ]}
                                                 required
                                             />

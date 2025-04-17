@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { Button, Grid, Pagination } from "@mui/material";
 import { FiUserPlus, FiTrash2 } from "react-icons/fi";
@@ -24,11 +24,35 @@ import ImportExcelLayout from "../components/ImportExcelLayout";
 import { CgImport } from "react-icons/cg";
 import AssignJob from '../components/Installation/AssignJob';
 import ReviewInstallation from '../components/Installation/ReviewInstallation';
-
-
+import { useSelector } from 'react-redux';
 
 const InstallationManagement = () => {
     const { t } = useTranslation();
+    const [isHMVADMIN, setIsHMVADMIN] = useState(false);
+
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem("user");
+            if (token) {
+                // Lấy phần payload của JWT token (phần thứ 2 sau khi split bởi dấu chấm)
+                const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                console.log('Token payload:', tokenPayload);
+                setIsHMVADMIN(tokenPayload.role_name === "HMVADMIN");
+            }
+        } catch (error) {
+            console.error('Error checking role:', error);
+        }
+    }, []);
+
+    console.log('Is HMVADMIN state:', isHMVADMIN);
+
+    const { user } = useSelector((state) => state.auth);
+    const localStorageUser = JSON.parse(localStorage.getItem("user"));
+    
+    console.log('Redux user:', user);
+    console.log('LocalStorage user:', localStorageUser);
+    console.log('Role ID:', user?.role_id || localStorageUser?.role_id);
+
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 16,
@@ -185,22 +209,26 @@ const InstallationManagement = () => {
                                     startIcon={<MdEngineering className="h-5 w-5" />}
                                     variant="outlined"
                                 > {t("assignJobToTechnician")}</Button> */}
-                                <Button
-                                    className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
-                                    onClick={() => setShowImportModal(true)}
-                                    startIcon={<CgImport className="h-5 w-5" />}
-                                    variant="contained"
-                                > {t("importExcel")}</Button>
-                                <Button
-                                    variant="contained"
-                                    className="px-6 capitalize flex-1"
-                                    startIcon={<FiUserPlus className="h-5 w-5" />}
-                                    onClick={() => {
-                                        setOpenForm(true)
-                                    }}
-                                >
-                                    {t("add")}
-                                </Button>
+                                {!isHMVADMIN && (
+                                    <>
+                                        <Button
+                                            className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
+                                            onClick={() => setShowImportModal(true)}
+                                            startIcon={<CgImport className="h-5 w-5" />}
+                                            variant="contained"
+                                        > {t("importExcel")}</Button>
+                                        <Button
+                                            variant="contained"
+                                            className="px-6 capitalize flex-1"
+                                            startIcon={<FiUserPlus className="h-5 w-5" />}
+                                            onClick={() => {
+                                                setOpenForm(true)
+                                            }}
+                                        >
+                                            {t("add")}
+                                        </Button>
+                                    </>
+                                )}
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
                                 <button onClick={() => { setOpenFilter(true) }} className="text-gray-600 flex-1"><BsFilter size={22} /></button>
 
@@ -260,9 +288,11 @@ const InstallationManagement = () => {
                                                                 <button className="text-gray-700 flex-1 mr-2">
                                                                     <CiCircleChevRight size={20} />
                                                                 </button>
-                                                                <button onClick={() => deleteJob(job)} className="text-gray-600 flex-1">
-                                                                    <FiTrash2 size={20} />
-                                                                </button>
+                                                                {!isHMVADMIN && (
+                                                                    <button onClick={() => deleteJob(job)} className="text-gray-600 flex-1">
+                                                                        <FiTrash2 size={20} />
+                                                                    </button>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -293,7 +323,7 @@ const InstallationManagement = () => {
                                 {selectedRow?.saleOrder}
                             </div>
                             <div className="action flex items-center gap-[8px]">
-                                {openEdit ? (
+                                {!isHMVADMIN && openEdit && (
                                     <>
                                         <Tooltip title={'Cancel'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(false)} className="btn-primary border py-[5px] px-3 rounded-[5px] text-primary-900 border-primary-500 hover:bg-primary-100 text-[13px]">
@@ -306,55 +336,54 @@ const InstallationManagement = () => {
                                                 variant="contained"
                                                 className="ml-3"
                                                 onClick={() => setTriggleSubmit(true)}
-                                                loading={triggleSubmit}
                                             >
-                                                {t("save")}
+                                                <span>{t("save")}</span>
                                             </LoadingButton>
                                         </Tooltip>
-                                        <Divider orientation="vertical" flexItem variant="middle" />
                                     </>
-                                ) : (
+                                )}
+                                {!isHMVADMIN && !openEdit && (
                                     <>
-                                        {(selectedRow?.job_status === 'Finished Installation' || selectedRow?.job_status === 'Updated') && (
-                                            <Tooltip title={'Review Installation'} placement="bottom-start" arrow>
-                                                <Button
-                                                    className="px-6 mr-2"
-                                                    onClick={() => onShowModalReview(selectedRow.id)}
-                                                    startIcon={<FaCheckCircle className="h-5 w-5" />}
-                                                    variant="outlined"
-                                                >
-                                                    {t("reviewInstallation")}
-                                                </Button>
-                                            </Tooltip>
-                                        )}
-                                        <Tooltip title={'Delete'} placement="bottom-start" arrow>
-                                            <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
-                                                <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
-                                            </button>
-                                        </Tooltip>
-
-                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                        <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
                                                 <span>{t("edit")}</span>
                                             </button>
-                                        </Tooltip> */}
-                                        <Divider orientation="vertical" flexItem variant="middle" />
-                                        &nbsp;
-                                        {/* <IoFilterOutline className="h-5 w-5 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" /> */}
-                                        <Tooltip title={'Back'} placement="bottom-start" arrow>
-                                            <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={getPrevRow}>
-                                                <IoChevronBack className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
-                                            </button>
-                                        </Tooltip>
-                                        <Tooltip title={'Next'} placement="bottom-start" arrow>
-                                            <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={getNextRow}>
-                                                <IoChevronForward className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
-                                            </button>
                                         </Tooltip>
                                     </>
                                 )}
-
+                                {!isHMVADMIN && (selectedRow?.job_status === 'Finished Installation' || selectedRow?.job_status === 'Updated') && (
+                                    <Tooltip title={'Review Installation'} placement="bottom-start" arrow>
+                                        <Button
+                                            className="px-6 mr-2"
+                                            onClick={() => onShowModalReview(selectedRow.id)}
+                                            startIcon={<FaCheckCircle className="h-5 w-5" />}
+                                            variant="outlined"
+                                        >
+                                            {t("reviewInstallation")}
+                                        </Button>
+                                    </Tooltip>
+                                )}
+                                {!isHMVADMIN && (
+                                    <Tooltip title={'Delete'} placement="bottom-start" arrow>
+                                        <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                            <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
+                                        </button>
+                                    </Tooltip>
+                                )}
+                                <Divider orientation="vertical" flexItem variant="middle" />
+                                &nbsp;
+                                {/* <IoFilterOutline className="h-5 w-5 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" /> */}
+                                <Tooltip title={'Back'} placement="bottom-start" arrow>
+                                    <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={getPrevRow}>
+                                        <IoChevronBack className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                                    </button>
+                                </Tooltip>
+                                <Tooltip title={'Next'} placement="bottom-start" arrow>
+                                    <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]" onClick={getNextRow}>
+                                        <IoChevronForward className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                                    </button>
+                                </Tooltip>
                                 <Tooltip title={'Expand'} placement="bottom-start" arrow>
                                     <button className="rounded-full p-1 outline-none hover:bg-[#f1f1f1]">
                                         <AiOutlineExpandAlt className="h-6 w-6 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />

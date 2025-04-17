@@ -4,12 +4,10 @@ import authService from "./authService";
 // Get user from localStorage
 const user = JSON.parse(localStorage.getItem("user"));
 const token = JSON.parse(localStorage.getItem("token"));
-const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
 
 const initialState = {
   user: user ? user : null,
   token: token ? token : null,
-  refreshToken: refreshToken ? refreshToken : null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -19,9 +17,11 @@ const initialState = {
 // Login user
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
-    return await authService.login(user);
+    const response = await authService.login(user);
+    console.log('Login response in slice:', response);
+    return response;
   } catch (error) {
-    console.log(error)
+    console.log('Login error:', error);
     let message = "";
 
     if (error?.response?.data?.status === 500) {
@@ -50,7 +50,6 @@ export const authSlice = createSlice({
       state.user = null;
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      //   localStorage.removeItem("refreshToken");
       window.location = "/login";
     },
   },
@@ -64,8 +63,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        console.log('1231232')
-        // state.refreshToken = action.payload.refreshToken;
+        console.log('Login fulfilled:', action.payload);
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
@@ -73,7 +71,6 @@ export const authSlice = createSlice({
         state.message = action.payload;
         state.user = null;
         state.token = null;
-        state.refreshToken = null;
       });
   },
 });

@@ -23,6 +23,7 @@ import ReviewInstallation from "../components/Installation/ReviewInstallation";
 
 const NewJobsManagement = () => {
     const { t } = useTranslation();
+    const [isHMVADMIN, setIsHMVADMIN] = useState(false);
     const [open, setOpen] = useState(false);
     const [openReview, setOpenReview] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
@@ -45,6 +46,19 @@ const NewJobsManagement = () => {
         to_date: ''
     });
     const { data, isLoading, isFetching, refetch } = useGetNewJobsQuery(criterias);
+
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem("user");
+            if (token) {
+                const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                console.log('Token payload:', tokenPayload);
+                setIsHMVADMIN(tokenPayload.role_name === "HMVADMIN");
+            }
+        } catch (error) {
+            console.error('Error checking role:', error);
+        }
+    }, []);
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row)
@@ -289,11 +303,13 @@ const NewJobsManagement = () => {
                                                 </Button>
                                             </Tooltip>
                                         )}
-                                        <Tooltip title={'Delete'} placement="bottom-start" arrow>
-                                            <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
-                                                <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
-                                            </button>
-                                        </Tooltip>
+                                        {!isHMVADMIN && (
+                                            <Tooltip title={'Delete'} placement="bottom-start" arrow>
+                                                <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                                    <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
+                                                </button>
+                                            </Tooltip>
+                                        )}
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                         &nbsp;
                                         <Tooltip title={'Back'} placement="bottom-start" arrow>
@@ -332,10 +348,14 @@ const NewJobsManagement = () => {
                 <FilterInstallation fleets={[]} filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
             </FilterRightBar>
             <FormDisplay open={openForm} setOpen={setOpenForm} >
-                <FormInstallation selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
+                <FormInstallation selectedItem={null} refetch={console.log} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
             </FormDisplay>
-            <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
-            <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
+            {!isHMVADMIN && (
+                <>
+                    <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
+                    <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
+                </>
+            )}
         </>
     );
 };

@@ -3,25 +3,20 @@ import * as api from "../../api";
 // Login user
 const login = async (userData) => {
     const response = await api.login(userData);
+    console.log('Full login response:', response);
     if (response.data) {
         if (response?.data?.code == 0) {
-            const user = response.data.data.access_token
-            const token = response.data.data.access_token
-            console.log(token)
+            // Lưu toàn bộ data để kiểm tra cấu trúc
+            const user = response.data.data;
+            const token = response.data.data.access_token;
+            console.log('Login data:', response.data.data);
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", JSON.stringify(token));
             return { user, token }
-        }else{
+        } else {
             throw (response.data)
         }
     }
-    //   const token = response.headers.authorization
-    //   const refreshToken = response.headers.refreshtoken
-    //   const user = {...response.data, role: 'ROLE_COMPANY'}
-    //   localStorage.setItem("user", JSON.stringify(user));
-    //   localStorage.setItem("token", JSON.stringify(token));
-    //   localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
-    //   return {user, token, refreshToken };
     return null
 };
 

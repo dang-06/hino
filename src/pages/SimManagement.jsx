@@ -20,6 +20,7 @@ import DeleteSim from "../components/Sim/DeleteSim";
 
 const SimManagement = () => {
     const { t } = useTranslation();
+    const [isHMVADMIN, setIsHMVADMIN] = useState(false);
     const [open, setOpen] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -34,6 +35,19 @@ const SimManagement = () => {
         sim_no: '',
         network_carrier: ''
     });
+
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem("user");
+            if (token) {
+                const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                console.log('Token payload:', tokenPayload);
+                setIsHMVADMIN(tokenPayload.role_name === "HMVADMIN");
+            }
+        } catch (error) {
+            console.error('Error checking role:', error);
+        }
+    }, []);
 
     const { data, isLoading, isFetching, isSuccess, error, refetch } = useGetSimsQuery();
     const [importSimMutation] = useImportSimMutation();
@@ -137,20 +151,28 @@ const SimManagement = () => {
                             apiPath={importSimMutation} 
                         />
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
-                            <h1 className="text-xl font-semibold text-gray-900">
-                                {t("simManagement")}
-                            </h1>
-                            <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex justify-between items-center">
-                                <Button
-                                    className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white mr-2"
-                                    onClick={() => setShowImportModal(true)}
-                                    startIcon={<CgImport className="h-5 w-5" />}
-                                    variant="contained"
-                                > {t("importExcel")}</Button>
+                            <div className="flex items-center">
+                                <h1 className="text-xl font-semibold text-gray-900">
+                                    {t("simManagement")}
+                                </h1>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {!isHMVADMIN && (
+                                    <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
+                                        <Button
+                                            className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
+                                            onClick={() => setShowImportModal(true)}
+                                            startIcon={<CgImport className="h-5 w-5" />}
+                                            variant="contained"
+                                        > {t("importExcel")}</Button>
+                                    </Tooltip>
+                                )}
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
-                                <button onClick={() => { setOpenFilter(true) }} className="text-gray-600 flex-1">
-                                    <BsFilter className="h-6 w-6" />
-                                </button>
+                                <Tooltip title={'Filter'} placement="bottom-start" arrow>
+                                    <button onClick={() => { setOpenFilter(true) }} className="text-gray-600">
+                                        <BsFilter className="h-6 w-6" />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </div>
                     </div>
@@ -198,7 +220,7 @@ const SimManagement = () => {
                     <div className="bg-white">
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <div></div>
-                            <div className="action flex items-center gap-[8px]">
+                            <div className="action flex items-center gap-2">
                                 {openEdit ? (
                                     <>
                                         <Tooltip title={'Cancel'} placement="bottom-start" arrow>
@@ -221,11 +243,13 @@ const SimManagement = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <Tooltip title={'Delete'} placement="bottom-start" arrow>
-                                            <button onClick={() => setOpen(true)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
-                                                <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
-                                            </button>
-                                        </Tooltip>
+                                        {!isHMVADMIN && (
+                                            <Tooltip title={'Delete'} placement="bottom-start" arrow>
+                                                <button onClick={() => setOpen(true)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                                    <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
+                                                </button>
+                                            </Tooltip>
+                                        )}
                                         {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
@@ -266,17 +290,19 @@ const SimManagement = () => {
                     </div>
                 </div>
             </div>
-            <DeleteSim 
-                open={open} 
-                setOpen={(value) => {
-                    setOpen(value);
-                    if (!value) {
-                        refetch();
-                        setShowDetail(false);
-                    }
-                }} 
-                simNo={selectedRow?.sim_no} 
-            />
+            {!isHMVADMIN && (
+                <DeleteSim 
+                    open={open} 
+                    setOpen={(value) => {
+                        setOpen(value);
+                        if (!value) {
+                            refetch();
+                            setShowDetail(false);
+                        }
+                    }} 
+                    simNo={selectedRow?.sim_no} 
+                />
+            )}
             <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>
                 <FilterSim filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
             </FilterRightBar>

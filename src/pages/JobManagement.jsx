@@ -26,6 +26,7 @@ import ReviewInstallation from "../components/Installation/ReviewInstallation";
 
 const JobManagement = ({ jobType }) => {
     const { t } = useTranslation();
+    const [isHMVADMIN, setIsHMVADMIN] = useState(false);
     const [open, setOpen] = useState(false);
     const [openReview, setOpenReview] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
@@ -86,6 +87,8 @@ const JobManagement = ({ jobType }) => {
             }
         }
     }
+    
+    
 
     const onShowModalDelete = (id) => {
         setOpen(true);
@@ -213,6 +216,19 @@ const JobManagement = ({ jobType }) => {
         //   ),
         // },
     ];
+
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem("user");
+            if (token) {
+                const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                console.log('Token payload:', tokenPayload);
+                setIsHMVADMIN(tokenPayload.role_name === "HMVADMIN");
+            }
+        } catch (error) {
+            console.error('Error checking role:', error);
+        }
+    }, []);
 
     return (
         <>
@@ -342,7 +358,7 @@ const JobManagement = ({ jobType }) => {
                                     </>
                                 ) : (
                                     <>
-                                        {(selectedRow?.job_status === 'Finished Installation' || selectedRow?.job_status === 'Updated') && (
+                                        {(selectedRow?.job_status === 'Finished Installation' || selectedRow?.job_status === 'Updated') && !isHMVADMIN && (
                                             <Tooltip title={'Review Installation'} placement="bottom-start" arrow>
                                                 <Button
                                                     className="px-6 mr-2"
@@ -354,12 +370,13 @@ const JobManagement = ({ jobType }) => {
                                                 </Button>
                                             </Tooltip>
                                         )}
-                                        <Tooltip title={'Delete'} placement="bottom-start" arrow>
-                                            <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
-                                                <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
-                                            </button>
-                                        </Tooltip>
-
+                                        {!isHMVADMIN && (
+                                            <Tooltip title={'Delete'} placement="bottom-start" arrow>
+                                                <button onClick={() => onShowModalDelete(selectedRow.id)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                                    <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
+                                                </button>
+                                            </Tooltip>
+                                        )}
                                         {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
                                                 <FaEdit className="mr-2" />
@@ -408,12 +425,14 @@ const JobManagement = ({ jobType }) => {
             <FormDisplay open={openForm} setOpen={setOpenForm} >
                 <FormInstallation selectedItem={null} refetch={refetch} setTriggleSubmit={setTriggleSubmit} setOpenForm={setOpenForm} />
             </FormDisplay>
-            <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
-            <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
+            {!isHMVADMIN && (
+                <>
+                    <DeleteInstallation open={open} setOpen={onDoneDelete} deleteId={selectedRow?.job_id} />
+                    <ReviewInstallation open={openReview} setOpen={onDoneReview} reviewId={selectedRow?.job_id} />
+                </>
+            )}
         </>
     );
 };
 
 export default JobManagement;
-
-
