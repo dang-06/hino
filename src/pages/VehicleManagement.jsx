@@ -10,6 +10,8 @@ import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io
 import { FaRegTrashAlt, FaEdit } from "react-icons/fa";
 import { LoadingButton } from "@mui/lab";
 import DetailVehicle from "../components/Vehicle/DetailVehicle";
+import { useGetVehiclesQuery } from "../services/apiSlice";
+import DeleteVehicle from "../components/Vehicle/DeleteVehicle";
 
 const VehicleManagement = () => {
     const { t } = useTranslation();
@@ -24,21 +26,17 @@ const VehicleManagement = () => {
         size: 25,
     });
 
-    // Mock data
-    const data = {
-        data: {
-            vehicles: Array(30).fill(null).map((_, index) => ({
-                vehicle_id: `${String(index + 1).padStart(3 )}`,
-                vin_no: `HINO${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-                equipment_id: `EQ${String(index + 1).padStart(3, '0')}`,
-                sim_no: `09${Math.floor(Math.random() * 100000000)}`,
-                active_date: new Date(2023, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toISOString(),
-                expire_date: new Date(2024, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toISOString(),
-                network_carrier: ['Viettel', 'Mobifone', 'Vinaphone'][Math.floor(Math.random() * 3)],
-            })),
-            total_vehicles: 30
-        }
-    };
+    // Fetch vehicles data from API
+    const { data, isLoading, refetch } = useGetVehiclesQuery();
+
+    console.log("Vehicle data:", data); // Add logging to debug
+
+    // Extract vehicles from the data
+    const vehicles = data?.vehicles || [];
+    const totalVehicles = data?.total_vehicles || 0;
+
+    // Debug the first vehicle to see its structure
+    console.log("First vehicle:", vehicles[0]);
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row);
@@ -46,19 +44,19 @@ const VehicleManagement = () => {
     };
 
     const getPrevRow = () => {
-        if (selectedRow && selectedRow.vehicle_id) {
-            let findIndex = data.data.vehicles.findIndex(i => i.vehicle_id == selectedRow.vehicle_id);
+        if (selectedRow && selectedRow.id) {
+            let findIndex = vehicles?.findIndex(i => i.id === selectedRow.id);
             if (findIndex > 0) {
-                setSelectedRow(data.data.vehicles[findIndex - 1]);
+                setSelectedRow(vehicles[findIndex - 1]);
             }
         }
     };
 
     const getNextRow = () => {
-        if (selectedRow && selectedRow.vehicle_id) {
-            let findIndex = data.data.vehicles.findIndex(i => i.vehicle_id == selectedRow.vehicle_id);
-            if (findIndex >= 0 && findIndex < data.data.vehicles.length - 1) {
-                setSelectedRow(data.data.vehicles[findIndex + 1]);
+        if (selectedRow && selectedRow.id) {
+            let findIndex = vehicles?.findIndex(i => i.id === selectedRow.id);
+            if (findIndex >= 0 && findIndex < vehicles?.length - 1) {
+                setSelectedRow(vehicles[findIndex + 1]);
             }
         }
     };
@@ -71,9 +69,9 @@ const VehicleManagement = () => {
 
     const columns = [
         {
-            field: "vehicle_id",
-            headerName: t("Vehicle ID"),
-            minWidth: 120,
+            field: "id",
+            headerName: t("ID"),
+            minWidth: 100,
         },
         {
             field: "vin_no",
@@ -81,14 +79,15 @@ const VehicleManagement = () => {
             minWidth: 180,
         },
         {
-            field: "equipment_id",
+            field: "equipmentid",
             headerName: t("Equipment ID"),
             minWidth: 150,
         },
         {
-            field: "sim_no",
+            field: "simno",
             headerName: t("Sim No"),
             minWidth: 150,
+            valueGetter: (params) => params.row.simno || "-",
         },
         {
             field: "active_date",
@@ -106,8 +105,8 @@ const VehicleManagement = () => {
             field: "network_carrier",
             headerName: t("Network Carrier"),
             minWidth: 150,
+            valueGetter: (params) => params.row.network_carrier || "-",
         },
-        
     ];
 
     return (
@@ -128,7 +127,7 @@ const VehicleManagement = () => {
                         <div className="flex h-full min-h-[calc(100vh_-_110px)] bg-white ">
                             <div className="flex flex-1 flex-col">
                                 <DataGrid
-                                    loading={false}
+                                    loading={isLoading}
                                     components={{
                                         LoadingOverlay: LinearProgress,
                                     }}
@@ -149,16 +148,16 @@ const VehicleManagement = () => {
                                             outline: "none !important",
                                         },
                                     }}
-                                    getRowId={(row) => row.vehicle_id}
-                                    rows={data?.data?.vehicles || []}
+                                    getRowId={(row) => row.id}
+                                    rows={vehicles}
                                     headerHeight={38}
                                     rowHeight={38}
                                     onRowClick={(params) => showDetailRow(params)}
                                     columns={columns}
                                     selectionModel={selectedRow?.id}
                                     rowsPerPageOptions={[25, 50, 100]}
-                                    paginationMode="server"
-                                    rowCount={data?.data?.total_vehicles}
+                                    paginationMode="client"
+                                    rowCount={totalVehicles}
                                     pageSize={criterias.size}
                                     onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                     onPageSizeChange={(size) => { setCriterias({ ...criterias, size }) }}
@@ -238,6 +237,17 @@ const VehicleManagement = () => {
                         </div>
                     </div>
                 </div>
+                <DeleteVehicle
+                    open={open}
+                    setOpen={(value) => {
+                        setOpen(value);
+                        if (!value) {
+                            refetch();
+                            setShowDetail(false);
+                        }
+                    }}
+                    vinNo={selectedRow?.vin_no}
+                />
             </div>
         </>
     );

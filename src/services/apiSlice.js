@@ -489,6 +489,50 @@ export const apiSlice = createApi({
                 return []
             },
         }),
+        //VEHICLE
+        getVehicles: builder.query({
+            query: () => ({
+                url: 'vehicle/vehicles',
+                method: 'GET',
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')}`
+                }
+            }),
+            transformResponse: (response) => {
+                console.log("Raw API response:", response);
+                // Dựa vào cấu trúc dữ liệu API trả về
+                if (response && response.code === 0 && Array.isArray(response.message)) {
+                    return {
+                        vehicles: response.message,
+                        total_vehicles: response.message.length
+                    };
+                }
+                return { vehicles: [], total_vehicles: 0 };
+            },
+            providesTags: ['Vehicle'],
+        }),
+        getVehicleDetail: builder.query({
+            query: (vin_no) => ({
+                url: `vehicle/${vin_no}`,
+                method: 'GET',
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            providesTags: ['Vehicle'],
+        }),
+        deleteVehicle: builder.mutation({
+            query: (vin_no) => ({
+                url: `vehicle/vehicles/${vin_no}`,
+                method: 'DELETE',
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Vehicle']
+                }
+                return []
+            },
+        }),
     }),
 });
 
@@ -539,4 +583,8 @@ export const {
     useGetSimsQuery,
     useDeleteSimMutation,
     useImportSimMutation,
+    //Vehicle
+    useGetVehiclesQuery,
+    useGetVehicleDetailQuery,
+    useDeleteVehicleMutation,
 } = apiSlice;

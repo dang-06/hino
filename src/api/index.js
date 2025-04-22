@@ -47,6 +47,13 @@ export const importSim = (data, options) => {
   });
 };
 
+//VEHICLE
+export const fetchVehicles = () => axiosInstance1.get("/vehicle/vehicles", {
+  headers: {
+    "Authorization": `Bearer ${localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')}`
+  }
+});
+
 // DRIVER
 export const fetchDrivers = (data) => axiosInstance.post("/api/drivers/list", data);
 export const fetchDriverDetail = (id) => axiosInstance.get("/api/drivers/detail/" + id);

@@ -18,7 +18,7 @@ const DetailVehicle = ({ detailRow }) => {
         <>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("Vehicle ID")}</label>
-                <p className="text-[16px] leading-[1.2]">{detailRow.vehicle_id}</p>
+                <p className="text-[16px] leading-[1.2]">{detailRow.id}</p>
             </div>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("Vin No")}</label>
@@ -26,11 +26,11 @@ const DetailVehicle = ({ detailRow }) => {
             </div>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("Equipment ID")}</label>
-                <p className="text-[16px] leading-[1.2]">{detailRow.equipment_id}</p>
+                <p className="text-[16px] leading-[1.2]">{detailRow.equipmentid}</p>
             </div>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("Sim No")}</label>
-                <p className="text-[16px] leading-[1.2]">{detailRow.sim_no}</p>
+                <p className="text-[16px] leading-[1.2]">{detailRow.simno}</p>
             </div>
             <div className="mb-4">
                 <label className="text-[13px] font-normal text-[#5f6368]">{t("Active Date")}</label>
