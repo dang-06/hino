@@ -1,5 +1,5 @@
 import LinearProgress from "@mui/material/LinearProgress";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import { DataGrid } from "@mui/x-data-grid";
@@ -12,6 +12,8 @@ import { LoadingButton } from "@mui/lab";
 import DetailVehicle from "../components/Vehicle/DetailVehicle";
 import { useGetVehiclesQuery } from "../services/apiSlice";
 import DeleteVehicle from "../components/Vehicle/DeleteVehicle";
+import FilterVehicle from "../components/Vehicle/FilterVehicle";
+import FilterRightBar from "../components/FilterRightBar";
 
 const VehicleManagement = () => {
     const { t } = useTranslation();
@@ -21,10 +23,16 @@ const VehicleManagement = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [triggleSubmit, setTriggleSubmit] = useState(false);
+    const [triggleFiter, setTriggleFiter] = useState(false);
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
+        vin_no: '',
+        equipmentid: '',
+        sim_no: '',
+        network_carrier: ''
     });
+    const [filteredVehicles, setFilteredVehicles] = useState([]);
 
     // Fetch vehicles data from API
     const { data, isLoading, refetch } = useGetVehiclesQuery();
@@ -37,6 +45,39 @@ const VehicleManagement = () => {
 
     // Debug the first vehicle to see its structure
     console.log("First vehicle:", vehicles[0]);
+
+    useEffect(() => {
+        let filtered = [...vehicles];
+        if (criterias.vin_no) {
+            filtered = filtered.filter(item =>
+                item.vin_no && item.vin_no.toLowerCase().includes(criterias.vin_no.toLowerCase())
+            );
+        }
+        if (criterias.equipmentid) {
+            filtered = filtered.filter(item =>
+                item.equipmentid && item.equipmentid.toLowerCase().includes(criterias.equipmentid.toLowerCase())
+            );
+        }
+        if (criterias.sim_no) {
+            filtered = filtered.filter(item =>
+                item.simno && item.simno.toLowerCase().includes(criterias.sim_no.toLowerCase())
+            );
+        }
+        if (criterias.network_carrier) {
+            filtered = filtered.filter(item =>
+                item.network_carrier === criterias.network_carrier
+            );
+        }
+        setFilteredVehicles(filtered);
+    }, [vehicles, criterias]);
+
+    const updateFilter = (newFilter) => {
+        setCriterias(prev => ({
+            ...prev,
+            ...newFilter,
+            page: 1 // reset page về 1 khi filter
+        }));
+    };
 
     const showDetailRow = (params) => {
         setSelectedRow(params.row);
@@ -76,35 +117,35 @@ const VehicleManagement = () => {
         {
             field: "vin_no",
             headerName: t("Vin No"),
-            minWidth: 180,
+            minWidth: 200,
         },
         {
             field: "equipmentid",
             headerName: t("Equipment ID"),
-            minWidth: 150,
+            minWidth: 180,
         },
         {
             field: "simno",
             headerName: t("Sim No"),
-            minWidth: 150,
+            minWidth: 230,
             valueGetter: (params) => params.row.simno || "-",
         },
         {
             field: "active_date",
             headerName: t("Active Date"),
-            minWidth: 120,
-            valueGetter: (params) => formatDate(params.value),
+            minWidth: 150,
+            valueGetter: (params) => formatDate(params.value) || "-",
         },
         {
             field: "expire_date",
             headerName: t("Expire Date"),
-            minWidth: 120,
-            valueGetter: (params) => formatDate(params.value),
+            minWidth: 150,
+            valueGetter: (params) => formatDate(params.value) || "-",
         },
         {
             field: "network_carrier",
             headerName: t("Network Carrier"),
-            minWidth: 150,
+            minWidth: 180,
             valueGetter: (params) => params.row.network_carrier || "-",
         },
     ];
@@ -115,9 +156,16 @@ const VehicleManagement = () => {
                 <div className="flex-1 transition-all duration-[300ms]">
                     <div className="bg-white">
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
-                            <h1 className="text-xl font-semibold text-gray-900">
-                                {t("vehicleManagement")}
-                            </h1>
+                            <div className="flex items-center">
+                                <Tooltip title={t("filter")} placement="bottom-start" arrow>
+                                    <button className="rounded-full p-2 outline-none hover:bg-[#f1f1f1]" onClick={() => setOpenFilter(true)}>
+                                        <IoFilterOutline className="h-6 w-6 text-gray-500" aria-hidden="true" />
+                                    </button>
+                                </Tooltip>
+                                <h1 className="text-xl font-semibold text-gray-900">
+                                    {t("vehicleManagement")}
+                                </h1>
+                            </div>
                             <div className="action flex items-center gap-[8px]">
                                 <IoFilterOutline onClick={() => setOpenFilter(true)} className="h-5 w-5 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
                             </div>
@@ -149,7 +197,7 @@ const VehicleManagement = () => {
                                         },
                                     }}
                                     getRowId={(row) => row.id}
-                                    rows={vehicles}
+                                    rows={filteredVehicles}
                                     headerHeight={38}
                                     rowHeight={38}
                                     onRowClick={(params) => showDetailRow(params)}
@@ -249,6 +297,9 @@ const VehicleManagement = () => {
                     vinNo={selectedRow?.vin_no}
                 />
             </div>
+            <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>
+                <FilterVehicle filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
+            </FilterRightBar>
         </>
     );
 };

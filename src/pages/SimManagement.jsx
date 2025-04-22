@@ -117,18 +117,19 @@ const SimManagement = () => {
             field: "active_date",
             headerName: t("activeDate"),
             minWidth: 150,
-            valueGetter: (params) => formatDate(params.value),
+            valueGetter: (params) => formatDate(params.value) || "-",
         },
         {
             field: "expire_date",
             headerName: t("expireDate"),
             minWidth: 150,
-            valueGetter: (params) => formatDate(params.value),
+            valueGetter: (params) => formatDate(params.value) || "-",
         },
         {
             field: "network_carrier",
             headerName: t("networkCarrier"),
             minWidth: 180,
+            valueGetter: (params) => params.row.network_carrier || "-",
         },
     ];
 
