@@ -106,29 +106,29 @@ const SimManagement = () => {
         {
             field: "sim_id",
             headerName: t("simID"),
-            minWidth: 120,
+            minWidth: 100,
         },
         {
             field: "sim_no",
             headerName: t("simNo"),
-            minWidth: 150,
+            minWidth: 230,
         },
         {
             field: "active_date",
             headerName: t("activeDate"),
-            minWidth: 120,
+            minWidth: 150,
             valueGetter: (params) => formatDate(params.value),
         },
         {
             field: "expire_date",
             headerName: t("expireDate"),
-            minWidth: 120,
+            minWidth: 150,
             valueGetter: (params) => formatDate(params.value),
         },
         {
             field: "network_carrier",
             headerName: t("networkCarrier"),
-            minWidth: 150,
+            minWidth: 180,
         },
     ];
 
