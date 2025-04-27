@@ -157,11 +157,6 @@ const VehicleManagement = () => {
                     <div className="bg-white">
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <div className="flex items-center">
-                                <Tooltip title={t("filter")} placement="bottom-start" arrow>
-                                    <button className="rounded-full p-2 outline-none hover:bg-[#f1f1f1]" onClick={() => setOpenFilter(true)}>
-                                        <IoFilterOutline className="h-6 w-6 text-gray-500" aria-hidden="true" />
-                                    </button>
-                                </Tooltip>
                                 <h1 className="text-xl font-semibold text-gray-900">
                                     {t("vehicleManagement")}
                                 </h1>
