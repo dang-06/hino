@@ -10,10 +10,15 @@ import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io
 import { FaRegTrashAlt, FaEdit } from "react-icons/fa";
 import { LoadingButton } from "@mui/lab";
 import DetailVehicle from "../components/Vehicle/DetailVehicle";
-import { useGetVehiclesQuery } from "../services/apiSlice";
+import { useGetVehiclesQuery, useImportVehicleMutation } from "../services/apiSlice";
 import DeleteVehicle from "../components/Vehicle/DeleteVehicle";
 import FilterVehicle from "../components/Vehicle/FilterVehicle";
 import FilterRightBar from "../components/FilterRightBar";
+import { CgImport } from "react-icons/cg";
+import ImportExcelLayout from "../components/ImportExcelLayout";
+import FormDisplay from "../components/FormDisplay";
+import FormVehicle from "../components/Vehicle/FormVehicle";
+import { FiUserPlus } from "react-icons/fi";
 
 const VehicleManagement = () => {
     const { t } = useTranslation();
@@ -24,6 +29,9 @@ const VehicleManagement = () => {
     const [openEdit, setOpenEdit] = useState(false);
     const [triggleSubmit, setTriggleSubmit] = useState(false);
     const [triggleFiter, setTriggleFiter] = useState(false);
+    const [showImportModal, setShowImportModal] = useState(false);
+    const [isHMVADMIN, setIsHMVADMIN] = useState(false);
+    const [openForm, setOpenForm] = useState(false);
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
@@ -34,8 +42,22 @@ const VehicleManagement = () => {
     });
     const [filteredVehicles, setFilteredVehicles] = useState([]);
 
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem("user");
+            if (token) {
+                const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+                console.log('Token payload:', tokenPayload);
+                setIsHMVADMIN(tokenPayload.role_name === "HMVADMIN");
+            }
+        } catch (error) {
+            console.error('Error checking role:', error);
+        }
+    }, []);
+
     // Fetch vehicles data from API
     const { data, isLoading, refetch } = useGetVehiclesQuery();
+    const [importVehicle] = useImportVehicleMutation();
 
     console.log("Vehicle data:", data); // Add logging to debug
 
@@ -155,14 +177,47 @@ const VehicleManagement = () => {
             <div className="flex">
                 <div className="flex-1 transition-all duration-[300ms]">
                     <div className="bg-white">
+                        <ImportExcelLayout 
+                            open={showImportModal} 
+                            setOpen={setShowImportModal} 
+                            refetch={refetch} 
+                            apiPath={importVehicle} 
+                        />
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <div className="flex items-center">
                                 <h1 className="text-xl font-semibold text-gray-900">
                                     {t("vehicleManagement")}
                                 </h1>
                             </div>
-                            <div className="action flex items-center gap-[8px]">
-                                <IoFilterOutline onClick={() => setOpenFilter(true)} className="h-5 w-5 flex-shrink-0 text-gray-500 cursor-pointer" aria-hidden="true" />
+                            <div className="flex items-center gap-2">
+                                {!isHMVADMIN && (
+                                    <>
+                                        <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
+                                            <Button
+                                                className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
+                                                onClick={() => setShowImportModal(true)}
+                                                startIcon={<CgImport className="h-5 w-5" />}
+                                                variant="contained"
+                                            > {t("importExcel")}</Button>
+                                        </Tooltip>
+                                        <Button
+                                            variant="contained"
+                                            className="ml-2 px-6 capitalize flex-1"
+                                            startIcon={<FiUserPlus className="h-5 w-5" />}
+                                            onClick={() => {
+                                                setOpenForm(true)
+                                            }}
+                                        >
+                                            {t("add")}
+                                        </Button>
+                                    </>
+                                )}
+                                <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
+                                <Tooltip title={'Filter'} placement="bottom-start" arrow>
+                                    <button onClick={() => setOpenFilter(true)} className="text-gray-500 cursor-pointer">
+                                        <IoFilterOutline className="h-5 w-5" />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </div>
                     </div>
@@ -221,7 +276,7 @@ const VehicleManagement = () => {
                                                 <span>{t("cancel")}</span>
                                             </button>
                                         </Tooltip>
-                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                        <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <LoadingButton
                                                 type="submit"
                                                 variant="contained"
@@ -231,22 +286,26 @@ const VehicleManagement = () => {
                                             >
                                                 {t("save")}
                                             </LoadingButton>
-                                        </Tooltip> */}
+                                        </Tooltip>
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                     </>
                                 ) : (
                                     <>
-                                        <Tooltip title={'Delete'} placement="bottom-start" arrow>
-                                            <button onClick={() => setOpen(true)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
-                                                <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
-                                            </button>
-                                        </Tooltip>
-                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
-                                            <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
-                                                <FaEdit className="mr-2" />
-                                                <span>{t("edit")}</span>
-                                            </button>
-                                        </Tooltip> */}
+                                        {!isHMVADMIN && (
+                                            <Tooltip title={'Delete'} placement="bottom-start" arrow>
+                                                <button onClick={() => setOpen(true)} className="p-1 outline-none hover:bg-[#f1f1f1] border rounded-[5px]">
+                                                    <FaRegTrashAlt className="h-6 w-6 flex-shrink-0 text-[#10B981] cursor-pointer" aria-hidden="true" />
+                                                </button>
+                                            </Tooltip>
+                                        )}
+                                        {!isHMVADMIN && (
+                                            <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                                <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
+                                                    <FaEdit className="mr-2" />
+                                                    <span>{t("edit")}</span>
+                                                </button>
+                                            </Tooltip>
+                                        )}
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                         &nbsp;
                                         <Tooltip title={'Back'} placement="bottom-start" arrow>
@@ -276,25 +335,46 @@ const VehicleManagement = () => {
                     </div>
                     <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full overflow-auto">
                         <div className="max-w-[700px] p-4 min-h-[50vh] bg-white border m-auto ">
-                            {showDetail && (openEdit ? <FormVehicle selectedItem={selectedRow} refetch={() => { setOpenEdit(false); refetch() }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailVehicle detailRow={selectedRow} />)}
+                            {showDetail && (openEdit ? 
+                                <FormVehicle 
+                                    selectedItem={selectedRow} 
+                                    refetch={() => { setOpenEdit(false); refetch() }} 
+                                    triggleSubmit={triggleSubmit} 
+                                    setTriggleSubmit={setTriggleSubmit} 
+                                    setOpenForm={setShowDetail} 
+                                    submitError={() => setTriggleSubmit(false)} 
+                                /> 
+                                : <DetailVehicle detailRow={selectedRow} />)}
                         </div>
                     </div>
                 </div>
-                <DeleteVehicle
-                    open={open}
-                    setOpen={(value) => {
-                        setOpen(value);
-                        if (!value) {
-                            refetch();
-                            setShowDetail(false);
-                        }
-                    }}
-                    vinNo={selectedRow?.vin_no}
-                />
+                {!isHMVADMIN && (
+                    <DeleteVehicle
+                        open={open}
+                        setOpen={(value) => {
+                            setOpen(value);
+                            if (!value) {
+                                refetch();
+                                setShowDetail(false);
+                            }
+                        }}
+                        vinNo={selectedRow?.vin_no}
+                    />
+                )}
             </div>
             <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>
                 <FilterVehicle filter={criterias} setFilter={updateFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter} />
             </FilterRightBar>
+            <FormDisplay open={openForm} setOpen={setOpenForm} >
+                <FormVehicle
+                    selectedItem={null}
+                    refetch={refetch}
+                    triggleSubmit={false}
+                    setTriggleSubmit={setTriggleSubmit}
+                    setOpenForm={setOpenForm}
+                    submitError={() => setTriggleSubmit(false)}
+                />
+            </FormDisplay>
         </>
     );
 };

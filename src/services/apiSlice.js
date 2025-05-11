@@ -512,6 +512,48 @@ export const apiSlice = createApi({
             },
             providesTags: ['Vehicle'],
         }),
+        importVehicle: builder.mutation({
+            query: (data) => ({
+                url: `vehicle/import-vehicles`,
+                method: "POST",
+                body: data,
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Vehicle']
+                }
+                return []
+            },
+        }),
+        addVehicle: builder.mutation({
+            query: (data) => ({
+                url: 'vehicle/vehicle',
+                method: 'POST',
+                body: data,
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Vehicle']
+                }
+                return []
+            },
+        }),
+        updateVehicle: builder.mutation({
+            query: (data) => ({
+                url: `vehicle/vehicle/${data.id}`,
+                method: 'PUT',
+                body: data,
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Vehicle']
+                }
+                return []
+            },
+        }),
         getVehicleDetail: builder.query({
             query: (vin_no) => ({
                 url: `vehicle/${vin_no}`,
@@ -587,4 +629,7 @@ export const {
     useGetVehiclesQuery,
     useGetVehicleDetailQuery,
     useDeleteVehicleMutation,
+    useImportVehicleMutation,
+    useAddVehicleMutation,
+    useUpdateVehicleMutation,
 } = apiSlice;

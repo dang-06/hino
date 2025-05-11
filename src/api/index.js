@@ -54,6 +54,20 @@ export const fetchVehicles = () => axiosInstance1.get("/vehicle/vehicles", {
   }
 });
 
+export const importVehicle = (data, options) => {
+  // Get the token from localStorage
+  const token = localStorage.getItem("token");
+  const formattedToken = token?.replace(/^"(.*)"$/, '$1');
+  
+  return axiosInstance1.post(`/vehicle/import-vehicles`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${formattedToken}`
+    },
+    ...options
+  });
+};
+
 // DRIVER
 export const fetchDrivers = (data) => axiosInstance.post("/api/drivers/list", data);
 export const fetchDriverDetail = (id) => axiosInstance.get("/api/drivers/detail/" + id);
