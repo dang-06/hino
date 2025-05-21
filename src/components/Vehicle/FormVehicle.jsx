@@ -45,9 +45,9 @@ const FormVehicle = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitErro
     vin_no: yup.string().required(t("Vin No is required")),
     equipmentid: yup.string().required(t("Equipment ID is required")),
     simno: yup.string().nullable(),
-    active_date: yup.date().nullable(),
-    expire_date: yup.date().nullable(),
-    network_carrier: yup.string().nullable()
+    // active_date: yup.date().nullable(),
+    // expire_date: yup.date().nullable(),
+    // network_carrier: yup.string().nullable()
   });
 
   useEffect(() => {
@@ -85,23 +85,21 @@ const FormVehicle = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitErro
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    const transformData = {
-      ...data,
-      active_date: formatDate(data.active_date),
-      expire_date: formatDate(data.expire_date),
+    const payload = {
+      vin_no: data.vin_no,
+      equipmentid: data.equipmentid,
+      simno: data.simno,
     };
 
     try {
-      if (transformData.id) {
-        // Thực hiện cập nhật nếu có ID
-        await updateVehicle(transformData).unwrap();
+      if (data.id) {
+        await updateVehicle(data).unwrap();
       } else {
-        // Thêm mới
-        await addVehicle(transformData).unwrap();
+        await addVehicle(payload).unwrap();
       }
       
       toast.success(
-        transformData.id
+        data.id
           ? t("message.success.update", { field: t("Vehicle") })
           : t("message.success.add", { field: t("Vehicle") })
       );
@@ -199,7 +197,7 @@ const FormVehicle = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitErro
                       control={control}
                       errors={errors.simno}
                     />
-                    <CustomDateField
+                    {/* <CustomDateField
                       name="active_date"
                       label={t("Active Date")}
                       control={control}
@@ -221,7 +219,7 @@ const FormVehicle = ({ selectedItem, triggleSubmit, setTriggleSubmit, submitErro
                         { id: 'Mobifone', value: 'Mobifone' },
                         { id: 'Vinaphone', value: 'Vinaphone' },
                       ]}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>

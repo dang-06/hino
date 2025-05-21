@@ -443,7 +443,6 @@ export const apiSlice = createApi({
             }),
             transformResponse: (response) => {
                 if (response && response.data) {
-                    // Chuyển đổi dữ liệu từ mảng thành đối tượng có cấu trúc phù hợp
                     const transformedData = response.data.map((item, index) => ({
                         id: item[5] || index,
                         sim_id: item[0],
@@ -452,10 +451,12 @@ export const apiSlice = createApi({
                         expire_date: item[3],
                         network_carrier: item[4]
                     }));
+
+                    const sortedData = [...transformedData].sort((a, b) => b.id - a.id);
                     
                     return {
-                        data: transformedData,
-                        total: transformedData.length
+                        data: sortedData,
+                        total: sortedData.length
                     };
                 }
                 return { data: [], total: 0 };
@@ -501,11 +502,11 @@ export const apiSlice = createApi({
             }),
             transformResponse: (response) => {
                 console.log("Raw API response:", response);
-                // Dựa vào cấu trúc dữ liệu API trả về
                 if (response && response.code === 0 && Array.isArray(response.message)) {
+                    const sortedVehicles = [...response.message].sort((a, b) => b.id - a.id);
                     return {
-                        vehicles: response.message,
-                        total_vehicles: response.message.length
+                        vehicles: sortedVehicles,
+                        total_vehicles: sortedVehicles.length
                     };
                 }
                 return { vehicles: [], total_vehicles: 0 };
@@ -528,9 +529,13 @@ export const apiSlice = createApi({
         }),
         addVehicle: builder.mutation({
             query: (data) => ({
-                url: 'vehicle/vehicle',
+                url: 'vehicle/vehicles',
                 method: 'POST',
-                body: data,
+                body: {
+                    vin_no: data.vin_no,
+                    equipmentid: data.equipmentid,
+                    simno: data.simno,
+                },
                 baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
             }),
             invalidatesTags: (result, error, arg) => {
@@ -542,7 +547,7 @@ export const apiSlice = createApi({
         }),
         updateVehicle: builder.mutation({
             query: (data) => ({
-                url: `vehicle/vehicle/${data.id}`,
+                url: `vehicle/vehicles/${data.vin_no}`,
                 method: 'PUT',
                 body: data,
                 baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',

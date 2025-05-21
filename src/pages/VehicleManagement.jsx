@@ -192,14 +192,14 @@ const VehicleManagement = () => {
                             <div className="flex items-center gap-2">
                                 {!isHMVADMIN && (
                                     <>
-                                        <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
+                                        {/* <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
                                             <Button
                                                 className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
                                                 onClick={() => setShowImportModal(true)}
                                                 startIcon={<CgImport className="h-5 w-5" />}
                                                 variant="contained"
                                             > {t("importExcel")}</Button>
-                                        </Tooltip>
+                                        </Tooltip> */}
                                         <Button
                                             variant="contained"
                                             className="ml-2 px-6 capitalize flex-1"
