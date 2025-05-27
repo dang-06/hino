@@ -320,7 +320,10 @@ export const apiSlice = createApi({
                 params: {
                     page: params?.page,
                     size: params?.size || 10,
-                    status: 'New,Need Update'
+                    search: params?.search || '',
+                    status: 'New,Need Update',
+                    from_date: params?.from_date || '',
+                    to_date: params?.to_date || ''
                 }
             }),
             providesTags: ["Job"],
@@ -332,7 +335,10 @@ export const apiSlice = createApi({
                 params: {
                     page: params?.page,
                     size: params?.size || 10,
-                    status: 'Finished Installation,Updated'
+                    search: params?.search || '',
+                    status: 'Finished Installation,Updated',
+                    from_date: params?.from_date || '',
+                    to_date: params?.to_date || ''
                 }
             }),
             providesTags: ["Job"],
@@ -344,7 +350,10 @@ export const apiSlice = createApi({
                 params: {
                     page: params?.page,
                     size: params?.size || 10,
-                    status: 'Completed'
+                    search: params?.search || '',
+                    status: 'Completed',
+                    from_date: params?.from_date || '',
+                    to_date: params?.to_date || ''
                 }
             }),
             providesTags: ["Job Completed"],

@@ -25,6 +25,7 @@ export const verifyUserHino = (data) => axiosInstance.post("/api/auth/hino/verif
 
 //Installation
 export const fetchInstallationDetail = (id) => axiosInstance.get("job/"+id);
+export const fetchAllJobs = (data) => axiosInstance.get("job/list", data);
 export const fetchJob = (param) => axiosInstance.get("job/search?"+param);
 export const fetchTechnician = () => axiosInstance.get("user/technicians");
 
@@ -78,7 +79,7 @@ export const deleteDriver = (id) => axiosInstance.delete(`/api/drivers/delete/${
 export const fetchUsers = (userData) => axiosInstance.post("/api/user/list", userData);
 
 // JOB
-export const fetchJobs = (data) => axiosInstance.post("/api/job/list", data);
+export const fetchJobs = (data) => axiosInstance.post("/api/job/list", data);       
 export const getJobDetail = (id) => axiosInstance.get(`api/job/detail/${id}`);
 export const addJob = (data) => axiosInstance.post("/api/job/create", data);
 export const assignDriver = (data) => axiosInstance.post("/api/job/rtt/assign-driver", data);

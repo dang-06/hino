@@ -34,6 +34,7 @@
     "dayjs": "^1.11.10",
     "devextreme": "22.1.4",
     "devextreme-react": "22.1.4",
+    "file-saver": "^2.0.5",
     "google-map-react": "^2.2.1",
     "i18next": "^21.10.0",
     "i18next-browser-languagedetector": "^6.1.8",

@@ -177,11 +177,11 @@ const VehicleManagement = () => {
             <div className="flex">
                 <div className="flex-1 transition-all duration-[300ms]">
                     <div className="bg-white">
-                        <ImportExcelLayout 
-                            open={showImportModal} 
-                            setOpen={setShowImportModal} 
-                            refetch={refetch} 
-                            apiPath={importVehicle} 
+                        <ImportExcelLayout
+                            open={showImportModal}
+                            setOpen={setShowImportModal}
+                            refetch={refetch}
+                            apiPath={importVehicle}
                         />
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <div className="flex items-center">
@@ -335,15 +335,15 @@ const VehicleManagement = () => {
                     </div>
                     <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full overflow-auto">
                         <div className="max-w-[700px] p-4 min-h-[50vh] bg-white border m-auto ">
-                            {showDetail && (openEdit ? 
-                                <FormVehicle 
-                                    selectedItem={selectedRow} 
-                                    refetch={() => { setOpenEdit(false); refetch() }} 
-                                    triggleSubmit={triggleSubmit} 
-                                    setTriggleSubmit={setTriggleSubmit} 
-                                    setOpenForm={setShowDetail} 
-                                    submitError={() => setTriggleSubmit(false)} 
-                                /> 
+                            {showDetail && (openEdit ?
+                                <FormVehicle
+                                    selectedItem={selectedRow}
+                                    refetch={() => { setOpenEdit(false); refetch() }}
+                                    triggleSubmit={triggleSubmit}
+                                    setTriggleSubmit={setTriggleSubmit}
+                                    setOpenForm={setShowDetail}
+                                    submitError={() => setTriggleSubmit(false)}
+                                />
                                 : <DetailVehicle detailRow={selectedRow} />)}
                         </div>
                     </div>
