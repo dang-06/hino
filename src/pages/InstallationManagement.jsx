@@ -263,6 +263,7 @@ const InstallationManagement = () => {
                                                             <p className="text-xs">
                                                                 {t("jobStatus")}: <span style={{ color: statusStyle.color }}> {t(statusStyle.label)} </span>
                                                             </p>
+                                                            {/* <h4 className="text-sm font-semibold">{t("techName")}: {job.techname}</h4> */}
                                                         </div>
                                                         <div className="w-1/3 h-24 ml-2">
                                                             <img

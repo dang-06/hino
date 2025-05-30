@@ -116,6 +116,10 @@ const DetailInstallation = ({ detailRow }) => {
                         <p className="text-[16px] leading-[1.2]">{t(detail.job_status)}</p>
                     </div>
                     <div className="mb-4">
+                        <label className="text-[13px] font-normal text-[#5f6368]">{t("techName")}</label>
+                        <p className="text-[16px] leading-[1.2]">{t(detail.techname)}</p>
+                    </div>
+                    <div className="mb-4">
                         <label className="text-[13px] font-normal text-[#5f6368]">{t("note")}</label>
                         <p className="text-[16px] leading-[1.2]">{detail.note}</p>
                     </div>

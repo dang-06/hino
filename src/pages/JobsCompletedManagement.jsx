@@ -182,11 +182,11 @@ const JobsCompletedManagement = () => {
       headerName: t("installationDate"),
       minWidth: 150,
     },
-    // {
-    //   field: "finished_date",
-    //   headerName: t("finishedDate"),
-    //   minWidth: 200,
-    // },
+    {
+      field: "techname",
+      headerName: t("techName"),
+      minWidth: 200,
+    },
   ];
 
   return (

@@ -708,5 +708,6 @@
   "simID": "Mã sim",
   "activeDate": "Ngày kích hoạt",
   "expireDate": "Ngày hết hạn",
-  "networkCarrier": "Nhà mạng"
+  "networkCarrier": "Nhà mạng",
+  "techName": "Người lắp đặt"
 }

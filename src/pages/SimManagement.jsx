@@ -10,13 +10,14 @@ import { IoChevronBack, IoChevronForward, IoFilterOutline } from "react-icons/io
 import { FaRegTrashAlt, FaEdit } from "react-icons/fa";
 import { LoadingButton } from "@mui/lab";
 import DetailSim from "../components/Sim/DetailSim";
-import { CgImport } from "react-icons/cg";
+import { CgExport, CgImport } from "react-icons/cg";
 import ImportExcelLayout from "../components/ImportExcelLayout";
 import FilterSim from "../components/Sim/FilterSim";
 import FilterRightBar from "../components/FilterRightBar";
 import { BsFilter } from "react-icons/bs";
 import { useGetSimsQuery, useImportSimMutation } from "../services/apiSlice";
 import DeleteSim from "../components/Sim/DeleteSim";
+// import ExportExcelSim from "../components/exportExcelSim";
 
 const SimManagement = () => {
     const { t } = useTranslation();
@@ -29,6 +30,7 @@ const SimManagement = () => {
     const [triggleSubmit, setTriggleSubmit] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
     const [triggleFiter, setTriggleFiter] = useState(false);
+    // const [showExportModal, setShowExportModal] = useState(false);
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
@@ -151,6 +153,10 @@ const SimManagement = () => {
                             refetch={refetch} 
                             apiPath={importSimMutation} 
                         />
+                        {/* <ExportExcelSim
+                            open={showExportModal}
+                            setOpen={setShowExportModal}
+                        /> */}
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <div className="flex items-center">
                                 <h1 className="text-xl font-semibold text-gray-900">
@@ -159,14 +165,25 @@ const SimManagement = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 {!isHMVADMIN && (
-                                    <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
-                                        <Button
-                                            className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
-                                            onClick={() => setShowImportModal(true)}
-                                            startIcon={<CgImport className="h-5 w-5" />}
-                                            variant="contained"
-                                        > {t("importExcel")}</Button>
-                                    </Tooltip>
+                                    <>
+                                        <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
+                                            <Button
+                                                className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
+                                                onClick={() => setShowImportModal(true)}
+                                                startIcon={<CgImport className="h-5 w-5" />}
+                                                variant="contained"
+                                            > {t("importExcel")}</Button>
+                                        </Tooltip>
+                                        {/* <Tooltip title={'Export Excel'} placement="bottom-start" arrow>
+                                            <Button
+                                                className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
+                                                onClick={() => setShowExportModal(true)}
+                                                startIcon={<CgExport className="h-5 w-5" />}
+                                                variant="contained"
+                                            > {t("exportExcel")}</Button>
+                                        </Tooltip> */}
+                                    </>
+                                    
                                 )}
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
                                 <Tooltip title={'Filter'} placement="bottom-start" arrow>
@@ -212,7 +229,7 @@ const SimManagement = () => {
                                     rowsPerPageOptions={[25, 50, 100]}
                                     pageSize={25}
                                     rowCount={data?.total || 0}
-                                />
+                                />  
                             </div>
                         </div>
                     </div>

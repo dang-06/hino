@@ -184,6 +184,11 @@ const JobManagement = ({ jobType }) => {
       headerName: t("installationDate"),
       minWidth: 150,
     },
+    {
+        field: "techname",
+        headerName: t("techName"),
+        minWidth: 200,
+      },
     // {
     //   field: "finished_date",
     //   headerName: t("finishedDate"),

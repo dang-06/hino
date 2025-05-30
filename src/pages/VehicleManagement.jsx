@@ -14,11 +14,12 @@ import { useGetVehiclesQuery, useImportVehicleMutation } from "../services/apiSl
 import DeleteVehicle from "../components/Vehicle/DeleteVehicle";
 import FilterVehicle from "../components/Vehicle/FilterVehicle";
 import FilterRightBar from "../components/FilterRightBar";
-import { CgImport } from "react-icons/cg";
+import { CgExport, CgImport } from "react-icons/cg";
 import ImportExcelLayout from "../components/ImportExcelLayout";
 import FormDisplay from "../components/FormDisplay";
 import FormVehicle from "../components/Vehicle/FormVehicle";
 import { FiUserPlus } from "react-icons/fi";
+import ExportExcelSim from "../components/exportExcelSim";
 
 const VehicleManagement = () => {
     const { t } = useTranslation();
@@ -32,6 +33,7 @@ const VehicleManagement = () => {
     const [showImportModal, setShowImportModal] = useState(false);
     const [isHMVADMIN, setIsHMVADMIN] = useState(false);
     const [openForm, setOpenForm] = useState(false);
+    const [showExportModal, setShowExportModal] = useState(false);
     const [criterias, setCriterias] = useState({
         page: 1,
         size: 25,
@@ -97,7 +99,7 @@ const VehicleManagement = () => {
         setCriterias(prev => ({
             ...prev,
             ...newFilter,
-            page: 1 // reset page về 1 khi filter
+            page: 1
         }));
     };
 
@@ -183,6 +185,10 @@ const VehicleManagement = () => {
                             refetch={refetch}
                             apiPath={importVehicle}
                         />
+                        <ExportExcelSim
+                            open={showExportModal}
+                            setOpen={setShowExportModal}
+                        />
                         <div className="h-[50px] border-b px-3 flex justify-between items-center">
                             <div className="flex items-center">
                                 <h1 className="text-xl font-semibold text-gray-900">
@@ -192,14 +198,6 @@ const VehicleManagement = () => {
                             <div className="flex items-center gap-2">
                                 {!isHMVADMIN && (
                                     <>
-                                        {/* <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
-                                            <Button
-                                                className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
-                                                onClick={() => setShowImportModal(true)}
-                                                startIcon={<CgImport className="h-5 w-5" />}
-                                                variant="contained"
-                                            > {t("importExcel")}</Button>
-                                        </Tooltip> */}
                                         <Button
                                             variant="contained"
                                             className="ml-2 px-6 capitalize flex-1"
@@ -210,6 +208,22 @@ const VehicleManagement = () => {
                                         >
                                             {t("add")}
                                         </Button>
+                                        <Tooltip title={'Import Excel'} placement="bottom-start" arrow>
+                                            <Button
+                                                className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
+                                                onClick={() => setShowImportModal(true)}
+                                                startIcon={<CgImport className="h-5 w-5" />}
+                                                variant="contained"
+                                            > {t("importExcel")}</Button>
+                                        </Tooltip>
+                                        <Tooltip title={'Export Excel'} placement="bottom-start" arrow>
+                                            <Button
+                                                className="btn-primary py-[6px] px-3 rounded-[7px] bg-primary-900 text-[13px] text-white"
+                                                onClick={() => setShowExportModal(true)}
+                                                startIcon={<CgExport className="h-5 w-5" />}
+                                                variant="contained"
+                                            > {t("exportExcel")}</Button>
+                                        </Tooltip>
                                     </>
                                 )}
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>

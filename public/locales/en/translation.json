@@ -936,5 +936,6 @@
   "simNo": "Sim No",
   "networkCarrier": "Network Carrier",
   "activeDate": "Active Date",
-  "expireDate": "Expire Date"
+  "expireDate": "Expire Date",
+  "techName": "Tech Name"
 }
