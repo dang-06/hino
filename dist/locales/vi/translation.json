@@ -709,5 +709,6 @@
   "activeDate": "Ngày kích hoạt",
   "expireDate": "Ngày hết hạn",
   "networkCarrier": "Nhà mạng",
-  "techName": "Người lắp đặt"
+  "techName": "Người lắp đặt",
+  "readyToUpload": "Sẵn sàng tải lên"
 }
