@@ -194,7 +194,7 @@ const ImportExcelLayout = ({ refetch, open, setOpen, apiPath }) => {
                                             <img src="/images/cloud-upload.png" alt="cloud upload" />
                                             <p>{t("Drag & Drop your files here")}</p>
                                         </div>
-                                        <input type="file" value="" onChange={onFileDrop} />
+                                        <input type="file" value="" onChange={onFileDrop}/>
                                     </div>
                                     {fileList && (
                                         <div className="drop-file-preview w-full">

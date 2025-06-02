@@ -227,8 +227,10 @@ const SimManagement = () => {
                                     columns={columns}
                                     selectionModel={selectedRow?.id}
                                     rowsPerPageOptions={[25, 50, 100]}
-                                    pageSize={25}
+                                    pageSize={criterias.size}
                                     rowCount={data?.total || 0}
+                                    onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
+                                    onPageSizeChange={(size) => { setCriterias({ ...criterias, size }) }}
                                 />  
                             </div>
                         </div>

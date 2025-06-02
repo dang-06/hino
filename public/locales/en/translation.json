@@ -937,5 +937,6 @@
   "networkCarrier": "Network Carrier",
   "activeDate": "Active Date",
   "expireDate": "Expire Date",
-  "techName": "Tech Name"
-}
+  "techName": "Tech Name",
+  "readyToUpload": "Ready to Upload"
+}   
