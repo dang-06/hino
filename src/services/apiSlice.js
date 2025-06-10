@@ -499,6 +499,40 @@ export const apiSlice = createApi({
                 return []
             },
         }),
+        addSim: builder.mutation({
+            query: (data) => ({
+                url: 'device_installation/device-installations',
+                method: 'POST',
+                body: {
+                    sim_no: data.sim_no,
+                    active_date: data.active_date,
+                    expire_date: data.expire_date,
+                    network_carrier: data.network_carrier,
+                },
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Sim']
+                }
+                return []
+            },
+        }),
+        updateSim: builder.mutation({
+            query: (data) => ({
+                url: `device_installation/device-installations/${data.sim_no}`,
+                method: 'PUT',
+                body: data,
+                baseUrl: 'https://api-mobile.hino-connect.vn/iov-app-api/v1/',
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (!error && result) {
+                    return ['Vehicle']
+                }
+                return []
+            },
+        }),
+
         //VEHICLE
         getVehicles: builder.query({
             query: () => ({
@@ -637,8 +671,11 @@ export const {
     useDeleteUserMutation,
     //sim
     useGetSimsQuery,
+    useGetSimDetailQuery,
     useDeleteSimMutation,
     useImportSimMutation,
+    useUpdateSimMutation,
+    useAddSimMutation,
     //Vehicle
     useGetVehiclesQuery,
     useGetVehicleDetailQuery,

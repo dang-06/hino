@@ -18,6 +18,7 @@ import { BsFilter } from "react-icons/bs";
 import { useGetSimsQuery, useImportSimMutation } from "../services/apiSlice";
 import DeleteSim from "../components/Sim/DeleteSim";
 // import ExportExcelSim from "../components/exportExcelSim";
+import FormSim from "../components/Sim/FormSim";
 
 const SimManagement = () => {
     const { t } = useTranslation();
@@ -30,6 +31,7 @@ const SimManagement = () => {
     const [triggleSubmit, setTriggleSubmit] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
     const [triggleFiter, setTriggleFiter] = useState(false);
+    const [openForm, setOpenForm] = useState(false);
     // const [showExportModal, setShowExportModal] = useState(false);
     const [criterias, setCriterias] = useState({
         page: 1,
@@ -58,19 +60,19 @@ const SimManagement = () => {
     useEffect(() => {
         if (data && data.data) {
             let filtered = [...data.data];
-            
+
             if (criterias.sim_no) {
-                filtered = filtered.filter(item => 
+                filtered = filtered.filter(item =>
                     item.sim_no && item.sim_no.toLowerCase().includes(criterias.sim_no.toLowerCase())
                 );
             }
-            
+
             if (criterias.network_carrier) {
-                filtered = filtered.filter(item => 
+                filtered = filtered.filter(item =>
                     item.network_carrier === criterias.network_carrier
                 );
             }
-            
+
             setFilteredData(filtered);
         }
     }, [data, criterias]);
@@ -147,11 +149,11 @@ const SimManagement = () => {
             <div className="flex">
                 <div className="flex-1 transition-all duration-[300ms]">
                     <div className="bg-white">
-                        <ImportExcelLayout 
-                            open={showImportModal} 
-                            setOpen={setShowImportModal} 
-                            refetch={refetch} 
-                            apiPath={importSimMutation} 
+                        <ImportExcelLayout
+                            open={showImportModal}
+                            setOpen={setShowImportModal}
+                            refetch={refetch}
+                            apiPath={importSimMutation}
                         />
                         {/* <ExportExcelSim
                             open={showExportModal}
@@ -183,7 +185,7 @@ const SimManagement = () => {
                                             > {t("exportExcel")}</Button>
                                         </Tooltip> */}
                                     </>
-                                    
+
                                 )}
                                 <div className="h-6 border-solid border-l-2 border-gray-300 ml-2 mr-3"></div>
                                 <Tooltip title={'Filter'} placement="bottom-start" arrow>
@@ -231,7 +233,7 @@ const SimManagement = () => {
                                     rowCount={data?.total || 0}
                                     onPageChange={(page) => { setCriterias({ ...criterias, page }) }}
                                     onPageSizeChange={(size) => { setCriterias({ ...criterias, size }) }}
-                                />  
+                                />
                             </div>
                         </div>
                     </div>
@@ -248,7 +250,7 @@ const SimManagement = () => {
                                                 <span>{t("cancel")}</span>
                                             </button>
                                         </Tooltip>
-                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                        <Tooltip title={'Edit'} placement="bottom-start" arrow>
                                             <LoadingButton
                                                 type="submit"
                                                 variant="contained"
@@ -258,7 +260,7 @@ const SimManagement = () => {
                                             >
                                                 {t("save")}
                                             </LoadingButton>
-                                        </Tooltip> */}
+                                        </Tooltip>
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                     </>
                                 ) : (
@@ -270,12 +272,14 @@ const SimManagement = () => {
                                                 </button>
                                             </Tooltip>
                                         )}
-                                        {/* <Tooltip title={'Edit'} placement="bottom-start" arrow>
-                                            <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
-                                                <FaEdit className="mr-2" />
-                                                <span>{t("edit")}</span>
-                                            </button>
-                                        </Tooltip> */}
+                                        {!isHMVADMIN && (
+                                            <Tooltip title={'Edit'} placement="bottom-start" arrow>
+                                                <button onClick={() => setOpenEdit(true)} className="btn-primary py-[6px] px-3 rounded-[5px] flex items-center bg-[#10B981] text-[13px] text-white">
+                                                    <FaEdit className="mr-2" />
+                                                    <span>{t("edit")}</span>
+                                                </button>
+                                            </Tooltip>
+                                        )}
                                         <Divider orientation="vertical" flexItem variant="middle" />
                                         &nbsp;
                                         <Tooltip title={'Back'} placement="bottom-start" arrow>
@@ -305,22 +309,31 @@ const SimManagement = () => {
                     </div>
                     <div className="h-[calc(100vh_-_110px)] lg:mx-auto lg:max-w-full overflow-auto">
                         <div className="max-w-[700px] p-4 min-h-[10vh] bg-white border m-auto ">
-                            {showDetail && (openEdit ? <FormVehicle selectedItem={selectedRow} refetch={() => { setOpenEdit(false); refetch() }} triggleSubmit={triggleSubmit} setTriggleSubmit={setTriggleSubmit} setOpenForm={setShowDetail} submitError={() => setTriggleSubmit(false)} /> : <DetailSim detailRow={selectedRow} />)}
+                            {showDetail && (openEdit ?
+                                <FormSim
+                                    selectedItem={selectedRow}
+                                    refetch={() => { setOpenEdit(false); refetch() }}
+                                    triggleSubmit={triggleSubmit}
+                                    setTriggleSubmit={setTriggleSubmit}
+                                    setOpenForm={setShowDetail}
+                                    submitError={() => setTriggleSubmit(false)}
+                                />
+                                : <DetailSim detailRow={selectedRow} />)}
                         </div>
                     </div>
                 </div>
             </div>
             {!isHMVADMIN && (
-                <DeleteSim 
-                    open={open} 
+                <DeleteSim
+                    open={open}
                     setOpen={(value) => {
                         setOpen(value);
                         if (!value) {
                             refetch();
                             setShowDetail(false);
                         }
-                    }} 
-                    simNo={selectedRow?.sim_no} 
+                    }}
+                    simNo={selectedRow?.sim_no}
                 />
             )}
             <FilterRightBar open={openFilter} setOpen={setOpenFilter} triggleFiter={triggleFiter} setTriggleFiter={setTriggleFiter}>

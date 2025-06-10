@@ -48,6 +48,8 @@ const ExportExcelLayout = ({ open, setOpen, jobs }) => {
         "Lot Number",
         "Line of Date",
         "IMSI",
+        "Active Date",
+        "Expire Date",
         "Location",
         "DATE Install",
         "Tech. Name",
@@ -98,6 +100,8 @@ const ExportExcelLayout = ({ open, setOpen, jobs }) => {
                     "Lot Number": job.lot_no,
                     "Line of Date": job.manufacture_date,
                     IMSI: job.sim_no,
+                    "Active Date": job.active_date,
+                    "Expire Date": job.expire_date,
                     Location: job.installation_location,
                     "DATE Install": job.installation_date,
                     "Tech. Name": job.techname,
@@ -122,6 +126,8 @@ const ExportExcelLayout = ({ open, setOpen, jobs }) => {
                 { wch: 15 }, //Lot
                 { wch: 20 }, //Line of Date
                 { wch: 25 }, //IMSI
+                { wch: 20 }, //Active Date
+                { wch: 20 }, //Expire Date
                 { wch: 20 }, //Location
                 { wch: 15 }, //DATE Install
                 { wch: 25 }, //Tech. Name

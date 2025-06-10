@@ -259,7 +259,7 @@ const VehicleManagement = () => {
                                         "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
                                             outline: "none !important",
                                         },
-                                    }}
+                                    }}  
                                     getRowId={(row) => row.id}
                                     rows={filteredVehicles}
                                     headerHeight={38}
